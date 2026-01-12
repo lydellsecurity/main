@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-body text-slate-750 antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold text-slate-850;
+  }
+}
+
+@layer components {
+  /* Button Components */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-heading font-semibold text-sm rounded-md border-2 transition-all duration-300 cursor-pointer;
+  }
+  
+  .btn-primary {
+    @apply bg-alert text-white border-alert hover:bg-alert-dark hover:border-alert-dark hover:-translate-y-0.5 hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-navy text-white border-navy hover:bg-navy-dark hover:border-navy-dark hover:-translate-y-0.5 hover:shadow-lg;
+  }
+  
+  .btn-outline {
+    @apply bg-transparent text-navy border-navy hover:bg-navy hover:text-white;
+  }
+  
+  .btn-outline-white {
+    @apply bg-transparent text-white border-white hover:bg-white hover:text-navy;
+  }
+  
+  .btn-lg {
+    @apply px-8 py-4 text-base;
+  }
+  
+  .btn-sm {
+    @apply px-4 py-2 text-sm;
+  }
+
+  /* Section Components */
+  .section {
+    @apply py-20 px-6;
+  }
+  
+  .section-header {
+    @apply text-center max-w-3xl mx-auto mb-16;
+  }
+  
+  .section-tag {
+    @apply inline-block font-heading font-semibold text-sm text-blue-600 uppercase tracking-widest mb-4;
+  }
+  
+  /* Card Components */
+  .card {
+    @apply bg-white rounded-xl p-8 border border-gray-200 transition-all duration-300;
+  }
+  
+  .card-hover {
+    @apply hover:-translate-y-2 hover:shadow-xl hover:border-transparent;
+  }
+  
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-alert to-red-400 bg-clip-text text-transparent;
+  }
+  
+  .bg-hero-gradient {
+    background: linear-gradient(135deg, #0F2744 0%, #1A365D 50%, #2C5282 100%);
+  }
+  
+  .bg-cta-gradient {
+    background: linear-gradient(135deg, #9B2C2C 0%, #C53030 100%);
+  }
+  
+  /* Animation delays for staggered effects */
+  .animation-delay-100 { animation-delay: 0.1s; }
+  .animation-delay-200 { animation-delay: 0.2s; }
+  .animation-delay-300 { animation-delay: 0.3s; }
+  .animation-delay-400 { animation-delay: 0.4s; }
+  .animation-delay-500 { animation-delay: 0.5s; }
+}
