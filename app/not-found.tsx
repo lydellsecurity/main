@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Home, ArrowLeft } from 'lucide-react'
+import { Home } from 'lucide-react'
 
 export default function NotFound() {
   return (
@@ -12,24 +12,15 @@ export default function NotFound() {
           Page Not Found
         </h2>
         <p className="text-white/70 text-lg mb-8 max-w-md mx-auto">
-          The page you're looking for doesn't exist or has been moved.
+          The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link 
-            href="/" 
-            className="btn bg-white text-navy border-white hover:bg-gray-100"
-          >
-            <Home className="w-5 h-5" />
-            Go Home
-          </Link>
-          <button 
-            onClick={() => window.history.back()}
-            className="btn btn-outline-white"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            Go Back
-          </button>
-        </div>
+        <Link 
+          href="/" 
+          className="btn bg-white text-navy border-white hover:bg-gray-100 inline-flex items-center gap-2"
+        >
+          <Home className="w-5 h-5" />
+          Go Home
+        </Link>
       </div>
     </div>
   )

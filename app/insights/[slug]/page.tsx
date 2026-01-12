@@ -2,10 +2,10 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPostSlugs, markdownToHtml, getAllPosts } from '@/lib/blog'
-import { Calendar, Clock, ArrowLeft, User, ArrowRight } from 'lucide-react'
+import { Calendar, Clock, ArrowLeft, User } from 'lucide-react'
 
 interface PageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -14,7 +14,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const post = getPostBySlug(params.slug)
+  const { slug } = await params
+  const post = getPostBySlug(slug)
   
   if (!post) {
     return {
@@ -36,7 +37,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const post = getPostBySlug(params.slug)
+  const { slug } = await params
+  const post = getPostBySlug(slug)
 
   if (!post) {
     notFound()
@@ -111,10 +113,10 @@ export default async function BlogPostPage({ params }: PageProps) {
                   </div>
                   <div>
                     <h3 className="font-heading font-bold text-lg mb-1">{post.author}</h3>
-                    <p className="text-navy font-medium text-sm mb-3">CEO & Principal Consultant</p>
+                    <p className="text-navy font-medium text-sm mb-3">CEO &amp; Principal Consultant</p>
                     <p className="text-gray-600 text-sm">
                       Jr Barksdale has 20+ years of incident response experience at Fortune 500 
-                      financial institutions. GREM certified, he now leads Lydell Security's 
+                      financial institutions. GREM certified, he now leads Lydell Security&apos;s 
                       AI incident response practice.
                     </p>
                   </div>
@@ -172,7 +174,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               Protect Your AI Systems
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Don't wait for an incident. Get proactive about AI security today.
+              Don&apos;t wait for an incident. Get proactive about AI security today.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/contact" className="btn btn-lg bg-white text-alert border-white hover:bg-gray-100">

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { 
@@ -23,7 +23,7 @@ const services = [
   'Other',
 ]
 
-export default function ContactPage() {
+function ContactForm() {
   const searchParams = useSearchParams()
   const isUrgent = searchParams.get('urgent') === 'true'
   
@@ -34,7 +34,7 @@ export default function ContactPage() {
     company: '',
     service: '',
     message: '',
-    urgent: isUrgent,
+    urgent: false,
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -67,21 +67,6 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative bg-hero-gradient pt-32 pb-20">
-        <div className="container-custom">
-          <div className="max-w-4xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">
-              Let's Discuss Your Security
-            </h1>
-            <p className="text-xl text-white/80 max-w-2xl">
-              Whether you're facing an active incident or planning your security strategy, 
-              we're here to help protect your organization.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Urgent Notice */}
       {isUrgent && (
         <section className="bg-alert py-4">
@@ -164,7 +149,7 @@ export default function ContactPage() {
                   <span className="font-heading font-bold text-alert">Active Incident?</span>
                 </div>
                 <p className="text-gray-600 text-sm mb-4">
-                  If you're experiencing an active security incident, don't wait. 
+                  If you&apos;re experiencing an active security incident, don&apos;t wait. 
                   Call us immediately for emergency response.
                 </p>
                 <a 
@@ -189,7 +174,7 @@ export default function ContactPage() {
                     </div>
                     <h3 className="font-heading font-bold text-2xl mb-4">Thank You!</h3>
                     <p className="text-gray-600 mb-6">
-                      We've received your message and will respond within 24 hours.
+                      We&apos;ve received your message and will respond within 24 hours.
                       {formData.urgent && ' Since you indicated this is urgent, we\'ll prioritize your request.'}
                     </p>
                     <Link href="/" className="btn btn-secondary">
@@ -342,6 +327,43 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+    </>
+  )
+}
+
+function ContactFormLoading() {
+  return (
+    <section className="section bg-white">
+      <div className="container-custom">
+        <div className="flex justify-center items-center py-20">
+          <div className="w-8 h-8 border-4 border-navy/30 border-t-navy rounded-full animate-spin" />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default function ContactPage() {
+  return (
+    <>
+      {/* Hero Section */}
+      <section className="relative bg-hero-gradient pt-32 pb-20">
+        <div className="container-custom">
+          <div className="max-w-4xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">
+              Let&apos;s Discuss Your Security
+            </h1>
+            <p className="text-xl text-white/80 max-w-2xl">
+              Whether you&apos;re facing an active incident or planning your security strategy, 
+              we&apos;re here to help protect your organization.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <Suspense fallback={<ContactFormLoading />}>
+        <ContactForm />
+      </Suspense>
     </>
   )
 }

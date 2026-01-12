@@ -17,6 +17,7 @@ const openSans = Open_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://lydellsecurity.com'),
   title: {
     default: 'Lydell Security | AI Incident Response Authority',
     template: '%s | Lydell Security',

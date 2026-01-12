@@ -25,6 +25,10 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+  }
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -145,7 +149,7 @@ export default function Navbar() {
               <Link
                 href="/"
                 className="font-heading font-medium text-slate-750 hover:text-navy"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 Home
               </Link>
@@ -158,7 +162,7 @@ export default function Navbar() {
                       key={service.href}
                       href={service.href}
                       className="block text-sm text-gray-600 hover:text-navy"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={closeMobileMenu}
                     >
                       {service.name}
                     </Link>
@@ -169,35 +173,35 @@ export default function Navbar() {
               <Link
                 href="/ai-incident-response"
                 className="font-heading font-medium text-alert"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 AI Incident Response
               </Link>
               <Link
                 href="/about"
                 className="font-heading font-medium text-slate-750 hover:text-navy"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 About
               </Link>
               <Link
                 href="/insights"
                 className="font-heading font-medium text-slate-750 hover:text-navy"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 Insights
               </Link>
               <Link
                 href="/resources"
                 className="font-heading font-medium text-slate-750 hover:text-navy"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 Resources
               </Link>
               <Link
                 href="/contact"
                 className="font-heading font-medium text-slate-750 hover:text-navy"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 Contact
               </Link>
@@ -206,14 +210,14 @@ export default function Navbar() {
                 <Link
                   href="/contact"
                   className="btn btn-outline w-full"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={closeMobileMenu}
                 >
                   Schedule Consultation
                 </Link>
                 <Link
                   href="/contact?urgent=true"
                   className="btn btn-primary w-full"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={closeMobileMenu}
                 >
                   Report Incident
                 </Link>
