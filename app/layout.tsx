@@ -52,8 +52,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${openSans.variable}`}>
       <body className="min-h-screen bg-white">
+        {/* Navbar is fixed, so it's outside normal flow */}
         <Navbar />
-        <main>{children}</main>
+        {/* Main content - no pt-20 here because hero sections handle their own padding */}
+        <main className="relative" style={{ zIndex: 1 }}>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

@@ -17,9 +17,9 @@
 }
 
 @layer components {
-  /* Button Components */
+  /* Button Components - Fixed sizing and overflow issues */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-heading font-semibold text-sm rounded-md border-2 transition-all duration-300 cursor-pointer;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-heading font-semibold text-sm rounded-md border-2 transition-all duration-300 cursor-pointer whitespace-nowrap;
   }
   
   .btn-primary {
@@ -43,7 +43,7 @@
   }
   
   .btn-sm {
-    @apply px-4 py-2 text-sm;
+    @apply px-4 py-2 text-xs;
   }
 
   /* Section Components */
@@ -93,4 +93,20 @@
   .animation-delay-300 { animation-delay: 0.3s; }
   .animation-delay-400 { animation-delay: 0.4s; }
   .animation-delay-500 { animation-delay: 0.5s; }
+}
+
+/* Critical: Ensure navbar stays above all content */
+/* Using important to override any conflicting styles */
+nav {
+  z-index: 9999 !important;
+}
+
+/* Ensure dropdown menus appear above other content */
+nav .absolute {
+  z-index: 9999 !important;
+}
+
+/* Mobile menu needs high z-index too */
+nav > div > div:last-child {
+  z-index: 9998 !important;
 }

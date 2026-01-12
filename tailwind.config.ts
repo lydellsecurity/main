@@ -31,6 +31,17 @@ const config: Config = {
         heading: ['var(--font-montserrat)', 'sans-serif'],
         body: ['var(--font-open-sans)', 'sans-serif'],
       },
+      // Extended z-index scale for proper layering
+      zIndex: {
+        '60': '60',
+        '70': '70',
+        '80': '80',
+        '90': '90',
+        '100': '100',
+        'navbar': '9999',
+        'dropdown': '10000',
+        'modal': '10001',
+      },
       animation: {
         'fade-in-up': 'fadeInUp 0.6s ease forwards',
         'pulse-slow': 'pulse 3s infinite',
