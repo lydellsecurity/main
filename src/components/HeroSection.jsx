@@ -42,10 +42,10 @@ const HeroSection = () => {
       relative min-h-screen overflow-hidden
       ${theme === 'dark' ? 'bg-obsidian' : 'bg-slate-200'}
     `}>
-      {/* Live Network Map Background */}
-      <LiveNetworkMap />
+      {/* Live Network Map Background - z-0 so it's behind everything */}
+      <LiveNetworkMap className="z-0" />
       
-      {/* Gradient overlays - lighter for light mode to show network map */}
+      {/* Gradient overlays - z-10, pointer-events-none so they don't block canvas */}
       <div className={`
         absolute inset-0 z-10 pointer-events-none
         ${theme === 'dark'
@@ -61,10 +61,10 @@ const HeroSection = () => {
         }
       `} />
       
-      {/* Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-6 py-8">
-        {/* Navigation */}
-        <nav className="flex justify-between items-center mb-16 md:mb-24">
+      {/* Content - z-20 but with pointer-events-none on container, pointer-events-auto on interactive elements */}
+      <div className="relative z-20 max-w-7xl mx-auto px-6 py-8 pointer-events-none">
+        {/* Navigation - needs pointer events */}
+        <nav className="flex justify-between items-center mb-16 md:mb-24 pointer-events-auto">
           <Link to="/" className="flex items-center gap-4 group">
             <div className={`
               w-10 h-10 border flex items-center justify-center transition-colors duration-300
@@ -133,32 +133,33 @@ const HeroSection = () => {
         </nav>
         
         {/* Main content grid */}
-        <div className="grid lg:grid-cols-[1fr,420px] gap-12 lg:gap-16 items-start">
-          {/* Left column - Main messaging */}
+        <div className="grid lg:grid-cols-[1fr,420px] gap-12 lg:gap-16 items-start pointer-events-auto">
+          {/* Left column - Main messaging with gradient backdrop in light mode */}
           <div className={`
-            transition-all duration-1000 delay-300
+            transition-all duration-1000 delay-300 p-6 -m-6 rounded-2xl
             ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+            ${theme === 'dark' ? '' : 'bg-gradient-to-br from-white/80 via-slate-100/70 to-transparent backdrop-blur-sm'}
           `}>
             {/* Threat level indicator */}
             <div className={`
               inline-flex items-center gap-3 px-4 py-2 rounded-full mb-8
-              ${theme === 'dark' ? 'bg-red-950/50 border border-red-500/30' : 'bg-red-50 border border-red-200'}
+              ${theme === 'dark' ? 'bg-red-950/50 border border-red-500/30' : 'bg-red-100/90 border border-red-300'}
             `}>
               <div className="relative">
                 <div className="w-2 h-2 rounded-full bg-red-500" />
                 <div className="absolute inset-0 w-2 h-2 rounded-full bg-red-500 animate-ping" />
               </div>
-              <span className={`font-mono text-xs tracking-wider ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>
+              <span className={`font-mono text-xs tracking-wider ${theme === 'dark' ? 'text-red-400' : 'text-red-700'}`}>
                 GLOBAL THREAT LEVEL: ELEVATED
               </span>
             </div>
             
             {/* Eyebrow */}
             <div className="flex items-center gap-4 mb-6">
-              <div className={`h-px w-12 ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-cobalt-600'}`} />
+              <div className={`h-px w-12 ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-blue-700'}`} />
               <span className={`
                 font-mono text-xs tracking-[0.2em] uppercase
-                ${theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}
+                ${theme === 'dark' ? 'text-cobalt-400' : 'text-blue-700'}
               `}>
                 Agentic Incident Response
               </span>
@@ -170,18 +171,18 @@ const HeroSection = () => {
               ${theme === 'dark' ? 'text-white' : 'text-slate-900'}
             `}>
               <span className="block">Adversaries Neutralized.</span>
-              <span className={`block ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+              <span className={`block ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
                 Sovereignty Restored.
               </span>
               <span className="block relative">
-                <span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>
+                <span className={theme === 'dark' ? 'text-cobalt-400' : 'text-blue-700'}>
                   In Minutes.
                 </span>
                 <span className={`
                   absolute -bottom-2 left-0 w-32 h-1
                   ${theme === 'dark' 
                     ? 'bg-gradient-to-r from-cobalt-500 to-transparent' 
-                    : 'bg-gradient-to-r from-cobalt-600 to-transparent'
+                    : 'bg-gradient-to-r from-blue-700 to-transparent'
                   }
                 `} />
               </span>
@@ -190,7 +191,7 @@ const HeroSection = () => {
             {/* Subhead - Value prop */}
             <p className={`
               text-lg md:text-xl max-w-xl mb-10 leading-relaxed
-              ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}
+              ${theme === 'dark' ? 'text-slate-400' : 'text-slate-700'}
             `}>
               While others assess, we <strong className={theme === 'dark' ? 'text-white' : 'text-slate-900'}>eradicate</strong>. 
               Our agentic AI systems hunt, contain, and neutralize threats at machine speed—restoring 
@@ -259,8 +260,9 @@ const HeroSection = () => {
           
           {/* Right column - Emergency IR Button */}
           <div className={`
-            transition-all duration-1000 delay-500
+            transition-all duration-1000 delay-500 p-4 -m-4 rounded-2xl
             ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+            ${theme === 'dark' ? '' : 'bg-gradient-to-bl from-white/80 via-slate-100/70 to-transparent backdrop-blur-sm'}
           `}>
             <InitiateIRButton />
             
@@ -269,10 +271,10 @@ const HeroSection = () => {
               mt-6 p-5 rounded-lg border
               ${theme === 'dark' 
                 ? 'bg-slate-900/80 border-slate-800' 
-                : 'bg-white/80 border-slate-200'
+                : 'bg-white/90 border-slate-300 shadow-sm'
               }
             `}>
-              <div className={`font-mono text-xs mb-3 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+              <div className={`font-mono text-xs mb-3 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-700'}`}>
                 ACTIVE THREAT CAMPAIGNS
               </div>
               
@@ -301,7 +303,7 @@ const HeroSection = () => {
                 to="/intel"
                 className={`
                   mt-4 block text-center text-xs font-mono py-2
-                  ${theme === 'dark' ? 'text-cobalt-400 hover:text-cobalt-300' : 'text-cobalt-600 hover:text-cobalt-500'}
+                  ${theme === 'dark' ? 'text-cobalt-400 hover:text-cobalt-300' : 'text-blue-700 hover:text-blue-600'}
                   transition-colors
                 `}
               >
@@ -313,8 +315,8 @@ const HeroSection = () => {
         
         {/* Trust badges */}
         <div className={`
-          mt-16 md:mt-24 pt-8 border-t
-          ${theme === 'dark' ? 'border-slate-800/50' : 'border-slate-200'}
+          mt-16 md:mt-24 pt-8 border-t pointer-events-auto
+          ${theme === 'dark' ? 'border-slate-800/50' : 'border-slate-300/50'}
           transition-all duration-1000 delay-700
           ${mounted ? 'opacity-100' : 'opacity-0'}
         `}>
@@ -365,24 +367,24 @@ const ThreatItem = ({ name, level, trend, theme }) => {
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div className={`w-2 h-2 rounded-full ${levelColors[level]}`} />
-        <span className={`text-sm ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>
+        <span className={`text-sm ${theme === 'dark' ? 'text-slate-300' : 'text-slate-800'}`}>
           {name}
         </span>
       </div>
       <div className="flex items-center gap-2">
         <span className={`
-          text-xs font-mono uppercase px-2 py-0.5 rounded
+          text-xs font-mono uppercase px-2 py-0.5 rounded font-medium
           ${level === 'critical' 
-            ? (theme === 'dark' ? 'bg-red-950 text-red-400' : 'bg-red-100 text-red-600')
+            ? (theme === 'dark' ? 'bg-red-950 text-red-400' : 'bg-red-200 text-red-800')
             : level === 'high'
-              ? (theme === 'dark' ? 'bg-orange-950 text-orange-400' : 'bg-orange-100 text-orange-600')
-              : (theme === 'dark' ? 'bg-amber-950 text-amber-400' : 'bg-amber-100 text-amber-600')
+              ? (theme === 'dark' ? 'bg-orange-950 text-orange-400' : 'bg-orange-200 text-orange-800')
+              : (theme === 'dark' ? 'bg-amber-950 text-amber-400' : 'bg-amber-200 text-amber-800')
           }
         `}>
           {level}
         </span>
         {trend === 'up' && (
-          <svg className="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+          <svg className={`w-3 h-3 ${theme === 'dark' ? 'text-red-500' : 'text-red-600'}`} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
           </svg>
         )}
