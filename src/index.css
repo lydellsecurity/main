@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  /* Dark mode defaults */
+  html.dark body {
+    @apply bg-obsidian text-signal-white;
+  }
+  
+  /* Light mode */
+  html.light body {
+    @apply bg-slate-50 text-slate-900;
+  }
+  
+  ::selection {
+    @apply bg-cobalt-500/30 text-white;
+  }
+  
+  html.light ::selection {
+    @apply bg-cobalt-600/30 text-slate-900;
+  }
+  
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  html.dark ::-webkit-scrollbar-track {
+    @apply bg-obsidian;
+  }
+  
+  html.dark ::-webkit-scrollbar-thumb {
+    @apply bg-steel rounded-full;
+  }
+  
+  html.light ::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+  }
+  
+  html.light ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-8 py-4 font-mono text-sm tracking-wider transition-all duration-300;
+  }
+  
+  html.dark .btn-primary {
+    @apply bg-cobalt-500 hover:bg-cobalt-400 text-white border border-cobalt-400/30;
+  }
+  
+  html.light .btn-primary {
+    @apply bg-cobalt-600 hover:bg-cobalt-500 text-white border border-cobalt-500/30;
+  }
+  
+  .btn-secondary {
+    @apply px-8 py-4 bg-transparent font-mono text-sm tracking-wider transition-all duration-300;
+  }
+  
+  html.dark .btn-secondary {
+    @apply text-slate-300 border border-slate-600 hover:border-slate-500 hover:bg-slate-800/50;
+  }
+  
+  html.light .btn-secondary {
+    @apply text-slate-700 border border-slate-300 hover:border-slate-400 hover:bg-slate-100;
+  }
+  
+  .card {
+    @apply rounded-lg border transition-all duration-300;
+  }
+  
+  html.dark .card {
+    @apply bg-slate-900/50 border-slate-800;
+  }
+  
+  html.light .card {
+    @apply bg-white border-slate-200;
+  }
+  
+  .bg-grid {
+    background-image: 
+      linear-gradient(rgba(45, 45, 58, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45, 45, 58, 0.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  
+  html.light .bg-grid {
+    background-image: 
+      linear-gradient(rgba(200, 210, 220, 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200, 210, 220, 0.5) 1px, transparent 1px);
+  }
+}
+
+@layer utilities {
+  .text-gradient-cobalt {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cobalt-400 to-cyan-400;
+  }
+}
+
+/* Animations */
+@keyframes scan {
+  0% { transform: translateY(-100vh); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.animate-scan {
+  animation: scan 8s linear infinite;
+}
+
+/* Focus styles */
+*:focus-visible {
+  @apply outline-none ring-2 ring-cobalt-500 ring-offset-2;
+}
+
+html.dark *:focus-visible {
+  @apply ring-offset-obsidian;
+}
+
+html.light *:focus-visible {
+  @apply ring-offset-white;
+}
