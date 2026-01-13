@@ -3,58 +3,102 @@ import Link from 'next/link'
 import { 
   Shield, 
   Award, 
+  Building2, 
   Users, 
-  Lightbulb, 
-  MessageCircle,
+  Target, 
+  CheckCircle,
+  Briefcase,
+  GraduationCap,
   MapPin,
-  Phone,
-  Mail,
-  Linkedin,
-  CheckCircle
+  ArrowRight,
+  Quote
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About Us',
-  description: 'Meet the team behind Lydell Security. 20+ years of Fortune 500 incident response experience. GREM certified. Now pioneering AI security solutions from Atlanta, Georgia.',
+  title: 'About',
+  description: 'Learn about Larry Barksdale and Lydell Security. 20+ years of cybersecurity leadership at Fortune 500 financial institutions including Truist, SunTrust, ICE/NYSE, and the Federal Reserve Bank of Atlanta.',
 }
 
-const credentials = [
-  { label: 'GREM Certified', description: 'GIAC Reverse Engineering Malware' },
-  { label: '20+ Years', description: 'Incident Response Experience' },
-  { label: 'Financial Sector', description: 'Truist, SunTrust, Fed Reserve, ICE' },
-  { label: 'AI Security Pioneer', description: 'AI-IRF Framework Developer' },
+const careerTimeline = [
+  {
+    period: 'Present',
+    role: 'Chief Executive Officer',
+    company: 'Lydell Security LLC',
+    description: 'Leading a cybersecurity consulting firm dedicated to protecting companies from advanced cyber threats. Pioneering AI incident response methodologies and providing world-class threat services.',
+  },
+  {
+    period: '2019 - 2021',
+    role: 'Head Group Vice President, Incident Response',
+    company: 'Truist Financial',
+    description: 'Led enterprise-wide incident response operations following the BB&T and SunTrust merger, overseeing cyber threat mitigation for one of the largest U.S. financial institutions.',
+  },
+  {
+    period: '2017 - 2019',
+    role: 'GVP, Cyber Tactical Operations Head',
+    company: 'SunTrust Bank',
+    description: 'Directed cyber tactical operations including digital forensics, incident response, and threat hunting. Managed security operations protecting trillions in assets.',
+  },
+  {
+    period: '2017',
+    role: 'Head of Digital, GVP Forensics & Incident Response',
+    company: 'SunTrust Bank',
+    description: 'Oversaw digital forensics and incident response capabilities, building and leading high-performance security teams.',
+  },
+  {
+    period: '2014 - 2017',
+    role: 'Sr. Incident Response Engineer / Cybersecurity Senior Engineer',
+    company: 'Intercontinental Exchange (ICE/NYSE)',
+    description: 'Protected the world\'s largest stock exchange and critical financial market infrastructure. Developed and executed incident response procedures for high-stakes environments.',
+  },
+  {
+    period: '2013 - 2014',
+    role: 'Information Security Specialist',
+    company: 'Federal Reserve Bank of Atlanta',
+    description: 'Served as vulnerability management liaison and incident response specialist for the central bank, protecting critical financial infrastructure.',
+  },
+  {
+    period: '2012 - 2013',
+    role: 'Network Security Senior Analyst',
+    company: 'Dell SecureWorks',
+    description: 'Protected customer information assets through managed security services, gaining deep expertise in threat detection and response.',
+  },
+]
+
+const certifications = [
+  {
+    name: 'GIAC Reverse Engineering Malware (GREM)',
+    issuer: 'SANS Institute / GIAC',
+    description: 'Advanced certification in malware analysis, reverse engineering, and incident response.',
+  },
+]
+
+const expertise = [
+  'Incident Response & Digital Forensics',
+  'Malware Reverse Engineering',
+  'Threat Hunting & Intelligence',
+  'AI/ML Security & Adversarial Attacks',
+  'Security Operations Center (SOC) Leadership',
+  'Vulnerability Management',
+  'Regulatory Compliance (SOC 2, PCI-DSS, etc.)',
+  'Executive Security Advisory',
 ]
 
 const values = [
   {
+    title: 'Lead by Example',
+    description: 'We don\'t just advise—we roll up our sleeves and work alongside your team to solve problems.',
+    icon: Target,
+  },
+  {
+    title: 'Integrity First',
+    description: 'Our reputation is built on trust, professionalism, and unwavering commitment to doing the right thing.',
     icon: Shield,
-    title: 'Frontline Expertise',
-    description: "We don't just advise—we've been in the trenches. Our experience comes from defending real organizations against real threats, not from textbooks.",
   },
   {
-    icon: Lightbulb,
-    title: 'Continuous Innovation',
-    description: 'The threat landscape evolves daily. We invest heavily in research to stay ahead, developing new frameworks and detection capabilities before threats become mainstream.',
+    title: 'Continuous Improvement',
+    description: 'We challenge ourselves and our clients to constantly improve security posture and capabilities.',
+    icon: Award,
   },
-  {
-    icon: Users,
-    title: 'Client Partnership',
-    description: "Your security is our mission. We build long-term relationships focused on improving your security posture, not maximizing billable hours.",
-  },
-  {
-    icon: MessageCircle,
-    title: 'Transparent Communication',
-    description: "Security shouldn't be a black box. We explain our findings clearly and provide actionable guidance you can implement.",
-  },
-]
-
-const timeline = [
-  { year: '2000s', event: 'Incident Response at Major Financial Institutions' },
-  { year: '2010s', event: 'Building Enterprise Security Operations' },
-  { year: '2022', event: 'Pivot to AI Security Focus' },
-  { year: '2023', event: 'AI-IRF Framework Development' },
-  { year: '2024', event: 'AI Security Training & Masterclass Launch' },
-  { year: '2025', event: "Industry's First AI-Specific YARA Rules" },
 ]
 
 export default function AboutPage() {
@@ -64,14 +108,15 @@ export default function AboutPage() {
       <section className="relative bg-hero-gradient pt-32 pb-20">
         <div className="container-custom">
           <div className="max-w-4xl">
+            <span className="inline-block font-heading font-semibold text-sm text-teal-400 uppercase tracking-widest mb-4">
+              About Lydell Security
+            </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">
-              Frontline Experience.{' '}
-              <span className="text-gradient">AI-First Innovation.</span>
+              Frontline Experience. <br />Uncompromising Defense.
             </h1>
             <p className="text-xl text-white/80 max-w-2xl">
-              Lydell Security was founded on a simple premise: organizations deploying AI systems 
-              deserve security partners who understand both traditional incident response excellence 
-              AND the unique challenges of AI-specific threats.
+              Founded by a veteran of Fortune 500 financial institution security, Lydell Security 
+              brings battle-tested expertise to protect your organization from tomorrow&apos;s threats today.
             </p>
           </div>
         </div>
@@ -80,130 +125,208 @@ export default function AboutPage() {
       {/* Founder Section */}
       <section className="section bg-white">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div>
-              <span className="section-tag">Leadership</span>
-              <h2 className="text-3xl md:text-4xl mb-6">Jr Barksdale</h2>
-              <p className="text-xl text-navy font-semibold mb-6">CEO & Principal Consultant</p>
+          <div className="grid lg:grid-cols-5 gap-12 items-start">
+            {/* Photo/Avatar Column */}
+            <div className="lg:col-span-2">
+              <div className="sticky top-24">
+                <div className="bg-gradient-to-br from-navy to-navy-light rounded-2xl p-1">
+                  <div className="bg-white rounded-xl p-8">
+                    <div className="w-48 h-48 bg-gradient-to-br from-navy to-navy-light rounded-full flex items-center justify-center mx-auto mb-6">
+                      <span className="text-6xl font-heading font-bold text-white">LB</span>
+                    </div>
+                    <div className="text-center">
+                      <h2 className="font-heading font-bold text-2xl mb-1">Larry Barksdale</h2>
+                      <p className="text-navy font-medium mb-4">Founder & CEO</p>
+                      <div className="flex flex-wrap justify-center gap-2 mb-6">
+                        <span className="bg-navy/10 text-navy text-xs font-semibold px-3 py-1 rounded-full">
+                          GREM Certified
+                        </span>
+                        <span className="bg-alert/10 text-alert text-xs font-semibold px-3 py-1 rounded-full">
+                          20+ Years Experience
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-center gap-2 text-gray-600 text-sm">
+                        <MapPin className="w-4 h-4" />
+                        Atlanta, Georgia
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Contact */}
+                <div className="mt-6 p-6 bg-gray-50 rounded-xl">
+                  <h3 className="font-heading font-bold text-lg mb-4">Connect with Larry</h3>
+                  <div className="space-y-3">
+                    <a 
+                      href="https://www.linkedin.com/in/lbarksdale1/" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-gray-600 hover:text-navy transition-colors"
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                      LinkedIn Profile
+                    </a>
+                    <Link 
+                      href="/contact"
+                      className="flex items-center gap-3 text-gray-600 hover:text-navy transition-colors"
+                    >
+                      <Briefcase className="w-5 h-5" />
+                      Schedule a Meeting
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bio Column */}
+            <div className="lg:col-span-3">
+              <h2 className="font-heading font-bold text-3xl mb-6">
+                From Wall Street to Your Security
+              </h2>
               
-              <div className="space-y-4 text-gray-600 mb-8">
+              <div className="prose prose-lg max-w-none text-gray-600 mb-8">
                 <p>
-                  With over two decades defending critical infrastructure at major financial 
-                  institutions—including Truist Financial, SunTrust Bank, the Federal Reserve 
-                  Bank of Atlanta, and ICE—Jr brings unparalleled frontline experience to 
-                  Lydell Security.
+                  Lydell Security was founded by Larry Barksdale, a cybersecurity expert who has spent 
+                  over two decades discovering and responding to the world&apos;s most advanced cyber threats. 
+                  His career spans the most critical financial infrastructure in the United States—from 
+                  the New York Stock Exchange to the Federal Reserve Bank of Atlanta.
                 </p>
                 <p>
-                  Holding the prestigious GREM (GIAC Reverse Engineering Malware) certification, 
-                  Jr has built enterprise-scale security operations, led complex threat hunting 
-                  initiatives, and conducted digital forensics investigations for organizations 
-                  handling trillions in assets.
+                  Larry&apos;s journey includes senior leadership roles at Truist Financial (following the 
+                  BB&T/SunTrust merger) where he served as Head Group Vice President of Incident Response, 
+                  and at SunTrust Bank where he led Cyber Tactical Operations. Earlier, he protected 
+                  Intercontinental Exchange (ICE)—the parent company of the NYSE—as a Senior Incident 
+                  Response Engineer during a period of unprecedented cyber threats to financial markets.
                 </p>
                 <p>
-                  Three years ago, Jr recognized a critical gap in the cybersecurity industry: 
-                  Traditional incident response frameworks weren't designed for AI threats. Since 
-                  then, he has dedicated his practice exclusively to AI Incident Response, developing 
-                  proprietary frameworks and positioning Lydell Security as the definitive authority 
-                  in this emerging field.
+                  His experience at the Federal Reserve Bank of Atlanta and Dell SecureWorks provided 
+                  foundational expertise in vulnerability management, threat detection, and managed 
+                  security services that inform Lydell Security&apos;s comprehensive approach today.
+                </p>
+                <p>
+                  Holding the prestigious GIAC Reverse Engineering Malware (GREM) certification from 
+                  the SANS Institute, Larry brings specialized expertise in malware analysis, digital 
+                  forensics, and advanced incident handling methodologies. This technical depth, combined 
+                  with executive leadership experience, positions Lydell Security uniquely to serve 
+                  organizations facing today&apos;s most sophisticated threats.
                 </p>
               </div>
 
-              <a 
-                href="https://linkedin.com/in/jrbarksdale" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-navy font-semibold hover:text-navy-light transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-                Connect on LinkedIn
-              </a>
-            </div>
+              {/* Expertise Grid */}
+              <div className="mb-12">
+                <h3 className="font-heading font-bold text-xl mb-4">Areas of Expertise</h3>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {expertise.map((item, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <span className="text-gray-700">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <h3 className="font-heading font-bold text-xl mb-6">Credentials & Expertise</h3>
-              <div className="space-y-4">
-                {credentials.map((cred, index) => (
+              {/* Certifications */}
+              <div className="bg-gray-50 rounded-xl p-6 mb-12">
+                <h3 className="font-heading font-bold text-xl mb-4 flex items-center gap-2">
+                  <GraduationCap className="w-6 h-6 text-navy" />
+                  Certifications
+                </h3>
+                {certifications.map((cert, index) => (
                   <div key={index} className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-navy rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Award className="w-5 h-5 text-white" />
+                    <div className="w-12 h-12 bg-navy/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Award className="w-6 h-6 text-navy" />
                     </div>
                     <div>
-                      <div className="font-semibold text-slate-850">{cred.label}</div>
-                      <div className="text-gray-600 text-sm">{cred.description}</div>
+                      <div className="font-semibold">{cert.name}</div>
+                      <div className="text-sm text-gray-500">{cert.issuer}</div>
+                      <div className="text-sm text-gray-600 mt-1">{cert.description}</div>
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Testimonial */}
+              <div className="bg-navy rounded-xl p-8 text-white">
+                <Quote className="w-10 h-10 text-white/20 mb-4" />
+                <blockquote className="text-lg leading-relaxed mb-6 italic">
+                  &quot;Larry has been one of the most effective leaders during my 30-year career in 
+                  Information Technology and Cybersecurity. He leads by example, he looks out for 
+                  his people, and he challenges us to be better. His professionalism, strength of 
+                  character, and patience in working in a highly intensive environment was admired 
+                  by his entire staff.&quot;
+                </blockquote>
+                <div className="text-white/80 text-sm">
+                  — Former Direct Report, SunTrust Bank Cyber Tactical Operations
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Company Story */}
+      {/* Career Timeline */}
       <section className="section bg-gray-50">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <span className="section-tag">Our Story</span>
-            <h2 className="text-3xl md:text-4xl mb-8">Our Journey</h2>
-            
-            <div className="space-y-6 text-gray-600 text-lg mb-12">
-              <p>
-                Lydell Security LLC was founded in Atlanta, Georgia with a mission to provide 
-                world-class cybersecurity solutions that combat tomorrow's threats TODAY. Our 
-                approach combines decades of frontline incident response experience with 
-                forward-looking research into emerging attack vectors.
-              </p>
-              <p>
-                What sets us apart is our dedicated focus on AI security. While many firms are 
-                just beginning to add AI to their service offerings, we made the strategic 
-                decision three years ago to focus exclusively on the intersection of traditional 
-                cybersecurity and artificial intelligence. This specialization allows us to 
-                offer capabilities that generalist firms simply cannot match.
-              </p>
-              <p>
-                Today, we serve organizations across industries who recognize that their AI 
-                investments require specialized protection. From Fortune 500 enterprises deploying 
-                large-scale ML systems to startups building AI-native products, Lydell Security 
-                provides the expertise needed to secure the future of intelligent systems.
-              </p>
-            </div>
+          <div className="section-header">
+            <span className="section-tag">Career Journey</span>
+            <h2 className="text-3xl md:text-4xl mb-4">20+ Years Defending Critical Infrastructure</h2>
+            <p className="text-gray-600 text-lg">
+              A proven track record of protecting the world&apos;s most important financial institutions.
+            </p>
+          </div>
 
-            {/* Timeline */}
+          <div className="max-w-4xl mx-auto">
             <div className="relative">
-              <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200" />
-              <div className="space-y-8">
-                {timeline.map((item, index) => (
-                  <div key={index} className="flex items-start gap-6 relative">
-                    <div className="w-8 h-8 bg-navy rounded-full flex items-center justify-center z-10 flex-shrink-0">
-                      <div className="w-3 h-3 bg-white rounded-full" />
+              {/* Timeline line */}
+              <div className="absolute left-0 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-0.5 bg-navy/20" />
+
+              {careerTimeline.map((item, index) => (
+                <div 
+                  key={index}
+                  className={`relative flex items-start gap-8 mb-12 ${
+                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}
+                >
+                  {/* Timeline dot */}
+                  <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-navy rounded-full border-4 border-white shadow" />
+                  
+                  {/* Content */}
+                  <div className={`ml-8 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
+                    <span className="inline-block bg-navy/10 text-navy text-xs font-semibold px-3 py-1 rounded-full mb-2">
+                      {item.period}
+                    </span>
+                    <h3 className="font-heading font-bold text-lg">{item.role}</h3>
+                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-2 ${index % 2 === 0 ? 'md:justify-end' : ''}">
+                      <Building2 className="w-4 h-4" />
+                      {item.company}
                     </div>
-                    <div>
-                      <div className="font-heading font-bold text-navy">{item.year}</div>
-                      <div className="text-gray-600">{item.event}</div>
-                    </div>
+                    <p className="text-gray-600 text-sm">{item.description}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Company Values */}
       <section className="section bg-white">
         <div className="container-custom">
           <div className="section-header">
             <span className="section-tag">Our Values</span>
-            <h2 className="text-3xl md:text-4xl">What We Stand For</h2>
+            <h2 className="text-3xl md:text-4xl mb-4">What Drives Us</h2>
+            <p className="text-gray-600 text-lg">
+              The principles that guide every engagement and every decision.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="card">
-                <div className="w-14 h-14 bg-navy/10 rounded-xl flex items-center justify-center mb-5">
-                  <value.icon className="w-7 h-7 text-navy" />
+              <div key={index} className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-navy to-navy-light rounded-full flex items-center justify-center mx-auto mb-6">
+                  <value.icon className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="font-heading font-bold text-xl mb-3">{value.title}</h3>
+                <h3 className="font-heading font-bold text-xl mb-4">{value.title}</h3>
                 <p className="text-gray-600">{value.description}</p>
               </div>
             ))}
@@ -211,69 +334,83 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Location Section */}
+      {/* Company Overview */}
       <section className="section bg-gray-50">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <span className="section-tag">Location</span>
-              <h2 className="text-3xl md:text-4xl mb-6">Based in Atlanta, Serving Globally</h2>
-              <p className="text-gray-600 text-lg mb-8">
-                Lydell Security is headquartered in Atlanta, Georgia—a hub for cybersecurity 
-                talent and home to numerous Fortune 500 companies. While we're proud of our 
-                Atlanta roots, we serve clients nationwide and internationally through our 
-                remote engagement capabilities.
-              </p>
-              
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-navy/10 rounded-lg flex items-center justify-center">
-                    <MapPin className="w-6 h-6 text-navy" />
-                  </div>
-                  <div>
-                    <div className="text-gray-500 text-sm">Location</div>
-                    <div className="font-semibold">Atlanta, Georgia, USA</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-navy/10 rounded-lg flex items-center justify-center">
-                    <Phone className="w-6 h-6 text-navy" />
-                  </div>
-                  <div>
-                    <div className="text-gray-500 text-sm">Phone</div>
-                    <a href="tel:+17702439064" className="font-semibold hover:text-navy">770-243-9064</a>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-navy/10 rounded-lg flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-navy" />
-                  </div>
-                  <div>
-                    <div className="text-gray-500 text-sm">Email</div>
-                    <a href="mailto:support@lydellsecurity.com" className="font-semibold hover:text-navy">
-                      support@lydellsecurity.com
-                    </a>
-                  </div>
-                </div>
+              <span className="section-tag">The Company</span>
+              <h2 className="text-3xl md:text-4xl mb-6">Why Lydell Security?</h2>
+              <div className="prose prose-lg text-gray-600">
+                <p>
+                  Lydell Security LLC provides world-class cybersecurity solutions and capabilities 
+                  to combat tomorrow&apos;s threats TODAY. Our frontline expertise and proactive approach 
+                  enable businesses to focus less on cyber security risks and focus more on business 
+                  growth and success.
+                </p>
+                <p>
+                  We&apos;ve protected organizations handling trillions in assets. We&apos;ve defended 
+                  critical financial infrastructure against nation-state actors. And now, we bring 
+                  that same level of expertise to organizations of all sizes.
+                </p>
+                <p>
+                  From advanced incident response to AI security consulting, we offer the complete 
+                  spectrum of services needed to build and maintain a robust security posture.
+                </p>
+              </div>
+              <div className="mt-8">
+                <Link href="/services" className="btn btn-primary">
+                  Explore Our Services
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
               </div>
             </div>
-
-            <div className="bg-gradient-to-br from-navy to-navy-light rounded-2xl p-8 text-white">
-              <h3 className="font-heading font-bold text-2xl mb-6">Ready to Work Together?</h3>
-              <p className="text-white/80 mb-8">
-                Let's discuss how Lydell Security can help protect your organization's 
-                most critical assets—including your AI systems.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contact" className="btn bg-white text-navy border-white hover:bg-gray-100">
-                  Schedule a Consultation
-                </Link>
-                <Link href="/services/threat-services" className="btn btn-outline-white">
-                  View Our Services
-                </Link>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
+                <div className="font-heading font-extrabold text-4xl text-navy mb-2">20+</div>
+                <div className="text-gray-600 text-sm">Years Experience</div>
               </div>
+              <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
+                <div className="font-heading font-extrabold text-4xl text-navy mb-2">F500</div>
+                <div className="text-gray-600 text-sm">Financial Background</div>
+              </div>
+              <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
+                <div className="font-heading font-extrabold text-4xl text-navy mb-2">GREM</div>
+                <div className="text-gray-600 text-sm">SANS Certified</div>
+              </div>
+              <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
+                <div className="font-heading font-extrabold text-4xl text-navy mb-2">24/7</div>
+                <div className="text-gray-600 text-sm">Incident Response</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section bg-cta-gradient text-center">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl text-white mb-4">
+              Ready to Work with Proven Experts?
+            </h2>
+            <p className="text-xl text-white/90 mb-8">
+              Schedule a consultation with Larry and the Lydell Security team to discuss 
+              your security challenges.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link 
+                href="/contact" 
+                className="btn btn-lg bg-white text-alert border-white hover:bg-gray-100"
+              >
+                Schedule a Consultation
+              </Link>
+              <Link 
+                href="tel:+17702439064" 
+                className="btn btn-outline-white btn-lg"
+              >
+                Call 770-243-9064
+              </Link>
             </div>
           </div>
         </div>
