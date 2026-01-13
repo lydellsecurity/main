@@ -1,6 +1,6 @@
 [build]
   publish = "."
-  command = "echo 'Static site - no build needed'"
+  command = "echo 'Static HTML site - no build required'"
 
 [[headers]]
   for = "/*"
@@ -19,10 +19,15 @@
 
 [[redirects]]
   from = "/about"
-  to = "/#why-lydell"
+  to = "/#why-us"
   status = 302
 
 [[redirects]]
   from = "/contact"
   to = "/#contact"
+  status = 302
+
+[[redirects]]
+  from = "/insights"
+  to = "/#insights"
   status = 302

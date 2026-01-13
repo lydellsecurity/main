@@ -3,23 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lydell Security | AI Incident Response & Cybersecurity Experts</title>
-  <meta name="description" content="The AI Incident Response Authority. 20+ years Fortune 500 experience protecting AI systems from model poisoning, prompt injection & adversarial attacks. GREM certified, 24/7 response.">
-  <meta name="keywords" content="AI incident response, AI security, cybersecurity, model poisoning, prompt injection, GREM, SOC 2, HIPAA, Fortune 500 security">
+  <title>Lydell Security | AI Incident Response Authority</title>
+  <meta name="description" content="The AI Incident Response Authority. 20+ years Fortune 500 experience. GREM certified experts protecting against model poisoning, prompt injection & adversarial AI attacks. 24/7 response.">
+  <meta name="keywords" content="AI incident response, AI security, cybersecurity, model poisoning, prompt injection, GREM, SOC 2, HIPAA, Fortune 500 security, AI-IRF">
   <meta name="author" content="Lydell Security">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://lydellsecurity.com">
+  
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://lydellsecurity.com">
   <meta property="og:title" content="Lydell Security | AI Incident Response Authority">
-  <meta property="og:description" content="Protecting AI systems with 20+ years Fortune 500 security expertise. Industry-first AI-IRF Framework.">
+  <meta property="og:description" content="24/7 AI threat protection backed by 20+ years Fortune 500 security expertise. Industry-first AI-IRF Framework.">
+  <meta property="og:image" content="https://lydellsecurity.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f172a'/%3E%3Cpath d='M16 6l8 4v8c0 4.4-3.4 8.5-8 10-4.6-1.5-8-5.6-8-10v-8l8-4z' fill='%2306b6d4'/%3E%3C/svg%3E">
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f172a'/%3E%3Cpath d='M16 6l8 4v8c0 4.4-3.4 8.5-8 10-4.6-1.5-8-5.6-8-10v-8l8-4z' fill='%2314b8a6'/%3E%3C/svg%3E">
+  
+  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Organization","name":"Lydell Security","description":"The AI Incident Response Authority","url":"https://lydellsecurity.com","telephone":"+1-770-243-9064","founder":{"@type":"Person","name":"Larry Barksdale"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[{"@type":"Service","name":"AI Incident Response"},{"@type":"Service","name":"Threat Services"},{"@type":"Service","name":"Security Assessments"}]}}
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Lydell Security",
+    "description": "The AI Incident Response Authority - Cybersecurity experts specializing in AI/ML security",
+    "url": "https://lydellsecurity.com",
+    "telephone": "+1-770-243-9064",
+    "email": "info@lydellsecurity.com",
+    "founder": {"@type": "Person", "name": "Larry Barksdale", "jobTitle": "CEO"},
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Cybersecurity Services",
+      "itemListElement": [
+        {"@type": "Service", "name": "AI Incident Response"},
+        {"@type": "Service", "name": "Threat Services"},
+        {"@type": "Service", "name": "Security Assessments"},
+        {"@type": "Service", "name": "Cloud Security"}
+      ]
+    }
+  }
   </script>
   
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -27,195 +53,365 @@
       theme: {
         extend: {
           colors: {
-            dark: { 900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569' },
-            accent: { 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2', 700: '#0e7490' }
+            slate: {
+              950: '#020617',
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+            },
+            teal: {
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+            },
+            cyan: {
+              400: '#22d3ee',
+              500: '#06b6d4',
+            }
           },
-          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
-          animation: {
-            'float': 'float 6s ease-in-out infinite',
-            'glow': 'glow 2s ease-in-out infinite alternate',
-          },
-          keyframes: {
-            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
-            glow: { '0%': { boxShadow: '0 0 20px rgba(6,182,212,0.3)' }, '100%': { boxShadow: '0 0 30px rgba(6,182,212,0.5)' } }
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
           }
         }
       }
     }
   </script>
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
-    html { font-family: 'Inter', system-ui, sans-serif; }
-    .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
-    .dark .glass { background: rgba(15,23,42,0.7); }
-    .glass-card { background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
-    .dark .glass-card { background: rgba(30,41,59,0.8); border-color: rgba(255,255,255,0.1); }
-    .gradient-text { background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .glow-cyan { box-shadow: 0 0 40px rgba(6,182,212,0.15); }
-    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+    * { font-family: 'Inter', system-ui, sans-serif; }
+    
+    /* Glassmorphism */
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glass-light {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .dark .glass-light {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Gradient text */
+    .text-gradient {
+      background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Glow effects */
+    .glow-teal {
+      box-shadow: 0 0 60px rgba(20, 184, 166, 0.15);
+    }
+    .btn-glow {
+      box-shadow: 0 0 30px rgba(20, 184, 166, 0.4);
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 40px rgba(20, 184, 166, 0.6);
+    }
+    
+    /* Animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .delay-100 { transition-delay: 0.1s; }
+    .delay-200 { transition-delay: 0.2s; }
+    .delay-300 { transition-delay: 0.3s; }
+    .delay-400 { transition-delay: 0.4s; }
+    
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { opacity: 1; transform: none; transition: none; }
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #14b8a6; }
+    
+    /* Clip path for section curves */
+    .curve-top {
+      clip-path: ellipse(150% 100% at 50% 100%);
+    }
+    .curve-bottom {
+      clip-path: ellipse(150% 100% at 50% 0%);
+    }
   </style>
 </head>
-<body class="bg-slate-50 dark:bg-dark-900 text-slate-900 dark:text-slate-100 antialiased transition-colors duration-300">
+
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 antialiased transition-colors duration-300">
   
-  <!-- Navigation -->
-  <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 lg:h-20">
-        <a href="/" class="flex items-center gap-3 group">
-          <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none">
-            <rect width="40" height="40" rx="8" class="fill-dark-900 dark:fill-slate-100"/>
-            <path d="M20 8l10 5v10c0 5.5-4.25 10.625-10 12.5-5.75-1.875-10-7-10-12.5V13l10-5z" class="fill-accent-500"/>
-            <path d="M20 13l5 2.5v5c0 2.75-2.125 5.313-5 6.25-2.875-.937-5-3.5-5-6.25v-5l5-2.5z" class="fill-dark-900 dark:fill-slate-100"/>
-          </svg>
-          <span class="text-xl font-bold">Lydell Security</span>
-        </a>
-        
-        <div class="hidden lg:flex items-center gap-1">
-          <a href="#services" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent-500 transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50">Services</a>
-          <a href="#why-lydell" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent-500 transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50">Why Lydell</a>
-          <a href="#credentials" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent-500 transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50">Credentials</a>
-          <a href="#insights" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent-500 transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50">Insights</a>
-          <a href="#contact" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent-500 transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50">Contact</a>
-        </div>
-        
-        <div class="flex items-center gap-3">
-          <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all" aria-label="Toggle theme">
-            <svg class="w-5 h-5 text-amber-500 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-            <svg class="w-5 h-5 text-accent-400 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </button>
-          <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white text-sm font-semibold rounded-xl shadow-lg shadow-accent-500/25 transition-all hover:-translate-y-0.5">
-            Get Assessment
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+  <!-- Skip Link -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-teal-500 focus:text-white focus:rounded-lg">
+    Skip to content
+  </a>
+
+  <!-- Header -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <nav class="glass border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 lg:h-20">
+          
+          <!-- Logo -->
+          <a href="#" class="flex items-center gap-3 group" aria-label="Lydell Security Home">
+            <div class="relative">
+              <svg class="w-10 h-10 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <rect width="40" height="40" rx="10" class="fill-slate-900 dark:fill-white"/>
+                <path d="M20 7l11 5.5v11c0 6.05-4.675 11.688-11 13.75-6.325-2.062-11-7.7-11-13.75v-11L20 7z" class="fill-teal-500"/>
+                <path d="M20 12l6 3v6c0 3.3-2.55 6.375-6 7.5-3.45-1.125-6-4.2-6-7.5v-6l6-3z" class="fill-slate-900 dark:fill-white"/>
+              </svg>
+            </div>
+            <span class="text-xl font-bold tracking-tight">Lydell Security</span>
           </a>
-          <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800" aria-label="Menu">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-          </button>
+          
+          <!-- Desktop Nav -->
+          <div class="hidden lg:flex items-center gap-1">
+            <a href="#services" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 rounded-lg hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all">Services</a>
+            <a href="#framework" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 rounded-lg hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all">AI-IRF</a>
+            <a href="#why-us" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 rounded-lg hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all">Why Lydell</a>
+            <a href="#insights" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 rounded-lg hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all">Insights</a>
+            <a href="#contact" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 rounded-lg hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all">Contact</a>
+          </div>
+          
+          <!-- Right Actions -->
+          <div class="flex items-center gap-3">
+            <!-- Dark Mode Toggle -->
+            <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200" aria-label="Toggle dark mode">
+              <!-- Sun Icon -->
+              <svg class="w-5 h-5 text-amber-500 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+              </svg>
+              <!-- Moon Icon -->
+              <svg class="w-5 h-5 text-teal-400 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            </button>
+            
+            <!-- CTA Button -->
+            <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-teal-500 hover:bg-teal-400 text-white text-sm font-semibold rounded-xl shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transition-all duration-200 hover:-translate-y-0.5">
+              Get Assessment
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+            
+            <!-- Mobile Menu -->
+            <button id="mobile-menu-btn" class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" aria-label="Open menu" aria-expanded="false">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </nav>
     
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="lg:hidden fixed inset-x-0 top-16 bottom-0 bg-white/95 dark:bg-dark-900/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 z-40">
-      <div class="p-6 space-y-4">
-        <a href="#services" class="mobile-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Services</a>
-        <a href="#why-lydell" class="mobile-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Why Lydell</a>
-        <a href="#credentials" class="mobile-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Credentials</a>
-        <a href="#insights" class="mobile-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Insights</a>
-        <a href="#contact" class="mobile-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Contact</a>
-        <a href="#contact" class="mobile-link flex items-center justify-center gap-2 w-full px-6 py-4 mt-4 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-semibold rounded-xl">Get Free Assessment</a>
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-x-0 top-16 bottom-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl translate-x-full transition-transform duration-300 z-40">
+      <div class="p-6 space-y-2">
+        <a href="#services" class="mobile-nav-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Services</a>
+        <a href="#framework" class="mobile-nav-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">AI-IRF Framework</a>
+        <a href="#why-us" class="mobile-nav-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Why Lydell</a>
+        <a href="#insights" class="mobile-nav-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Insights</a>
+        <a href="#contact" class="mobile-nav-link block px-4 py-3 text-lg font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Contact</a>
+        <div class="pt-4">
+          <a href="#contact" class="mobile-nav-link flex items-center justify-center gap-2 w-full px-6 py-4 bg-teal-500 hover:bg-teal-400 text-white font-semibold rounded-xl transition-colors">
+            Get Free Assessment
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+        <div class="pt-6 border-t border-slate-200 dark:border-slate-700">
+          <a href="tel:+17702439064" class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <span class="font-medium">770-243-9064</span>
+          </a>
+        </div>
       </div>
     </div>
   </header>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900">
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay:1s"></div>
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
+  <main id="main">
+    
+    <!-- ============ HERO SECTION ============ -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <!-- Background Effects -->
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <!-- Animated Orbs -->
+        <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px] animate-pulse" style="animation-delay: 1.5s"></div>
+        <!-- Grid Pattern -->
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black,transparent)]"></div>
       </div>
       
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-        <div class="max-w-4xl">
-          <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8">
-            <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span></span>
-            <span class="text-sm font-medium text-slate-300">24/7 Incident Response Available</span>
+        <div class="text-center max-w-4xl mx-auto">
+          
+          <!-- Live Badge -->
+          <div class="fade-up inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass border border-teal-500/30 mb-8">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+            <span class="text-sm font-medium text-slate-200">24/7 Incident Response Active</span>
           </div>
           
-          <h1 class="reveal reveal-delay-1 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
-            The <span class="gradient-text">AI Incident Response</span> Authority
+          <!-- Headline -->
+          <h1 class="fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
+            <span class="block">Lydell Security:</span>
+            <span class="text-gradient">The AI Incident Response</span>
+            <span class="block">Authority</span>
           </h1>
           
-          <p class="reveal reveal-delay-2 text-lg sm:text-xl text-slate-300 max-w-2xl mb-10 leading-relaxed">
-            When AI systems face model poisoning, prompt injection, or adversarial attacks, traditional playbooks fail. We've built the industry's first AI-IRF—backed by 20+ years defending Fortune 500 institutions.
+          <!-- Subheadline -->
+          <p class="fade-up delay-200 text-lg sm:text-xl lg:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+            24/7 Protection Against AI Threats. When model poisoning, prompt injection, or adversarial attacks strike, we respond with the industry's first AI-IRF—backed by 20+ years Fortune 500 experience.
           </p>
           
-          <div class="reveal reveal-delay-3 flex flex-wrap gap-4 mb-16">
-            <a href="#contact" class="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-400 hover:to-accent-500 text-white font-semibold rounded-2xl shadow-2xl shadow-accent-500/30 transition-all hover:-translate-y-1">
-              Get Free Assessment
-              <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <!-- CTA Buttons -->
+          <div class="fade-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <a href="#contact" class="group inline-flex items-center gap-3 px-8 py-4 bg-teal-500 hover:bg-teal-400 text-white text-lg font-semibold rounded-2xl btn-glow transition-all duration-300 hover:-translate-y-1">
+              Get Free AI Threat Assessment
+              <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
             </a>
-            <a href="tel:+17702439064" class="group inline-flex items-center gap-3 px-8 py-4 glass text-white font-semibold rounded-2xl hover:bg-white/10 transition-all">
-              <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-              Report Incident
+            <a href="tel:+17702439064" class="group inline-flex items-center gap-3 px-8 py-4 glass text-white font-semibold rounded-2xl hover:bg-white/10 transition-all duration-300">
+              <svg class="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              Report Active Incident
             </a>
           </div>
           
-          <div class="reveal reveal-delay-4 grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div class="glass rounded-2xl p-6 glow-cyan">
-              <div class="text-4xl lg:text-5xl font-extrabold text-white mb-2">20+</div>
+          <!-- Stats Cards -->
+          <div class="fade-up delay-400 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <div class="glass rounded-2xl p-6 glow-teal text-center">
+              <div class="text-4xl lg:text-5xl font-extrabold text-white mb-1">20+</div>
               <div class="text-sm text-slate-400">Years Fortune 500 Experience</div>
             </div>
-            <div class="glass rounded-2xl p-6">
-              <div class="text-4xl lg:text-5xl font-extrabold text-white mb-2">$4.45M</div>
-              <div class="text-sm text-slate-400">Avg. Breach Cost (IBM 2025)</div>
+            <div class="glass rounded-2xl p-6 text-center">
+              <div class="text-4xl lg:text-5xl font-extrabold text-white mb-1">$4.45M</div>
+              <div class="text-sm text-slate-400">Avg Breach Cost (IBM 2025)</div>
             </div>
-            <div class="glass rounded-2xl p-6">
-              <div class="text-4xl lg:text-5xl font-extrabold text-white mb-2">100%</div>
+            <div class="glass rounded-2xl p-6 text-center">
+              <div class="text-4xl lg:text-5xl font-extrabold text-white mb-1">100%</div>
               <div class="text-sm text-slate-400">Client Resolution Rate</div>
             </div>
           </div>
         </div>
       </div>
       
-      <!-- Wave Divider -->
-      <div class="absolute bottom-0 left-0 right-0 overflow-hidden">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-16 fill-slate-50 dark:fill-dark-900">
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z"></path>
-        </svg>
-      </div>
+      <!-- Curved Divider -->
+      <div class="absolute bottom-0 left-0 right-0 h-24 bg-slate-50 dark:bg-slate-900 curve-top"></div>
     </section>
 
-    <!-- Problem/Solution Section -->
-    <section class="py-20 lg:py-32 bg-slate-50 dark:bg-dark-900">
+    <!-- ============ THE CHALLENGE SECTION ============ -->
+    <section class="py-20 lg:py-28 bg-slate-50 dark:bg-slate-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div class="reveal">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-sm font-semibold mb-6">
+          
+          <!-- Left: Problem -->
+          <div class="fade-up">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 text-sm font-semibold mb-6">
+              <!-- Warning Icon -->
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
               The Challenge
             </div>
-            <h2 class="text-3xl lg:text-4xl font-bold mb-6">AI Systems Create New Attack Surfaces</h2>
-            <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">Your organization deploys AI faster than security can keep up. Traditional IR wasn't built for ML threats.</p>
+            <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold mb-6">AI Systems Create Attack Surfaces Traditional Security Can't Handle</h2>
+            <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+              Your organization is deploying AI faster than security teams can adapt. Legacy playbooks weren't designed for machine learning threats—leaving critical gaps attackers exploit.
+            </p>
             
+            <!-- Threat Cards -->
             <div class="space-y-4">
-              <div class="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-dark-800 shadow-sm border border-slate-100 dark:border-slate-700/50">
-                <div class="p-2 rounded-lg bg-amber-100 dark:bg-amber-900/30"><svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
-                <div><h4 class="font-semibold mb-1">Model Poisoning</h4><p class="text-sm text-slate-600 dark:text-slate-400">Corrupted training data causes dangerous model decisions</p></div>
+              <div class="flex items-start gap-4 p-5 rounded-2xl glass-light shadow-lg border border-slate-200/50 dark:border-slate-700/50 hover:border-amber-300 dark:hover:border-amber-500/50 transition-colors">
+                <div class="flex-shrink-0 p-2.5 rounded-xl bg-amber-100 dark:bg-amber-500/20">
+                  <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg mb-1">Model Poisoning</h4>
+                  <p class="text-slate-600 dark:text-slate-400">Attackers corrupt training data, causing AI models to make dangerous, biased, or malicious decisions at scale.</p>
+                </div>
               </div>
-              <div class="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-dark-800 shadow-sm border border-slate-100 dark:border-slate-700/50">
-                <div class="p-2 rounded-lg bg-amber-100 dark:bg-amber-900/30"><svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
-                <div><h4 class="font-semibold mb-1">Prompt Injection</h4><p class="text-sm text-slate-600 dark:text-slate-400">Malicious inputs bypass LLM safeguards</p></div>
+              
+              <div class="flex items-start gap-4 p-5 rounded-2xl glass-light shadow-lg border border-slate-200/50 dark:border-slate-700/50 hover:border-amber-300 dark:hover:border-amber-500/50 transition-colors">
+                <div class="flex-shrink-0 p-2.5 rounded-xl bg-amber-100 dark:bg-amber-500/20">
+                  <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg mb-1">Prompt Injection</h4>
+                  <p class="text-slate-600 dark:text-slate-400">Malicious inputs manipulate LLMs into bypassing safeguards, leaking data, or executing unauthorized actions.</p>
+                </div>
               </div>
-              <div class="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-dark-800 shadow-sm border border-slate-100 dark:border-slate-700/50">
-                <div class="p-2 rounded-lg bg-amber-100 dark:bg-amber-900/30"><svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
-                <div><h4 class="font-semibold mb-1">Adversarial Attacks</h4><p class="text-sm text-slate-600 dark:text-slate-400">Subtle perturbations cause catastrophic failures</p></div>
+              
+              <div class="flex items-start gap-4 p-5 rounded-2xl glass-light shadow-lg border border-slate-200/50 dark:border-slate-700/50 hover:border-amber-300 dark:hover:border-amber-500/50 transition-colors">
+                <div class="flex-shrink-0 p-2.5 rounded-xl bg-amber-100 dark:bg-amber-500/20">
+                  <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg mb-1">Adversarial Attacks</h4>
+                  <p class="text-slate-600 dark:text-slate-400">Subtle input perturbations cause catastrophic misclassifications—invisible to humans, devastating to AI systems.</p>
+                </div>
               </div>
             </div>
           </div>
           
-          <div class="reveal reveal-delay-2">
-            <div class="p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-dark-900 to-dark-800 border border-slate-700/50 glow-cyan">
-              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-500/20 text-accent-400 text-sm font-semibold mb-6">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                Our Solution
-              </div>
-              <h3 class="text-2xl lg:text-3xl font-bold text-white mb-4">AI-IRF: First AI Incident Response Framework</h3>
-              <p class="text-slate-300 mb-8">Purpose-built methodology for AI threats—developed from real incidents at world's largest financial institutions.</p>
-              <div class="space-y-4">
-                <div class="flex items-center gap-3 text-slate-200"><svg class="w-5 h-5 text-accent-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span>AI-specific detection playbooks</span></div>
-                <div class="flex items-center gap-3 text-slate-200"><svg class="w-5 h-5 text-accent-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span>Model integrity verification</span></div>
-                <div class="flex items-center gap-3 text-slate-200"><svg class="w-5 h-5 text-accent-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span>Rapid containment without disruption</span></div>
-                <div class="flex items-center gap-3 text-slate-200"><svg class="w-5 h-5 text-accent-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg><span>Post-incident hardening</span></div>
+          <!-- Right: Solution -->
+          <div class="fade-up delay-200">
+            <div class="relative p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700/50 glow-teal overflow-hidden">
+              <!-- Decorative Glow -->
+              <div class="absolute top-0 right-0 w-40 h-40 bg-teal-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" aria-hidden="true"></div>
+              
+              <div class="relative">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/20 text-teal-400 text-sm font-semibold mb-6">
+                  <!-- Shield Check Icon -->
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  Our Solution
+                </div>
+                
+                <h3 class="text-2xl lg:text-3xl font-bold text-white mb-4">AI-IRF: The Industry's First AI Incident Response Framework</h3>
+                <p class="text-slate-300 mb-8 leading-relaxed">
+                  Purpose-built methodology for detecting, containing, and recovering from AI-specific threats—developed from real-world incidents at the world's largest financial institutions.
+                </p>
+                
+                <ul class="space-y-4">
+                  <li class="flex items-center gap-3 text-slate-200">
+                    <svg class="w-5 h-5 text-teal-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                    <span>AI-specific threat detection playbooks</span>
+                  </li>
+                  <li class="flex items-center gap-3 text-slate-200">
+                    <svg class="w-5 h-5 text-teal-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                    <span>Model integrity verification protocols</span>
+                  </li>
+                  <li class="flex items-center gap-3 text-slate-200">
+                    <svg class="w-5 h-5 text-teal-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                    <span>Rapid containment without business disruption</span>
+                  </li>
+                  <li class="flex items-center gap-3 text-slate-200">
+                    <svg class="w-5 h-5 text-teal-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                    <span>Post-incident hardening recommendations</span>
+                  </li>
+                </ul>
+                
+                <a href="#framework" class="inline-flex items-center gap-2 mt-8 text-teal-400 font-semibold hover:text-teal-300 transition-colors">
+                  Explore the 7-Phase Framework
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
               </div>
             </div>
           </div>
@@ -223,282 +419,425 @@
       </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-20 lg:py-32 bg-white dark:bg-dark-800">
+    <!-- ============ SERVICES SECTION ============ -->
+    <section id="services" class="py-20 lg:py-28 bg-white dark:bg-slate-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 text-sm font-semibold mb-6">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-100 dark:bg-teal-500/20 text-teal-700 dark:text-teal-400 text-sm font-semibold mb-6">
+            <!-- Beaker Icon -->
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
             Services
           </div>
           <h2 class="text-3xl lg:text-5xl font-bold mb-6">Comprehensive AI & Cybersecurity Protection</h2>
-          <p class="text-lg text-slate-600 dark:text-slate-400">From proactive threat hunting to reactive incident response at every stage.</p>
+          <p class="text-lg text-slate-600 dark:text-slate-400">From proactive threat hunting to reactive incident response, we protect your organization at every stage.</p>
         </div>
         
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- AI IR - Featured -->
-          <div class="reveal md:col-span-2 lg:col-span-1 lg:row-span-2 group">
-            <div class="h-full p-8 rounded-3xl bg-gradient-to-br from-accent-500 to-accent-700 text-white relative overflow-hidden transition-all hover:shadow-2xl hover:shadow-accent-500/30 hover:-translate-y-1">
-              <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <!-- Services Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          
+          <!-- AI Incident Response - Featured -->
+          <div class="fade-up md:col-span-2 lg:col-span-1 lg:row-span-2">
+            <div class="h-full p-8 rounded-3xl bg-gradient-to-br from-teal-500 to-teal-700 text-white relative overflow-hidden group hover:shadow-2xl hover:shadow-teal-500/30 transition-all duration-300 hover:-translate-y-1">
+              <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-500" aria-hidden="true"></div>
+              
               <div class="relative">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 text-white/90 text-xs font-semibold mb-6">
-                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                  Flagship
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 text-white/90 text-xs font-semibold mb-6 backdrop-blur-sm">
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                  Flagship Service
                 </div>
+                
+                <!-- Monitor/AI Icon -->
                 <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center mb-6 backdrop-blur-sm">
-                  <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4">AI Incident Response</h3>
-                <p class="text-white/80 mb-8 leading-relaxed">The industry's first comprehensive framework for AI-specific threats. Model poisoning, prompt injection, adversarial attacks—we've built the playbook.</p>
-                <a href="#contact" class="inline-flex items-center gap-2 text-white font-semibold group-hover:gap-3 transition-all">Learn More <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+                
+                <h3 class="text-2xl lg:text-3xl font-bold mb-4">AI Incident Response</h3>
+                <p class="text-white/85 mb-8 leading-relaxed text-lg">
+                  The industry's first comprehensive framework for AI-specific threats. Model poisoning, prompt injection, adversarial attacks—we've built the playbook that didn't exist before.
+                </p>
+                
+                <a href="#contact" class="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all duration-300">
+                  Get Started
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
               </div>
             </div>
           </div>
           
-          <!-- Other Services -->
-          <div class="reveal reveal-delay-1 group">
-            <div class="h-full p-6 rounded-2xl bg-slate-50 dark:bg-dark-700 border border-slate-200 dark:border-slate-600/50 transition-all hover:shadow-xl hover:-translate-y-1 hover:border-accent-300 dark:hover:border-accent-500/50">
-              <div class="w-12 h-12 rounded-xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <!-- Threat Services -->
+          <div class="fade-up delay-100 group">
+            <div class="h-full p-6 lg:p-8 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <!-- Search Icon -->
+              <div class="w-14 h-14 rounded-xl bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-7 h-7 text-teal-600 dark:text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
               </div>
               <h3 class="text-xl font-bold mb-3">Threat Services</h3>
-              <p class="text-slate-600 dark:text-slate-400 mb-5 text-sm leading-relaxed">IR, Threat Hunting, Compromise Assessments, and MDR from frontline veterans.</p>
-              <a href="#contact" class="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 font-medium text-sm hover:gap-3 transition-all">Learn More <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+              <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                Incident Response, Threat Hunting, Compromise Assessments, and Managed Detection & Response from frontline veterans.
+              </p>
+              <a href="#contact" class="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 font-medium hover:gap-3 transition-all duration-300">
+                Learn More
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+              </a>
             </div>
           </div>
           
-          <div class="reveal reveal-delay-2 group">
-            <div class="h-full p-6 rounded-2xl bg-slate-50 dark:bg-dark-700 border border-slate-200 dark:border-slate-600/50 transition-all hover:shadow-xl hover:-translate-y-1 hover:border-accent-300 dark:hover:border-accent-500/50">
-              <div class="w-12 h-12 rounded-xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <!-- Security Assessments -->
+          <div class="fade-up delay-200 group">
+            <div class="h-full p-6 lg:p-8 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <!-- Shield Check Icon -->
+              <div class="w-14 h-14 rounded-xl bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-7 h-7 text-teal-600 dark:text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
               </div>
               <h3 class="text-xl font-bold mb-3">Security Assessments</h3>
-              <p class="text-slate-600 dark:text-slate-400 mb-5 text-sm leading-relaxed">SOC 2, HIPAA, PCI-DSS 4.0, CMMC 2.0 compliance and evaluations.</p>
-              <a href="#contact" class="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 font-medium text-sm hover:gap-3 transition-all">Learn More <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+              <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                Comprehensive evaluations and regulatory compliance for SOC 2, HIPAA, PCI-DSS 4.0, and CMMC 2.0 frameworks.
+              </p>
+              <a href="#contact" class="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 font-medium hover:gap-3 transition-all duration-300">
+                Learn More
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+              </a>
             </div>
           </div>
           
-          <div class="reveal reveal-delay-3 group">
-            <div class="h-full p-6 rounded-2xl bg-slate-50 dark:bg-dark-700 border border-slate-200 dark:border-slate-600/50 transition-all hover:shadow-xl hover:-translate-y-1 hover:border-accent-300 dark:hover:border-accent-500/50">
-              <div class="w-12 h-12 rounded-xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+          <!-- Cloud Security -->
+          <div class="fade-up delay-300 group">
+            <div class="h-full p-6 lg:p-8 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <!-- Cloud Icon -->
+              <div class="w-14 h-14 rounded-xl bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-7 h-7 text-teal-600 dark:text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                </svg>
               </div>
               <h3 class="text-xl font-bold mb-3">Cloud Security</h3>
-              <p class="text-slate-600 dark:text-slate-400 mb-5 text-sm leading-relaxed">AWS, Azure, GCP architecture review and CSPM implementation.</p>
-              <a href="#contact" class="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 font-medium text-sm hover:gap-3 transition-all">Learn More <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+              <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                AWS, Azure, and GCP security architecture review, CSPM implementation, and cloud-native consulting.
+              </p>
+              <a href="#contact" class="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 font-medium hover:gap-3 transition-all duration-300">
+                Learn More
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+              </a>
             </div>
           </div>
           
-          <div class="reveal reveal-delay-4 group">
-            <div class="h-full p-6 rounded-2xl bg-slate-50 dark:bg-dark-700 border border-slate-200 dark:border-slate-600/50 transition-all hover:shadow-xl hover:-translate-y-1 hover:border-accent-300 dark:hover:border-accent-500/50">
-              <div class="w-12 h-12 rounded-xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <!-- Solution Deployment -->
+          <div class="fade-up delay-400 group">
+            <div class="h-full p-6 lg:p-8 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <!-- Cog Icon -->
+              <div class="w-14 h-14 rounded-xl bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-7 h-7 text-teal-600 dark:text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                  <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
               </div>
               <h3 class="text-xl font-bold mb-3">Solution Deployment</h3>
-              <p class="text-slate-600 dark:text-slate-400 mb-5 text-sm leading-relaxed">SIEM/SOAR config and managed security services.</p>
-              <a href="#contact" class="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 font-medium text-sm hover:gap-3 transition-all">Learn More <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+              <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                Security tool implementation, SIEM/SOAR configuration, and managed security services tailored to you.
+              </p>
+              <a href="#contact" class="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 font-medium hover:gap-3 transition-all duration-300">
+                Learn More
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+              </a>
             </div>
           </div>
           
-          <div class="reveal reveal-delay-5 group">
-            <div class="h-full p-6 rounded-2xl bg-slate-50 dark:bg-dark-700 border border-slate-200 dark:border-slate-600/50 transition-all hover:shadow-xl hover:-translate-y-1 hover:border-accent-300 dark:hover:border-accent-500/50">
-              <div class="w-12 h-12 rounded-xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <!-- Adversarial Testing -->
+          <div class="fade-up delay-400 group">
+            <div class="h-full p-6 lg:p-8 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <!-- Lock Icon -->
+              <div class="w-14 h-14 rounded-xl bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-7 h-7 text-teal-600 dark:text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
               </div>
               <h3 class="text-xl font-bold mb-3">Adversarial Testing</h3>
-              <p class="text-slate-600 dark:text-slate-400 mb-5 text-sm leading-relaxed">Pen testing, red team, purple team engagements.</p>
-              <a href="#contact" class="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 font-medium text-sm hover:gap-3 transition-all">Learn More <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+              <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                Penetration testing, red team exercises, and purple team engagements to validate your security posture.
+              </p>
+              <a href="#contact" class="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 font-medium hover:gap-3 transition-all duration-300">
+                Learn More
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+              </a>
             </div>
           </div>
+          
         </div>
       </div>
     </section>
 
-    <!-- Why Lydell Section -->
-    <section id="why-lydell" class="py-20 lg:py-32 bg-slate-50 dark:bg-dark-900 relative overflow-hidden">
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl"></div>
+    <!-- ============ AI-IRF FRAMEWORK SECTION ============ -->
+    <section id="framework" class="py-20 lg:py-28 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
+      <!-- Background Decoration -->
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-1/3 right-0 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[100px]"></div>
       </div>
       
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          <div class="reveal">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 text-sm font-semibold mb-6">
+          
+          <!-- Left: Content -->
+          <div class="fade-up">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-100 dark:bg-teal-500/20 text-teal-700 dark:text-teal-400 text-sm font-semibold mb-6">
+              <!-- Badge Icon -->
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
               Why Lydell
             </div>
-            <h2 class="text-3xl lg:text-4xl font-bold mb-6">Battle-Tested Expertise You Can Trust</h2>
-            <p class="text-lg text-slate-600 dark:text-slate-400 mb-10">We've defended the world's most critical financial infrastructure against sophisticated adversaries.</p>
+            <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold mb-6">Battle-Tested Expertise You Can Trust</h2>
+            <p class="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed">
+              We don't just understand security theory—we've defended the world's most critical financial infrastructure against sophisticated adversaries.
+            </p>
             
-            <div class="space-y-6">
+            <!-- Expertise Points -->
+            <div class="space-y-8">
               <div class="flex gap-5">
-                <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center shadow-lg shadow-accent-500/30">
+                <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/30">
                   <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 <div>
                   <h4 class="text-xl font-bold mb-2">Fortune 500 Veterans</h4>
-                  <p class="text-slate-600 dark:text-slate-400">Truist, SunTrust, ICE/NYSE, Federal Reserve Bank of Atlanta—protecting trillions in assets.</p>
+                  <p class="text-slate-600 dark:text-slate-400">Direct experience at Truist, SunTrust, ICE/NYSE, and Federal Reserve Bank of Atlanta—protecting trillions in assets.</p>
                 </div>
               </div>
+              
               <div class="flex gap-5">
-                <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center shadow-lg shadow-accent-500/30">
+                <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/30">
                   <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
                 </div>
                 <div>
                   <h4 class="text-xl font-bold mb-2">AI-First Approach</h4>
-                  <p class="text-slate-600 dark:text-slate-400">3+ years AI/ML security research. Industry's first AI-IRF while others catch up.</p>
+                  <p class="text-slate-600 dark:text-slate-400">3+ years dedicated to AI/ML security research. We built the industry's first AI-IRF while others are still catching up.</p>
                 </div>
               </div>
+              
               <div class="flex gap-5">
-                <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center shadow-lg shadow-accent-500/30">
+                <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/30">
                   <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
                 </div>
                 <div>
                   <h4 class="text-xl font-bold mb-2">GREM Certified</h4>
-                  <p class="text-slate-600 dark:text-slate-400">SANS Institute certified reverse engineering malware—defeating advanced threats.</p>
+                  <p class="text-slate-600 dark:text-slate-400">SANS Institute certified in reverse engineering malware—validated expertise defeating advanced threats.</p>
                 </div>
               </div>
             </div>
           </div>
           
-          <!-- AI-IRF Framework -->
-          <div class="reveal reveal-delay-2">
-            <div class="p-8 rounded-3xl bg-white dark:bg-dark-800 border border-slate-200 dark:border-slate-700 shadow-xl">
+          <!-- Right: 7-Phase Framework -->
+          <div class="fade-up delay-200">
+            <div class="p-8 rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl">
               <div class="text-center mb-8">
-                <h3 class="text-xl font-bold text-accent-600 dark:text-accent-400 mb-2">AI-IRF Framework</h3>
-                <p class="text-sm text-slate-600 dark:text-slate-400">7-Phase Incident Response Methodology</p>
+                <h3 class="text-xl font-bold text-teal-600 dark:text-teal-400 mb-2">AI-IRF Framework</h3>
+                <p class="text-slate-600 dark:text-slate-400">Our 7-Phase Incident Response Methodology</p>
               </div>
-              <div class="space-y-3">
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-dark-700 border border-slate-100 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-colors">
-                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white font-bold text-sm shadow-md">1</div>
-                  <div><span class="font-semibold">Preparation</span><span class="text-slate-500 dark:text-slate-400 text-sm ml-2">AI asset inventory & threat modeling</span></div>
-                </div>
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-dark-700 border border-slate-100 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-colors">
-                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white font-bold text-sm shadow-md">2</div>
-                  <div><span class="font-semibold">Detection</span><span class="text-slate-500 dark:text-slate-400 text-sm ml-2">AI-specific anomaly monitoring</span></div>
-                </div>
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-dark-700 border border-slate-100 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-colors">
-                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white font-bold text-sm shadow-md">3</div>
-                  <div><span class="font-semibold">Analysis</span><span class="text-slate-500 dark:text-slate-400 text-sm ml-2">Model behavior forensics</span></div>
-                </div>
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-dark-700 border border-slate-100 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-colors">
-                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white font-bold text-sm shadow-md">4</div>
-                  <div><span class="font-semibold">Containment</span><span class="text-slate-500 dark:text-slate-400 text-sm ml-2">Isolate without disruption</span></div>
-                </div>
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-dark-700 border border-slate-100 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-colors">
-                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white font-bold text-sm shadow-md">5</div>
-                  <div><span class="font-semibold">Eradication</span><span class="text-slate-500 dark:text-slate-400 text-sm ml-2">Remove threat vectors</span></div>
-                </div>
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-dark-700 border border-slate-100 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-colors">
-                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white font-bold text-sm shadow-md">6</div>
-                  <div><span class="font-semibold">Recovery</span><span class="text-slate-500 dark:text-slate-400 text-sm ml-2">Safe model restoration</span></div>
-                </div>
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-dark-700 border border-slate-100 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-colors">
-                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white font-bold text-sm shadow-md">7</div>
-                  <div><span class="font-semibold">Lessons Learned</span><span class="text-slate-500 dark:text-slate-400 text-sm ml-2">Continuous improvement</span></div>
-                </div>
-              </div>
+              
+              <ol class="space-y-3">
+                <li class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-200 group">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">1</div>
+                  <div><span class="font-semibold">Preparation</span> <span class="text-slate-500 dark:text-slate-400 text-sm">— AI asset inventory & threat modeling</span></div>
+                </li>
+                <li class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-200 group">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">2</div>
+                  <div><span class="font-semibold">Detection</span> <span class="text-slate-500 dark:text-slate-400 text-sm">— AI-specific anomaly monitoring</span></div>
+                </li>
+                <li class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-200 group">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">3</div>
+                  <div><span class="font-semibold">Analysis</span> <span class="text-slate-500 dark:text-slate-400 text-sm">— Model behavior forensics</span></div>
+                </li>
+                <li class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-200 group">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">4</div>
+                  <div><span class="font-semibold">Containment</span> <span class="text-slate-500 dark:text-slate-400 text-sm">— Isolate without disruption</span></div>
+                </li>
+                <li class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-200 group">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">5</div>
+                  <div><span class="font-semibold">Eradication</span> <span class="text-slate-500 dark:text-slate-400 text-sm">— Remove threat vectors</span></div>
+                </li>
+                <li class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-200 group">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">6</div>
+                  <div><span class="font-semibold">Recovery</span> <span class="text-slate-500 dark:text-slate-400 text-sm">— Safe model restoration</span></div>
+                </li>
+                <li class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600/50 hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-200 group">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:scale-110 transition-transform">7</div>
+                  <div><span class="font-semibold">Lessons Learned</span> <span class="text-slate-500 dark:text-slate-400 text-sm">— Continuous improvement</span></div>
+                </li>
+              </ol>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Credentials Section -->
-    <section id="credentials" class="py-20 lg:py-32 bg-white dark:bg-dark-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 text-sm font-semibold mb-6">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-            Credentials
-          </div>
-          <h2 class="text-3xl lg:text-5xl font-bold mb-6">Expertise You Can Verify</h2>
-          <p class="text-lg text-slate-600 dark:text-slate-400">Our certifications and experience form the foundation of everything we do.</p>
-        </div>
-        
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <div class="reveal text-center p-8 rounded-2xl bg-slate-50 dark:bg-dark-700 border border-slate-200 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-all hover:shadow-xl hover:-translate-y-1">
-            <div class="w-16 h-16 rounded-2xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mx-auto mb-5">
-              <svg class="w-8 h-8 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-            </div>
-            <h4 class="text-xl font-bold mb-2">GREM Certified</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">SANS Reverse Engineering Malware</p>
-          </div>
-          <div class="reveal reveal-delay-1 text-center p-8 rounded-2xl bg-slate-50 dark:bg-dark-700 border border-slate-200 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-all hover:shadow-xl hover:-translate-y-1">
-            <div class="w-16 h-16 rounded-2xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mx-auto mb-5">
-              <svg class="w-8 h-8 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-            </div>
-            <h4 class="text-xl font-bold mb-2">Fortune 500</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">Truist, ICE/NYSE, Fed Reserve</p>
-          </div>
-          <div class="reveal reveal-delay-2 text-center p-8 rounded-2xl bg-slate-50 dark:bg-dark-700 border border-slate-200 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-all hover:shadow-xl hover:-translate-y-1">
-            <div class="w-16 h-16 rounded-2xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mx-auto mb-5">
-              <svg class="w-8 h-8 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </div>
-            <h4 class="text-xl font-bold mb-2">20+ Years</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">Critical Infrastructure Defense</p>
-          </div>
-          <div class="reveal reveal-delay-3 text-center p-8 rounded-2xl bg-slate-50 dark:bg-dark-700 border border-slate-200 dark:border-slate-600/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-all hover:shadow-xl hover:-translate-y-1">
-            <div class="w-16 h-16 rounded-2xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mx-auto mb-5">
-              <svg class="w-8 h-8 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            </div>
-            <h4 class="text-xl font-bold mb-2">AI-IRF Pioneer</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">First AI IR Framework</p>
-          </div>
-        </div>
-        
-        <!-- Compliance Badges -->
-        <div class="reveal flex flex-wrap justify-center items-center gap-8 pt-8 border-t border-slate-200 dark:border-slate-700">
-          <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400"><svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg><span class="font-medium">SOC 2</span></div>
-          <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400"><svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg><span class="font-medium">HIPAA</span></div>
-          <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400"><svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg><span class="font-medium">PCI-DSS 4.0</span></div>
-          <div class="flex items-center gap-3 text-slate-500 dark:text-slate-400"><svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg><span class="font-medium">CMMC 2.0</span></div>
+A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                <div class="absolute top-4 left-4">
+                  <span class="px-3 py-1.5 rounded-lg bg-emerald-500 text-white text-xs font-semibold uppercase tracking-wide">Framework</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
+                  <span>December 2025</span>
+                  <span>•</span>
+                  <span>10 min read</span>
+                </div>
+                <h3 class="text-xl font-bold mb-3 group-hover:text-teal-500 transition-colors">Building an AI Security Maturity Model</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">A practical approach using our seven-phase methodology to assess and improve your AI security posture.</p>
+                <span class="inline-flex items-center gap-2 text-teal-600 dark:text-teal-400 font-medium text-sm group-hover:gap-3 transition-all duration-300">
+                  Read More
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </span>
+              </div>
+            </a>
+          </article>
+          
         </div>
       </div>
     </section>
 
-    <!-- Testimonial Section -->
-    <section class="py-20 lg:py-32 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900 relative overflow-hidden">
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl"></div>
+    <!-- ============ CTA / CONTACT SECTION ============ -->
+    <section id="contact" class="py-20 lg:py-28 bg-gradient-to-br from-teal-600 via-teal-500 to-teal-700 relative overflow-hidden">
+      <!-- Background Decoration -->
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full blur-[80px] translate-x-1/3 translate-y-1/3"></div>
       </div>
-      <div class="absolute top-10 left-10 text-[200px] font-serif text-white/[0.03] leading-none pointer-events-none select-none">"</div>
       
-      <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
-        <blockquote class="text-2xl lg:text-3xl xl:text-4xl font-medium text-white leading-relaxed mb-10">
-          "The Lydell Security team always improves and fixes problems very quickly. Their extensive experience and competency are impressive and top-notch! When our AI systems faced unexpected threats, they had a framework ready while others were scrambling."
-        </blockquote>
-        <div class="flex items-center justify-center gap-4">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center text-white font-bold text-xl">SC</div>
-          <div class="text-left">
-            <div class="text-white font-semibold text-lg">Steve Callahan</div>
-            <div class="text-slate-400">VP of IT Operations</div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          
+          <!-- Left: CTA Content -->
+          <div class="fade-up text-white">
+            <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold mb-6">Ready to Secure Your AI Future?</h2>
+            <p class="text-xl text-white/85 mb-8 leading-relaxed">
+              Whether you're facing an active incident or building your AI security strategy from the ground up, we're here to help. Get a free assessment of your current posture.
+            </p>
+            
+            <!-- Contact Info -->
+            <div class="space-y-4 mb-8">
+              <a href="tel:+17702439064" class="flex items-center gap-4 text-white/90 hover:text-white transition-colors group">
+                <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                </div>
+                <div>
+                  <div class="text-sm text-white/60">24/7 Incident Hotline</div>
+                  <div class="text-lg font-semibold">770-243-9064</div>
+                </div>
+              </a>
+              
+              <a href="mailto:info@lydellsecurity.com" class="flex items-center gap-4 text-white/90 hover:text-white transition-colors group">
+                <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                  <div class="text-sm text-white/60">Email Us</div>
+                  <div class="text-lg font-semibold">info@lydellsecurity.com</div>
+                </div>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Right: Contact Form -->
+          <div class="fade-up delay-200">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-2xl">
+              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Get Your Free Assessment</h3>
+              <p class="text-slate-600 dark:text-slate-400 mb-6">Fill out the form and we'll reach out within 24 hours.</p>
+              
+              <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-5">
+                <input type="hidden" name="form-name" value="contact">
+                <p class="hidden" aria-hidden="true"><label>Don't fill this out: <input name="bot-field" tabindex="-1"></label></p>
+                
+                <div>
+                  <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Full Name <span class="text-red-500">*</span></label>
+                  <input type="text" id="name" name="name" required autocomplete="name" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all" placeholder="John Smith">
+                </div>
+                
+                <div>
+                  <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Work Email <span class="text-red-500">*</span></label>
+                  <input type="email" id="email" name="email" required autocomplete="email" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all" placeholder="john@company.com">
+                </div>
+                
+                <div>
+                  <label for="company" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Company</label>
+                  <input type="text" id="company" name="company" autocomplete="organization" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all" placeholder="Your Company">
+                </div>
+                
+                <div>
+                  <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">How can we help?</label>
+                  <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all resize-none" placeholder="Tell us about your AI security challenges or current incident..."></textarea>
+                </div>
+                
+                <div class="flex items-start gap-3">
+                  <input type="checkbox" id="urgent" name="urgent" class="mt-1 w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-teal-500 focus:ring-teal-500 bg-white dark:bg-slate-700">
+                  <label for="urgent" class="text-sm text-slate-600 dark:text-slate-400">This is an urgent incident requiring immediate 24/7 response</label>
+                </div>
+                
+                <button type="submit" class="w-full px-8 py-4 bg-teal-500 hover:bg-teal-400 text-white text-lg font-semibold rounded-xl shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                  Request Free Assessment
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </section>
-><a href="#services" class="hover:text-accent-400 transition-colors">Cloud Security</a></li>
+    
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-slate-900 text-slate-400 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-12">
+        
+        <!-- Brand -->
+        <div class="lg:col-span-1">
+          <a href="#" class="flex items-center gap-3 mb-6">
+            <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <rect width="40" height="40" rx="10" fill="#fff"/>
+              <path d="M20 7l11 5.5v11c0 6.05-4.675 11.688-11 13.75-6.325-2.062-11-7.7-11-13.75v-11L20 7z" fill="#14b8a6"/>
+              <path d="M20 12l6 3v6c0 3.3-2.55 6.375-6 7.5-3.45-1.125-6-4.2-6-7.5v-6l6-3z" fill="#fff"/>
+            </svg>
+            <span class="text-xl font-bold text-white">Lydell Security</span>
+          </a>
+          <p class="text-sm leading-relaxed mb-4">The AI Incident Response Authority. 20+ years Fortune 500 experience protecting critical infrastructure.</p>
+        </div>
+        
+        <!-- Services -->
+        <div>
+          <h5 class="text-white font-semibold mb-4">Services</h5>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#services" class="hover:text-teal-400 transition-colors">AI Incident Response</a></li>
+            <li><a href="#services" class="hover:text-teal-400 transition-colors">Threat Services</a></li>
+            <li><a href="#services" class="hover:text-teal-400 transition-colors">Security Assessments</a></li>
+            <li><a href="#services" class="hover:text-teal-400 transition-colors">Cloud Security</a></li>
           </ul>
         </div>
         
+        <!-- Company -->
         <div>
           <h5 class="text-white font-semibold mb-4">Company</h5>
           <ul class="space-y-3 text-sm">
-            <li><a href="#why-lydell" class="hover:text-accent-400 transition-colors">About Us</a></li>
-            <li><a href="#credentials" class="hover:text-accent-400 transition-colors">Credentials</a></li>
-            <li><a href="#insights" class="hover:text-accent-400 transition-colors">Insights</a></li>
-            <li><a href="#contact" class="hover:text-accent-400 transition-colors">Contact</a></li>
+            <li><a href="#why-us" class="hover:text-teal-400 transition-colors">About Us</a></li>
+            <li><a href="#framework" class="hover:text-teal-400 transition-colors">AI-IRF Framework</a></li>
+            <li><a href="#insights" class="hover:text-teal-400 transition-colors">Insights</a></li>
+            <li><a href="#contact" class="hover:text-teal-400 transition-colors">Contact</a></li>
           </ul>
         </div>
         
+        <!-- Contact -->
         <div>
           <h5 class="text-white font-semibold mb-4">Contact</h5>
           <ul class="space-y-3 text-sm">
-            <li><a href="tel:+17702439064" class="hover:text-accent-400 transition-colors">770-243-9064</a></li>
-            <li><a href="mailto:info@lydellsecurity.com" class="hover:text-accent-400 transition-colors">info@lydellsecurity.com</a></li>
-            <li class="pt-4">
-              <a href="https://www.linkedin.com/company/lydell-security-llc" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-slate-400 hover:text-accent-400 transition-colors">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <li><a href="tel:+17702439064" class="hover:text-teal-400 transition-colors">770-243-9064</a></li>
+            <li><a href="mailto:info@lydellsecurity.com" class="hover:text-teal-400 transition-colors">info@lydellsecurity.com</a></li>
+            <li class="pt-2">
+              <a href="https://www.linkedin.com/company/lydell-security-llc" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-teal-400 transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 LinkedIn
               </a>
             </li>
@@ -506,54 +845,70 @@
         </div>
       </div>
       
+      <!-- Bottom Bar -->
       <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
         <p class="text-sm">&copy; 2026 Lydell Security LLC. All rights reserved.</p>
         <div class="flex items-center gap-6 text-sm">
-          <a href="#" class="hover:text-accent-400 transition-colors">Privacy Policy</a>
-          <a href="#" class="hover:text-accent-400 transition-colors">Terms of Service</a>
+          <a href="#" class="hover:text-teal-400 transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-teal-400 transition-colors">Terms of Service</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- JavaScript -->
+  <!-- ============ JAVASCRIPT ============ -->
   <script>
-    // Dark mode toggle
+    // ===== Dark Mode Toggle =====
     const html = document.documentElement;
-    const themeToggle = document.getElementById('themeToggle');
+    const themeToggle = document.getElementById('theme-toggle');
     
-    // Check system preference and localStorage
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    // Check for saved theme or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
       html.classList.add('dark');
     }
     
     themeToggle.addEventListener('click', () => {
       html.classList.toggle('dark');
-      localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
     });
     
-    // Mobile menu
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    let menuOpen = false;
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        html.classList.toggle('dark', e.matches);
+      }
+    });
+    
+    // ===== Mobile Menu =====
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let isMenuOpen = false;
     
     mobileMenuBtn.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      mobileMenu.style.transform = menuOpen ? 'translateX(0)' : 'translateX(100%)';
-      mobileMenuBtn.setAttribute('aria-expanded', menuOpen);
+      isMenuOpen = !isMenuOpen;
+      mobileMenu.style.transform = isMenuOpen ? 'translateX(0)' : 'translateX(100%)';
+      mobileMenuBtn.setAttribute('aria-expanded', isMenuOpen);
     });
     
-    // Close mobile menu on link click
-    document.querySelectorAll('.mobile-link').forEach(link => {
+    // Close menu on nav link click
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        menuOpen = false;
+        isMenuOpen = false;
         mobileMenu.style.transform = 'translateX(100%)';
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
       });
     });
     
-    // Scroll reveal animation
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver((entries) => {
+    // ===== Scroll Animations (IntersectionObserver) =====
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -60px 0px'
+    };
+    
+    const fadeObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
@@ -561,31 +916,41 @@
       });
     }, observerOptions);
     
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
     
-    // Header background on scroll
-    const header = document.getElementById('header');
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset;
-      if (currentScroll > 50) {
-        header.classList.add('shadow-lg');
-      } else {
-        header.classList.remove('shadow-lg');
-      }
-      lastScroll = currentScroll;
-    }, { passive: true });
-    
-    // Smooth scroll for anchor links
+    // ===== Smooth Scroll =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const headerOffset = 80;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
         }
       });
     });
+    
+    // ===== Header Shadow on Scroll =====
+    const header = document.getElementById('header');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 50) {
+        header.classList.add('shadow-xl', 'shadow-black/10');
+      } else {
+        header.classList.remove('shadow-xl', 'shadow-black/10');
+      }
+      
+      lastScroll = currentScroll;
+    }, { passive: true });
   </script>
 </body>
 </html>
