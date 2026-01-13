@@ -6,12 +6,10 @@ import InitiateIRButton from './InitiateIRButton';
 import ThemeToggle from './ThemeToggle';
 
 /**
- * HeroSection - 2026 Agentic Era
+ * HeroSection - 2026 Paper & Steel Edition
  * 
- * Aggressive, kinetic design emphasizing:
- * - Live network visualization
- * - Zero-dwell response messaging
- * - Digital sovereignty restoration
+ * Dark Mode: Original obsidian aesthetic
+ * Light Mode: High-contrast "Paper & Steel" with glassmorphism
  */
 const HeroSection = () => {
   const { theme } = useTheme();
@@ -24,8 +22,6 @@ const HeroSection = () => {
   
   useEffect(() => {
     setMounted(true);
-    
-    // Simulate live stat updates
     const interval = setInterval(() => {
       setStats(prev => ({
         containment: Math.max(30, Math.min(60, prev.containment + (Math.random() - 0.5) * 5)),
@@ -33,170 +29,146 @@ const HeroSection = () => {
         uptime: 99.97
       }));
     }, 5000);
-    
     return () => clearInterval(interval);
   }, []);
   
+  const isDark = theme === 'dark';
+  
   return (
-    <section className={`
-      relative min-h-screen overflow-hidden
-      ${theme === 'dark' ? 'bg-obsidian' : 'bg-slate-200'}
-    `}>
-      {/* Live Network Map Background - z-0 so it's behind everything */}
+    <section className={`relative min-h-screen overflow-hidden ${isDark ? 'bg-obsidian' : 'bg-paper'}`}>
+      {/* Live Network Map Background */}
       <LiveNetworkMap className="z-0" />
       
-      {/* Gradient overlays - z-10, pointer-events-none so they don't block canvas */}
-      <div className={`
-        absolute inset-0 z-10 pointer-events-none
-        ${theme === 'dark'
+      {/* Gradient overlays */}
+      <div className={`absolute inset-0 z-10 pointer-events-none ${
+        isDark
           ? 'bg-gradient-to-b from-obsidian/50 via-transparent to-obsidian/80'
-          : 'bg-gradient-to-b from-slate-200/40 via-transparent to-slate-200/70'
-        }
-      `} />
-      <div className={`
-        absolute inset-0 z-10 pointer-events-none
-        ${theme === 'dark'
+          : 'bg-gradient-to-b from-paper/60 via-paper/30 to-paper/80'
+      }`} />
+      <div className={`absolute inset-0 z-10 pointer-events-none ${
+        isDark
           ? 'bg-gradient-to-r from-obsidian/50 via-transparent to-obsidian/50'
-          : 'bg-gradient-to-r from-slate-200/30 via-transparent to-slate-200/30'
-        }
-      `} />
+          : 'bg-gradient-to-r from-paper/40 via-transparent to-paper/40'
+      }`} />
       
-      {/* Content - z-20 but with pointer-events-none on container, pointer-events-auto on interactive elements */}
+      {/* Content wrapper - pointer-events-none to allow network map interaction */}
       <div className="relative z-20 max-w-7xl mx-auto px-6 py-8 pointer-events-none">
-        {/* Navigation - needs pointer events */}
+        
+        {/* Navigation */}
         <nav className="flex justify-between items-center mb-16 md:mb-24 pointer-events-auto">
           <Link to="/" className="flex items-center gap-4 group">
-            <div className={`
-              w-10 h-10 border flex items-center justify-center transition-colors duration-300
-              ${theme === 'dark' 
+            <div className={`w-10 h-10 border flex items-center justify-center transition-colors duration-300 ${
+              isDark 
                 ? 'border-cobalt-500/50 group-hover:border-cobalt-400' 
-                : 'border-cobalt-600/50 group-hover:border-cobalt-500'
-              }
-            `}>
-              <div className={`w-4 h-4 ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-cobalt-600'}`} />
+                : 'border-cobalt-700 group-hover:border-cobalt-600'
+            }`}>
+              <div className={`w-4 h-4 ${isDark ? 'bg-cobalt-500' : 'bg-cobalt-700'}`} />
             </div>
-            <span className={`
-              font-mono text-lg tracking-widest
-              ${theme === 'dark' ? 'text-white' : 'text-slate-900'}
-            `}>
-              LYDELL<span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>SECURITY</span>
+            <span className={`font-mono text-lg tracking-widest ${isDark ? 'text-white' : 'text-ink'}`}>
+              LYDELL<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>SECURITY</span>
             </span>
           </Link>
           
           <div className="flex items-center gap-6">
-            {/* Live status */}
+            {/* Live status indicator */}
             <div className="hidden md:flex items-center gap-2">
               <div className="relative">
                 <div className="w-2 h-2 rounded-full bg-emerald-500" />
                 <div className="absolute inset-0 w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
               </div>
-              <span className={`font-mono text-xs ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+              <span className={`font-mono text-xs ${isDark ? 'text-slate-400' : 'text-ink-muted'}`}>
                 THREAT GRID ACTIVE
               </span>
             </div>
             
-            <div className={`hidden md:block h-4 w-px ${theme === 'dark' ? 'bg-slate-700' : 'bg-slate-300'}`} />
+            <div className={`hidden md:block h-4 w-px ${isDark ? 'bg-slate-700' : 'bg-stroke-strong'}`} />
             
-            {/* Navigation links */}
-            <nav className="hidden md:flex gap-6 text-sm">
-              <Link 
-                to="/response" 
-                className={`transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
-              >
-                Response
-              </Link>
-              <Link 
-                to="/methodology" 
-                className={`transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
-              >
-                Methodology
-              </Link>
-              <Link 
-                to="/pedigree" 
-                className={`transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
-              >
-                Pedigree
-              </Link>
-              <Link 
-                to="/contact" 
-                className={`transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
-              >
-                Contact
-              </Link>
+            {/* Nav links */}
+            <nav className="hidden md:flex items-center gap-6">
+              {['Response', 'Methodology', 'Intel', 'Pedigree'].map((item) => (
+                <Link 
+                  key={item}
+                  to={`/${item.toLowerCase()}`} 
+                  className={`text-sm font-medium transition-colors ${
+                    isDark ? 'text-slate-400 hover:text-white' : 'text-ink-muted hover:text-ink'
+                  }`}
+                >
+                  {item}
+                </Link>
+              ))}
             </nav>
             
-            <div className={`hidden md:block h-4 w-px ${theme === 'dark' ? 'bg-slate-700' : 'bg-slate-300'}`} />
-            
-            {/* Theme toggle */}
+            <div className={`hidden md:block h-4 w-px ${isDark ? 'bg-slate-700' : 'bg-stroke-strong'}`} />
             <ThemeToggle />
           </div>
         </nav>
         
         {/* Main content grid */}
         <div className="grid lg:grid-cols-[1fr,420px] gap-12 lg:gap-16 items-start pointer-events-auto">
-          {/* Left column - Main messaging with visible gradient backdrop in light mode */}
+          
+          {/* Left column - Glass card container */}
           <div className={`
-            transition-all duration-1000 delay-300 p-8 -m-8 rounded-3xl
+            transition-all duration-1000 delay-300 p-8 rounded-2xl
             ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-            ${theme === 'dark' 
-              ? '' 
-              : 'bg-gradient-to-br from-white via-white/95 to-slate-100/90 shadow-xl shadow-slate-300/50 border border-white/50'
+            ${isDark 
+              ? 'bg-obsidian/40 backdrop-blur-sm' 
+              : 'glass-card-strong'
             }
           `}>
             {/* Threat level indicator */}
             <div className={`
               inline-flex items-center gap-3 px-4 py-2 rounded-full mb-8
-              ${theme === 'dark' ? 'bg-red-950/50 border border-red-500/30' : 'bg-red-100 border border-red-300'}
+              ${isDark 
+                ? 'bg-red-950/50 border border-red-500/30' 
+                : 'bg-emergency-light border border-emergency-medium'
+              }
             `}>
               <div className="relative">
-                <div className="w-2 h-2 rounded-full bg-red-500" />
-                <div className="absolute inset-0 w-2 h-2 rounded-full bg-red-500 animate-ping" />
+                <div className={`w-2 h-2 rounded-full ${isDark ? 'bg-red-500' : 'bg-emergency-vivid'}`} />
+                <div className={`absolute inset-0 w-2 h-2 rounded-full animate-ping ${isDark ? 'bg-red-500' : 'bg-emergency-vivid'}`} />
               </div>
-              <span className={`font-mono text-xs tracking-wider ${theme === 'dark' ? 'text-red-400' : 'text-red-700'}`}>
+              <span className={`font-mono text-xs tracking-wider font-semibold ${
+                isDark ? 'text-red-400' : 'text-emergency-deep'
+              }`}>
                 GLOBAL THREAT LEVEL: ELEVATED
               </span>
             </div>
             
             {/* Eyebrow */}
             <div className="flex items-center gap-4 mb-6">
-              <div className={`h-px w-12 ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-blue-700'}`} />
-              <span className={`
-                font-mono text-xs tracking-[0.2em] uppercase
-                ${theme === 'dark' ? 'text-cobalt-400' : 'text-blue-700'}
-              `}>
+              <div className={`h-px w-12 ${isDark ? 'bg-cobalt-500' : 'bg-cobalt-700'}`} />
+              <span className={`font-mono text-xs tracking-[0.2em] uppercase font-semibold ${
+                isDark ? 'text-cobalt-400' : 'text-cobalt-700'
+              }`}>
                 Agentic Incident Response
               </span>
             </div>
             
-            {/* Headline - Aggressive, kinetic */}
-            <h1 className={`
-              text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] mb-8
-              ${theme === 'dark' ? 'text-white' : 'text-slate-900'}
-            `}>
+            {/* Headline - Ink Black in light mode */}
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] mb-8 ${
+              isDark ? 'text-white' : 'text-ink'
+            }`}>
               <span className="block">Adversaries Neutralized.</span>
-              <span className={`block ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+              <span className={`block ${isDark ? 'text-slate-400' : 'text-ink-muted'}`}>
                 Sovereignty Restored.
               </span>
               <span className="block relative">
-                <span className={theme === 'dark' ? 'text-cobalt-400' : 'text-blue-700'}>
+                <span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>
                   In Minutes.
                 </span>
-                <span className={`
-                  absolute -bottom-2 left-0 w-32 h-1
-                  ${theme === 'dark' 
+                <span className={`absolute -bottom-2 left-0 w-32 h-1 ${
+                  isDark 
                     ? 'bg-gradient-to-r from-cobalt-500 to-transparent' 
-                    : 'bg-gradient-to-r from-blue-700 to-transparent'
-                  }
-                `} />
+                    : 'bg-gradient-to-r from-cobalt-700 to-transparent'
+                }`} />
               </span>
             </h1>
             
-            {/* Subhead - Value prop */}
-            <p className={`
-              text-lg md:text-xl max-w-xl mb-10 leading-relaxed
-              ${theme === 'dark' ? 'text-slate-400' : 'text-slate-700'}
-            `}>
-              While others assess, we <strong className={theme === 'dark' ? 'text-white' : 'text-slate-900'}>eradicate</strong>. 
+            {/* Subhead */}
+            <p className={`text-lg md:text-xl max-w-xl mb-10 leading-relaxed ${
+              isDark ? 'text-slate-400' : 'text-ink-body'
+            }`}>
+              While others assess, we <strong className={isDark ? 'text-white' : 'text-ink'}>eradicate</strong>. 
               Our agentic AI systems hunt, contain, and neutralize threats at machine speed—restoring 
               your digital sovereignty before the damage compounds.
             </p>
@@ -206,10 +178,10 @@ const HeroSection = () => {
               <Link
                 to="/response"
                 className={`
-                  px-8 py-4 font-mono text-sm tracking-wider transition-all duration-300
-                  ${theme === 'dark'
+                  px-8 py-4 font-mono text-sm tracking-wider transition-all duration-300 rounded-lg
+                  ${isDark
                     ? 'bg-cobalt-500 hover:bg-cobalt-400 text-white border border-cobalt-400/30'
-                    : 'bg-cobalt-600 hover:bg-cobalt-500 text-white border border-cobalt-500/30'
+                    : 'bg-gradient-to-r from-cobalt-600 to-cobalt-700 hover:from-cobalt-700 hover:to-cobalt-800 text-white border border-cobalt-800 shadow-cobalt-glow'
                   }
                 `}
               >
@@ -218,10 +190,10 @@ const HeroSection = () => {
               <Link
                 to="/methodology"
                 className={`
-                  px-8 py-4 font-mono text-sm tracking-wider transition-all duration-300
-                  ${theme === 'dark'
+                  px-8 py-4 font-mono text-sm tracking-wider transition-all duration-300 rounded-lg
+                  ${isDark
                     ? 'bg-transparent hover:bg-slate-800/50 text-slate-300 border border-slate-600 hover:border-slate-500'
-                    : 'bg-transparent hover:bg-slate-100 text-slate-700 border border-slate-300 hover:border-slate-400'
+                    : 'bg-white/80 hover:bg-white text-ink border border-stroke-strong hover:border-ink-muted shadow-card hover:shadow-card-hover'
                   }
                 `}
               >
@@ -229,32 +201,45 @@ const HeroSection = () => {
               </Link>
             </div>
             
-            {/* Live stats bar */}
+            {/* Live stats bar - Terminal aesthetic in light mode */}
             <div className={`
-              grid grid-cols-3 gap-6 py-6 border-t
-              ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}
+              grid grid-cols-3 gap-6 p-6 rounded-xl border
+              ${isDark 
+                ? 'bg-slate-900/50 border-slate-800' 
+                : 'terminal-block'
+              }
             `}>
-              <div>
-                <div className={`font-mono text-3xl ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-                  {Math.round(stats.containment)}<span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>min</span>
+              {/* Terminal header for light mode */}
+              {!isDark && (
+                <div className="col-span-3 flex items-center gap-2 pb-3 mb-3 border-b border-stroke">
+                  <div className="w-3 h-3 rounded-full bg-red-500" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                  <div className="w-3 h-3 rounded-full bg-green-500" />
+                  <span className="ml-2 font-mono text-xs text-ink-muted">live_metrics.sh</span>
                 </div>
-                <div className={`text-xs uppercase tracking-wider ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+              )}
+              
+              <div>
+                <div className={`font-mono text-3xl font-bold ${isDark ? 'text-white' : 'text-ink'}`}>
+                  {Math.round(stats.containment)}<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>min</span>
+                </div>
+                <div className={`text-xs uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
                   Avg Neutralization
                 </div>
               </div>
               <div>
-                <div className={`font-mono text-3xl ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-                  {stats.eradicated.toLocaleString()}<span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>+</span>
+                <div className={`font-mono text-3xl font-bold ${isDark ? 'text-white' : 'text-ink'}`}>
+                  {stats.eradicated.toLocaleString()}<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>+</span>
                 </div>
-                <div className={`text-xs uppercase tracking-wider ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+                <div className={`text-xs uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
                   Threats Eradicated
                 </div>
               </div>
               <div>
-                <div className={`font-mono text-3xl ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-                  {stats.uptime}<span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>%</span>
+                <div className={`font-mono text-3xl font-bold ${isDark ? 'text-white' : 'text-ink'}`}>
+                  {stats.uptime}<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>%</span>
                 </div>
-                <div className={`text-xs uppercase tracking-wider ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+                <div className={`text-xs uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
                   Client Uptime
                 </div>
               </div>
@@ -263,54 +248,35 @@ const HeroSection = () => {
           
           {/* Right column - Emergency IR Button */}
           <div className={`
-            transition-all duration-1000 delay-500 p-6 -m-6 rounded-3xl
+            transition-all duration-1000 delay-500 p-6 rounded-2xl
             ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-            ${theme === 'dark' 
-              ? '' 
-              : 'bg-gradient-to-bl from-white via-white/95 to-slate-100/90 shadow-xl shadow-slate-300/50 border border-white/50'
-            }
+            ${isDark ? '' : 'glass-card-strong'}
           `}>
             <InitiateIRButton />
             
             {/* Threat intel card */}
             <div className={`
-              mt-6 p-5 rounded-lg border
-              ${theme === 'dark' 
+              mt-6 p-5 rounded-xl border
+              ${isDark 
                 ? 'bg-slate-900/80 border-slate-800' 
-                : 'bg-white/90 border-slate-300 shadow-sm'
+                : 'bg-white/90 border-stroke shadow-card'
               }
             `}>
-              <div className={`font-mono text-xs mb-3 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-700'}`}>
+              <div className={`font-mono text-xs mb-3 font-semibold ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
                 ACTIVE THREAT CAMPAIGNS
               </div>
               
               <div className="space-y-3">
-                <ThreatItem 
-                  name="AI-Driven Ransomware" 
-                  level="critical" 
-                  trend="up"
-                  theme={theme}
-                />
-                <ThreatItem 
-                  name="Identity Infrastructure" 
-                  level="high" 
-                  trend="up"
-                  theme={theme}
-                />
-                <ThreatItem 
-                  name="Supply Chain Compromise" 
-                  level="elevated" 
-                  trend="stable"
-                  theme={theme}
-                />
+                <ThreatItem name="AI-Driven Ransomware" level="critical" trend="up" theme={theme} />
+                <ThreatItem name="Identity Infrastructure" level="high" trend="up" theme={theme} />
+                <ThreatItem name="Supply Chain Compromise" level="elevated" trend="stable" theme={theme} />
               </div>
               
               <Link 
                 to="/intel"
                 className={`
-                  mt-4 block text-center text-xs font-mono py-2
-                  ${theme === 'dark' ? 'text-cobalt-400 hover:text-cobalt-300' : 'text-blue-700 hover:text-blue-600'}
-                  transition-colors
+                  mt-4 block text-center text-xs font-mono py-2 font-semibold transition-colors
+                  ${isDark ? 'text-cobalt-400 hover:text-cobalt-300' : 'text-cobalt-700 hover:text-cobalt-600'}
                 `}
               >
                 VIEW FULL THREAT INTEL →
@@ -322,75 +288,64 @@ const HeroSection = () => {
         {/* Trust badges */}
         <div className={`
           mt-16 md:mt-24 pt-8 border-t pointer-events-auto
-          ${theme === 'dark' ? 'border-slate-800/50' : 'border-slate-300/50'}
+          ${isDark ? 'border-slate-800/50' : 'border-stroke'}
           transition-all duration-1000 delay-700
           ${mounted ? 'opacity-100' : 'opacity-0'}
         `}>
-          <div className="flex flex-col items-center gap-4">
-            <span className={`
-              text-xs font-mono tracking-widest uppercase
-              ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}
-            `}>
-              Proven Shield for Critical Infrastructure
-            </span>
-            <div className={`
-              flex flex-wrap justify-center gap-8 text-sm font-light
-              ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}
-            `}>
-              {['Federal Reserve System', 'NYSE Infrastructure', 'Cisco Security Operations'].map((name, i) => (
-                <span key={i} className="flex items-center gap-2">
-                  <span className={`w-1.5 h-1.5 rounded-full ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-cobalt-600'}`} />
-                  {name}
-                </span>
-              ))}
-            </div>
+          <div className={`text-center mb-6 ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
+            <span className="font-mono text-xs tracking-wider">TRUSTED BY CRITICAL INFRASTRUCTURE</span>
+          </div>
+          <div className={`flex flex-wrap justify-center gap-8 ${isDark ? 'text-slate-600' : 'text-ink-subtle'}`}>
+            {['Federal Reserve System', 'NYSE Infrastructure', 'Cisco Security Operations'].map((org, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <div className={`w-2 h-2 ${isDark ? 'bg-cobalt-500/50' : 'bg-cobalt-700/50'}`} />
+                <span className="text-sm font-medium">{org}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      
-      {/* Bottom gradient fade */}
-      <div className={`
-        absolute bottom-0 left-0 right-0 h-32 z-20 pointer-events-none
-        ${theme === 'dark'
-          ? 'bg-gradient-to-t from-obsidian to-transparent'
-          : 'bg-gradient-to-t from-slate-50 to-transparent'
-        }
-      `} />
     </section>
   );
 };
 
-// Threat item component
+/**
+ * ThreatItem - Individual threat display
+ */
 const ThreatItem = ({ name, level, trend, theme }) => {
-  const levelColors = {
-    critical: 'bg-red-500',
-    high: 'bg-orange-500',
-    elevated: 'bg-amber-500',
-    low: 'bg-emerald-500'
+  const isDark = theme === 'dark';
+  
+  const levelStyles = {
+    critical: {
+      dot: 'bg-red-500',
+      badge: isDark ? 'bg-red-950 text-red-400' : 'bg-emergency-light text-emergency-deep border border-emergency-medium',
+    },
+    high: {
+      dot: 'bg-orange-500',
+      badge: isDark ? 'bg-orange-950 text-orange-400' : 'bg-alert-amber-light text-alert-amber-vivid border border-orange-200',
+    },
+    elevated: {
+      dot: 'bg-amber-500',
+      badge: isDark ? 'bg-amber-950 text-amber-400' : 'bg-amber-50 text-amber-700 border border-amber-200',
+    },
   };
+  
+  const styles = levelStyles[level] || levelStyles.elevated;
   
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className={`w-2 h-2 rounded-full ${levelColors[level]}`} />
-        <span className={`text-sm ${theme === 'dark' ? 'text-slate-300' : 'text-slate-800'}`}>
+        <div className={`w-2 h-2 rounded-full ${styles.dot}`} />
+        <span className={`text-sm font-medium ${isDark ? 'text-slate-300' : 'text-ink-body'}`}>
           {name}
         </span>
       </div>
       <div className="flex items-center gap-2">
-        <span className={`
-          text-xs font-mono uppercase px-2 py-0.5 rounded font-medium
-          ${level === 'critical' 
-            ? (theme === 'dark' ? 'bg-red-950 text-red-400' : 'bg-red-200 text-red-800')
-            : level === 'high'
-              ? (theme === 'dark' ? 'bg-orange-950 text-orange-400' : 'bg-orange-200 text-orange-800')
-              : (theme === 'dark' ? 'bg-amber-950 text-amber-400' : 'bg-amber-200 text-amber-800')
-          }
-        `}>
+        <span className={`text-xs font-mono uppercase px-2 py-0.5 rounded font-semibold ${styles.badge}`}>
           {level}
         </span>
         {trend === 'up' && (
-          <svg className={`w-3 h-3 ${theme === 'dark' ? 'text-red-500' : 'text-red-600'}`} fill="currentColor" viewBox="0 0 20 20">
+          <svg className={`w-3 h-3 ${isDark ? 'text-red-500' : 'text-emergency-vivid'}`} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
           </svg>
         )}
