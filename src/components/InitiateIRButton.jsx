@@ -101,7 +101,7 @@ const InitiateIRButton = ({ className = '' }) => {
             group
             ${theme === 'dark'
               ? 'bg-gradient-to-b from-red-950 to-red-900 border-red-500/50 hover:border-red-400'
-              : 'bg-gradient-to-b from-red-100 to-red-200 border-red-400/50 hover:border-red-500'
+              : 'bg-gradient-to-b from-red-700 to-red-800 border-red-600 hover:border-red-500'
             }
           `}
         >
@@ -132,13 +132,13 @@ const InitiateIRButton = ({ className = '' }) => {
             <div className="text-left">
               <div className={`
                 font-mono text-xs tracking-[0.3em] uppercase
-                ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}
+                ${theme === 'dark' ? 'text-red-400' : 'text-red-200'}
               `}>
                 Emergency Protocol
               </div>
               <div className={`
                 font-mono text-xl tracking-wider font-semibold
-                ${theme === 'dark' ? 'text-white' : 'text-red-900'}
+                ${theme === 'dark' ? 'text-white' : 'text-white'}
               `}>
                 INITIATE IR
               </div>
@@ -148,7 +148,7 @@ const InitiateIRButton = ({ className = '' }) => {
             <svg 
               className={`
                 w-6 h-6 transform transition-transform duration-300 group-hover:translate-x-1
-                ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}
+                ${theme === 'dark' ? 'text-red-400' : 'text-red-200'}
               `}
               fill="none" 
               stroke="currentColor" 

@@ -40,24 +40,24 @@ const HeroSection = () => {
   return (
     <section className={`
       relative min-h-screen overflow-hidden
-      ${theme === 'dark' ? 'bg-obsidian' : 'bg-slate-50'}
+      ${theme === 'dark' ? 'bg-obsidian' : 'bg-slate-200'}
     `}>
       {/* Live Network Map Background */}
       <LiveNetworkMap />
       
-      {/* Gradient overlays */}
+      {/* Gradient overlays - lighter for light mode to show network map */}
       <div className={`
         absolute inset-0 z-10 pointer-events-none
         ${theme === 'dark'
-          ? 'bg-gradient-to-b from-obsidian/60 via-transparent to-obsidian/90'
-          : 'bg-gradient-to-b from-slate-50/70 via-transparent to-slate-50/95'
+          ? 'bg-gradient-to-b from-obsidian/50 via-transparent to-obsidian/80'
+          : 'bg-gradient-to-b from-slate-200/40 via-transparent to-slate-200/70'
         }
       `} />
       <div className={`
         absolute inset-0 z-10 pointer-events-none
         ${theme === 'dark'
-          ? 'bg-gradient-to-r from-obsidian/60 via-transparent to-obsidian/60'
-          : 'bg-gradient-to-r from-slate-50/50 via-transparent to-slate-50/50'
+          ? 'bg-gradient-to-r from-obsidian/50 via-transparent to-obsidian/50'
+          : 'bg-gradient-to-r from-slate-200/30 via-transparent to-slate-200/30'
         }
       `} />
       

@@ -1,62 +1,47 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
-/**
- * LiveNetworkMap
- * 
- * An interactive canvas-based network visualization that simulates
- * a live threat monitoring dashboard. Nodes represent network endpoints,
- * connections show data flow, and hover interactions trigger "scan" effects.
- */
 const LiveNetworkMap = ({ className = '' }) => {
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const nodesRef = useRef([]);
   const animationRef = useRef(null);
+  const themeRef = useRef('dark');
   const { theme } = useTheme();
   
-  // Initialize nodes
-  const initNodes = useCallback((width, height) => {
-    const nodes = [];
-    const nodeCount = Math.floor((width * height) / 15000); // Density based on screen size
-    
-    for (let i = 0; i < nodeCount; i++) {
-      nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 2 + 1.5,
-        baseRadius: Math.random() * 2 + 1.5,
-        pulsePhase: Math.random() * Math.PI * 2,
-        type: Math.random() > 0.85 ? 'critical' : Math.random() > 0.7 ? 'active' : 'normal',
-        scanRadius: 0,
-        isScanning: false,
-        connections: []
-      });
-    }
-    
-    // Pre-calculate potential connections
-    nodes.forEach((node, i) => {
-      nodes.forEach((other, j) => {
-        if (i !== j) {
-          const dist = Math.hypot(node.x - other.x, node.y - other.y);
-          if (dist < 150) {
-            node.connections.push(j);
-          }
-        }
-      });
-    });
-    
-    return nodes;
-  }, []);
+  // Keep theme in sync via ref so animation loop sees updates
+  useEffect(() => {
+    themeRef.current = theme;
+  }, [theme]);
   
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
-    let width, height;
+    let width = 0;
+    let height = 0;
+    
+    const initNodes = () => {
+      const nodes = [];
+      const nodeCount = Math.floor((width * height) / 12000);
+      
+      for (let i = 0; i < Math.min(nodeCount, 150); i++) {
+        nodes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          baseRadius: Math.random() * 2.5 + 2,
+          radius: Math.random() * 2.5 + 2,
+          pulsePhase: Math.random() * Math.PI * 2,
+          type: Math.random() > 0.88 ? 'critical' : Math.random() > 0.7 ? 'active' : 'normal',
+          scanRadius: 0,
+          isScanning: false
+        });
+      }
+      nodesRef.current = nodes;
+    };
     
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -66,8 +51,9 @@ const LiveNetworkMap = ({ className = '' }) => {
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
-      nodesRef.current = initNodes(width, height);
+      initNodes();
     };
     
     resize();
@@ -75,10 +61,7 @@ const LiveNetworkMap = ({ className = '' }) => {
     
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-      };
+      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     };
     
     const handleMouseLeave = () => {
@@ -88,45 +71,46 @@ const LiveNetworkMap = ({ className = '' }) => {
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseleave', handleMouseLeave);
     
-    // Color schemes
-    const colors = {
-      dark: {
-        bg: 'rgba(10, 10, 15, 1)',
-        node: 'rgba(0, 102, 255, 0.8)',
-        nodeActive: 'rgba(0, 212, 255, 0.9)',
-        nodeCritical: 'rgba(255, 51, 102, 0.9)',
-        connection: 'rgba(0, 102, 255, 0.15)',
-        connectionActive: 'rgba(0, 212, 255, 0.4)',
-        scanRing: 'rgba(0, 212, 255, 0.6)',
-        glow: 'rgba(0, 102, 255, 0.3)'
-      },
-      light: {
-        bg: 'rgba(248, 250, 252, 1)',
-        node: 'rgba(0, 82, 204, 0.7)',
-        nodeActive: 'rgba(0, 150, 200, 0.8)',
-        nodeCritical: 'rgba(220, 38, 38, 0.8)',
-        connection: 'rgba(0, 82, 204, 0.1)',
-        connectionActive: 'rgba(0, 150, 200, 0.3)',
-        scanRing: 'rgba(0, 150, 200, 0.5)',
-        glow: 'rgba(0, 82, 204, 0.2)'
-      }
-    };
-    
     let time = 0;
     
     const draw = () => {
-      const currentColors = colors[theme] || colors.dark;
+      const isDark = themeRef.current === 'dark';
       const nodes = nodesRef.current;
       const mouse = mouseRef.current;
       
-      // Clear with background
-      ctx.fillStyle = currentColors.bg;
+      // Colors with better contrast for light mode
+      const colors = isDark ? {
+        bg: '#0A0A0F',
+        grid: 'rgba(50, 50, 70, 0.4)',
+        node: 'rgba(0, 102, 255, 0.9)',
+        nodeActive: 'rgba(0, 212, 255, 1)',
+        nodeCritical: 'rgba(255, 51, 102, 1)',
+        connection: 'rgba(0, 102, 255, 0.2)',
+        connectionActive: 'rgba(0, 212, 255, 0.6)',
+        glowRgb: '0, 102, 255',
+        glowActiveRgb: '0, 212, 255',
+        glowCriticalRgb: '255, 51, 102'
+      } : {
+        bg: '#E2E8F0', // Darker light mode background for contrast
+        grid: 'rgba(71, 85, 105, 0.3)',
+        node: 'rgba(30, 58, 138, 1)', // Dark blue
+        nodeActive: 'rgba(6, 95, 70, 1)', // Teal
+        nodeCritical: 'rgba(153, 27, 27, 1)', // Dark red
+        connection: 'rgba(30, 58, 138, 0.35)',
+        connectionActive: 'rgba(6, 95, 70, 0.7)',
+        glowRgb: '30, 58, 138',
+        glowActiveRgb: '6, 95, 70',
+        glowCriticalRgb: '153, 27, 27'
+      };
+      
+      // Clear
+      ctx.fillStyle = colors.bg;
       ctx.fillRect(0, 0, width, height);
       
-      // Draw grid pattern
-      ctx.strokeStyle = theme === 'dark' ? 'rgba(45, 45, 58, 0.3)' : 'rgba(200, 210, 220, 0.5)';
-      ctx.lineWidth = 0.5;
-      const gridSize = 60;
+      // Grid
+      ctx.strokeStyle = colors.grid;
+      ctx.lineWidth = 1;
+      const gridSize = 50;
       
       for (let x = 0; x <= width; x += gridSize) {
         ctx.beginPath();
@@ -134,7 +118,6 @@ const LiveNetworkMap = ({ className = '' }) => {
         ctx.lineTo(x, height);
         ctx.stroke();
       }
-      
       for (let y = 0; y <= height; y += gridSize) {
         ctx.beginPath();
         ctx.moveTo(0, y);
@@ -142,158 +125,119 @@ const LiveNetworkMap = ({ className = '' }) => {
         ctx.stroke();
       }
       
-      // Update and draw nodes
+      const hoverRadius = 150;
+      
+      // Update and draw connections
       nodes.forEach((node, i) => {
-        // Update position with drift
         node.x += node.vx;
         node.y += node.vy;
         
-        // Bounce off edges
         if (node.x < 0 || node.x > width) node.vx *= -1;
         if (node.y < 0 || node.y > height) node.vy *= -1;
-        
-        // Keep in bounds
         node.x = Math.max(0, Math.min(width, node.x));
         node.y = Math.max(0, Math.min(height, node.y));
         
-        // Check mouse proximity
         const distToMouse = Math.hypot(node.x - mouse.x, node.y - mouse.y);
-        const hoverRadius = 120;
         const isHovered = distToMouse < hoverRadius;
         
-        // Trigger scan effect on hover
         if (isHovered && !node.isScanning) {
           node.isScanning = true;
           node.scanRadius = 0;
         }
         
-        // Update scan animation
         if (node.isScanning) {
-          node.scanRadius += 3;
-          if (node.scanRadius > 100) {
+          node.scanRadius += 4;
+          if (node.scanRadius > 80) {
             node.isScanning = false;
             node.scanRadius = 0;
           }
         }
         
-        // Pulse effect
-        node.pulsePhase += 0.02;
+        node.pulsePhase += 0.03;
         const pulse = Math.sin(node.pulsePhase) * 0.3 + 1;
-        node.radius = node.baseRadius * pulse;
+        node.radius = node.baseRadius * pulse * (isHovered ? 1.8 : 1);
         
-        // Expand when hovered
-        if (isHovered) {
-          node.radius *= 1.5;
-        }
-        
-        // Draw connections
-        node.connections.forEach(j => {
-          if (j > i) { // Only draw each connection once
-            const other = nodes[j];
-            const dist = Math.hypot(node.x - other.x, node.y - other.y);
+        // Connections
+        for (let j = i + 1; j < nodes.length; j++) {
+          const other = nodes[j];
+          const dist = Math.hypot(node.x - other.x, node.y - other.y);
+          
+          if (dist < 180) {
+            const otherDist = Math.hypot(other.x - mouse.x, other.y - mouse.y);
+            const isActive = isHovered || otherDist < hoverRadius;
             
-            if (dist < 150) {
-              const opacity = 1 - (dist / 150);
-              const isActiveConnection = isHovered || Math.hypot(other.x - mouse.x, other.y - mouse.y) < hoverRadius;
+            ctx.beginPath();
+            ctx.moveTo(node.x, node.y);
+            ctx.lineTo(other.x, other.y);
+            
+            if (isActive) {
+              ctx.strokeStyle = colors.connectionActive;
+              ctx.lineWidth = 2;
+              ctx.stroke();
               
+              // Packet
+              const pos = (time * 0.015 + i * 0.1) % 1;
               ctx.beginPath();
-              ctx.moveTo(node.x, node.y);
-              ctx.lineTo(other.x, other.y);
-              
-              if (isActiveConnection) {
-                ctx.strokeStyle = currentColors.connectionActive;
-                ctx.lineWidth = 1.5;
-                
-                // Animated data packet
-                const packetPos = (time * 0.01 + i * 0.1) % 1;
-                const packetX = node.x + (other.x - node.x) * packetPos;
-                const packetY = node.y + (other.y - node.y) * packetPos;
-                
-                ctx.stroke();
-                
-                // Draw packet
-                ctx.beginPath();
-                ctx.arc(packetX, packetY, 2, 0, Math.PI * 2);
-                ctx.fillStyle = currentColors.nodeActive;
-                ctx.fill();
-              } else {
-                ctx.strokeStyle = `rgba(${theme === 'dark' ? '0, 102, 255' : '0, 82, 204'}, ${opacity * 0.15})`;
-                ctx.lineWidth = 0.5;
-                ctx.stroke();
-              }
+              ctx.arc(node.x + (other.x - node.x) * pos, node.y + (other.y - node.y) * pos, 3, 0, Math.PI * 2);
+              ctx.fillStyle = colors.nodeActive;
+              ctx.fill();
+            } else {
+              ctx.strokeStyle = `rgba(${colors.glowRgb}, ${(1 - dist / 180) * (isDark ? 0.3 : 0.5)})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
             }
           }
-        });
+        }
       });
       
-      // Draw nodes (second pass for proper layering)
+      // Draw nodes
       nodes.forEach((node) => {
         const distToMouse = Math.hypot(node.x - mouse.x, node.y - mouse.y);
-        const isHovered = distToMouse < 120;
+        const isHovered = distToMouse < hoverRadius;
         
-        // Draw scan ring
+        // Scan ring
         if (node.isScanning) {
           ctx.beginPath();
           ctx.arc(node.x, node.y, node.scanRadius, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${theme === 'dark' ? '0, 212, 255' : '0, 150, 200'}, ${1 - node.scanRadius / 100})`;
-          ctx.lineWidth = 2;
+          ctx.strokeStyle = `rgba(${colors.glowActiveRgb}, ${1 - node.scanRadius / 80})`;
+          ctx.lineWidth = 2.5;
           ctx.stroke();
         }
         
-        // Draw glow for hovered/special nodes
+        // Glow
         if (isHovered || node.type !== 'normal') {
-          const gradient = ctx.createRadialGradient(
-            node.x, node.y, 0,
-            node.x, node.y, node.radius * 4
-          );
-          
-          const glowColor = node.type === 'critical' 
-            ? (theme === 'dark' ? '255, 51, 102' : '220, 38, 38')
-            : (theme === 'dark' ? '0, 102, 255' : '0, 82, 204');
-          
-          gradient.addColorStop(0, `rgba(${glowColor}, 0.4)`);
-          gradient.addColorStop(1, `rgba(${glowColor}, 0)`);
-          
+          const glowSize = node.radius * (isHovered ? 6 : 4);
+          const gradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowSize);
+          const rgb = node.type === 'critical' ? colors.glowCriticalRgb : isHovered ? colors.glowActiveRgb : colors.glowRgb;
+          gradient.addColorStop(0, `rgba(${rgb}, ${isDark ? 0.5 : 0.35})`);
+          gradient.addColorStop(0.5, `rgba(${rgb}, ${isDark ? 0.2 : 0.12})`);
+          gradient.addColorStop(1, `rgba(${rgb}, 0)`);
           ctx.beginPath();
-          ctx.arc(node.x, node.y, node.radius * 4, 0, Math.PI * 2);
+          ctx.arc(node.x, node.y, glowSize, 0, Math.PI * 2);
           ctx.fillStyle = gradient;
           ctx.fill();
         }
         
-        // Draw node
+        // Node
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        
-        let nodeColor;
-        if (node.type === 'critical') {
-          nodeColor = currentColors.nodeCritical;
-        } else if (node.type === 'active' || isHovered) {
-          nodeColor = currentColors.nodeActive;
-        } else {
-          nodeColor = currentColors.node;
-        }
-        
-        ctx.fillStyle = nodeColor;
+        ctx.fillStyle = node.type === 'critical' ? colors.nodeCritical : (node.type === 'active' || isHovered) ? colors.nodeActive : colors.node;
         ctx.fill();
         
-        // Inner highlight
+        // Highlight
         ctx.beginPath();
-        ctx.arc(node.x - node.radius * 0.3, node.y - node.radius * 0.3, node.radius * 0.3, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.arc(node.x - node.radius * 0.25, node.y - node.radius * 0.25, node.radius * 0.35, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
         ctx.fill();
       });
       
-      // Draw mouse interaction zone
+      // Mouse glow
       if (mouse.x > 0 && mouse.y > 0) {
-        const gradient = ctx.createRadialGradient(
-          mouse.x, mouse.y, 0,
-          mouse.x, mouse.y, 120
-        );
-        gradient.addColorStop(0, `rgba(${theme === 'dark' ? '0, 212, 255' : '0, 150, 200'}, 0.1)`);
+        const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, hoverRadius);
+        gradient.addColorStop(0, `rgba(${colors.glowActiveRgb}, ${isDark ? 0.15 : 0.08})`);
         gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        
         ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 120, 0, Math.PI * 2);
+        ctx.arc(mouse.x, mouse.y, hoverRadius, 0, Math.PI * 2);
         ctx.fillStyle = gradient;
         ctx.fill();
       }
@@ -308,19 +252,11 @@ const LiveNetworkMap = ({ className = '' }) => {
       window.removeEventListener('resize', resize);
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [theme, initNodes]);
+  }, []);
   
-  return (
-    <canvas 
-      ref={canvasRef}
-      className={`absolute inset-0 ${className}`}
-      style={{ touchAction: 'none' }}
-    />
-  );
+  return <canvas ref={canvasRef} className={`absolute inset-0 ${className}`} style={{ touchAction: 'none' }} />;
 };
 
 export default LiveNetworkMap;
