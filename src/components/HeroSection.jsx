@@ -134,16 +134,19 @@ const HeroSection = () => {
         
         {/* Main content grid */}
         <div className="grid lg:grid-cols-[1fr,420px] gap-12 lg:gap-16 items-start pointer-events-auto">
-          {/* Left column - Main messaging with gradient backdrop in light mode */}
+          {/* Left column - Main messaging with visible gradient backdrop in light mode */}
           <div className={`
-            transition-all duration-1000 delay-300 p-6 -m-6 rounded-2xl
+            transition-all duration-1000 delay-300 p-8 -m-8 rounded-3xl
             ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-            ${theme === 'dark' ? '' : 'bg-gradient-to-br from-white/80 via-slate-100/70 to-transparent backdrop-blur-sm'}
+            ${theme === 'dark' 
+              ? '' 
+              : 'bg-gradient-to-br from-white via-white/95 to-slate-100/90 shadow-xl shadow-slate-300/50 border border-white/50'
+            }
           `}>
             {/* Threat level indicator */}
             <div className={`
               inline-flex items-center gap-3 px-4 py-2 rounded-full mb-8
-              ${theme === 'dark' ? 'bg-red-950/50 border border-red-500/30' : 'bg-red-100/90 border border-red-300'}
+              ${theme === 'dark' ? 'bg-red-950/50 border border-red-500/30' : 'bg-red-100 border border-red-300'}
             `}>
               <div className="relative">
                 <div className="w-2 h-2 rounded-full bg-red-500" />
@@ -260,9 +263,12 @@ const HeroSection = () => {
           
           {/* Right column - Emergency IR Button */}
           <div className={`
-            transition-all duration-1000 delay-500 p-4 -m-4 rounded-2xl
+            transition-all duration-1000 delay-500 p-6 -m-6 rounded-3xl
             ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-            ${theme === 'dark' ? '' : 'bg-gradient-to-bl from-white/80 via-slate-100/70 to-transparent backdrop-blur-sm'}
+            ${theme === 'dark' 
+              ? '' 
+              : 'bg-gradient-to-bl from-white via-white/95 to-slate-100/90 shadow-xl shadow-slate-300/50 border border-white/50'
+            }
           `}>
             <InitiateIRButton />
             
