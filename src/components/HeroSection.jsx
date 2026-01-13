@@ -1,390 +1,393 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
+import LiveNetworkMap from './LiveNetworkMap';
+import InitiateIRButton from './InitiateIRButton';
+import ThemeToggle from './ThemeToggle';
 
-// Animated grid background component
-const GridBackground = () => {
-  const canvasRef = useRef(null);
-  
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    let animationId;
-    let pulses = [];
-    
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    
-    resize();
-    window.addEventListener('resize', resize);
-    
-    // Grid configuration
-    const gridSize = 40;
-    const primaryColor = 'rgba(0, 102, 255, 0.15)';
-    const pulseColor = 'rgba(0, 212, 255, 0.6)';
-    
-    // Create random pulse points
-    const createPulse = () => {
-      if (pulses.length < 5 && Math.random() < 0.02) {
-        pulses.push({
-          x: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize,
-          y: Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize,
-          radius: 0,
-          maxRadius: 200,
-          opacity: 1
-        });
-      }
-    };
-    
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Draw base grid
-      ctx.strokeStyle = primaryColor;
-      ctx.lineWidth = 1;
-      
-      // Vertical lines
-      for (let x = 0; x <= canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-      }
-      
-      // Horizontal lines
-      for (let y = 0; y <= canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
-      
-      // Draw intersection points
-      ctx.fillStyle = 'rgba(0, 102, 255, 0.3)';
-      for (let x = 0; x <= canvas.width; x += gridSize) {
-        for (let y = 0; y <= canvas.height; y += gridSize) {
-          ctx.beginPath();
-          ctx.arc(x, y, 2, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-      
-      // Draw and update pulses
-      createPulse();
-      
-      pulses = pulses.filter(pulse => {
-        pulse.radius += 2;
-        pulse.opacity = 1 - (pulse.radius / pulse.maxRadius);
-        
-        if (pulse.opacity <= 0) return false;
-        
-        // Draw pulse ring
-        ctx.strokeStyle = `rgba(0, 212, 255, ${pulse.opacity * 0.6})`;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(pulse.x, pulse.y, pulse.radius, 0, Math.PI * 2);
-        ctx.stroke();
-        
-        // Draw pulse center
-        ctx.fillStyle = `rgba(0, 212, 255, ${pulse.opacity})`;
-        ctx.beginPath();
-        ctx.arc(pulse.x, pulse.y, 4, 0, Math.PI * 2);
-        ctx.fill();
-        
-        return true;
-      });
-      
-      animationId = requestAnimationFrame(draw);
-    };
-    
-    draw();
-    
-    return () => {
-      window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animationId);
-    };
-  }, []);
-  
-  return (
-    <canvas 
-      ref={canvasRef} 
-      className="absolute inset-0 z-0"
-      style={{ background: 'linear-gradient(180deg, #0A0A0F 0%, #0D0D14 100%)' }}
-    />
-  );
-};
-
-// Scanning line effect
-const ScanLine = () => {
-  return (
-    <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
-      <div 
-        className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent animate-scan"
-      />
-    </div>
-  );
-};
-
-// Status indicator component
-const StatusIndicator = ({ status = 'ready' }) => {
-  const statusConfig = {
-    ready: { color: 'bg-emerald-400', text: 'READY', pulse: true },
-    active: { color: 'bg-amber-400', text: 'ENGAGED', pulse: true },
-    critical: { color: 'bg-red-500', text: 'CRITICAL', pulse: true }
-  };
-  
-  const config = statusConfig[status];
-  
-  return (
-    <div className="flex items-center gap-2 font-mono text-xs">
-      <div className="relative">
-        <div className={`w-2 h-2 rounded-full ${config.color}`} />
-        {config.pulse && (
-          <div className={`absolute inset-0 w-2 h-2 rounded-full ${config.color} animate-ping`} />
-        )}
-      </div>
-      <span className="text-slate-400">STATUS:</span>
-      <span className="text-slate-200">{config.text}</span>
-    </div>
-  );
-};
-
-// Trust badges component
-const TrustBadges = () => {
-  const institutions = [
-    'Federal Reserve System',
-    'NYSE Infrastructure', 
-    'Cisco Security Operations'
-  ];
-  
-  return (
-    <div className="flex flex-col items-center gap-4">
-      <span className="text-xs font-mono text-slate-500 tracking-widest uppercase">
-        Trusted By
-      </span>
-      <div className="flex flex-wrap justify-center gap-8 text-sm text-slate-400 font-light">
-        {institutions.map((name, i) => (
-          <span key={i} className="flex items-center gap-2">
-            <span className="w-1 h-1 bg-cobalt-500 rounded-full" />
-            {name}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// Emergency dial component
-const EmergencyDial = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  return (
-    <div 
-      className="relative group"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className={`
-        absolute inset-0 bg-red-500/20 blur-xl transition-opacity duration-500
-        ${isHovered ? 'opacity-100' : 'opacity-0'}
-      `} />
-      
-      <div className="relative border border-red-500/30 bg-slate-900/80 backdrop-blur-sm p-6 rounded-lg">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="relative">
-            <div className="w-3 h-3 bg-red-500 rounded-full" />
-            <div className="absolute inset-0 w-3 h-3 bg-red-500 rounded-full animate-ping" />
-          </div>
-          <span className="font-mono text-sm text-red-400 tracking-wider">
-            ACTIVE INCIDENT?
-          </span>
-        </div>
-        
-        <h3 className="text-2xl font-light text-white mb-2">
-          15-Minute Response
-        </h3>
-        
-        <p className="text-sm text-slate-400 mb-6 max-w-xs">
-          Direct line to senior incident commanders. No tier-one triage.
-        </p>
-        
-        <button className="
-          w-full py-3 px-6 
-          bg-gradient-to-r from-red-600 to-red-500 
-          hover:from-red-500 hover:to-red-400
-          text-white font-mono text-sm tracking-wider
-          rounded transition-all duration-300
-          border border-red-400/20
-          shadow-lg shadow-red-500/20
-        ">
-          INITIATE SECURE LINE
-        </button>
-        
-        <div className="mt-4 pt-4 border-t border-slate-700/50">
-          <div className="flex justify-between text-xs font-mono">
-            <span className="text-slate-500">Avg Response:</span>
-            <span className="text-emerald-400">11 min</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Main Hero Section
+/**
+ * HeroSection - 2026 Agentic Era
+ * 
+ * Aggressive, kinetic design emphasizing:
+ * - Live network visualization
+ * - Zero-dwell response messaging
+ * - Digital sovereignty restoration
+ */
 const HeroSection = () => {
+  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [stats, setStats] = useState({
+    containment: 47,
+    eradicated: 847,
+    uptime: 99.97
+  });
   
   useEffect(() => {
     setMounted(true);
+    
+    // Simulate live stat updates
+    const interval = setInterval(() => {
+      setStats(prev => ({
+        containment: Math.max(30, Math.min(60, prev.containment + (Math.random() - 0.5) * 5)),
+        eradicated: prev.eradicated + Math.floor(Math.random() * 3),
+        uptime: 99.97
+      }));
+    }, 5000);
+    
+    return () => clearInterval(interval);
   }, []);
   
   return (
-    <section className="relative min-h-screen overflow-hidden bg-obsidian">
-      {/* Animated background */}
-      <GridBackground />
-      <ScanLine />
+    <section className={`
+      relative min-h-screen overflow-hidden
+      ${theme === 'dark' ? 'bg-obsidian' : 'bg-slate-50'}
+    `}>
+      {/* Live Network Map Background */}
+      <LiveNetworkMap />
       
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-obsidian/90 z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-obsidian/50 via-transparent to-obsidian/50 z-10" />
+      <div className={`
+        absolute inset-0 z-10 pointer-events-none
+        ${theme === 'dark'
+          ? 'bg-gradient-to-b from-obsidian/60 via-transparent to-obsidian/90'
+          : 'bg-gradient-to-b from-slate-50/70 via-transparent to-slate-50/95'
+        }
+      `} />
+      <div className={`
+        absolute inset-0 z-10 pointer-events-none
+        ${theme === 'dark'
+          ? 'bg-gradient-to-r from-obsidian/60 via-transparent to-obsidian/60'
+          : 'bg-gradient-to-r from-slate-50/50 via-transparent to-slate-50/50'
+        }
+      `} />
       
       {/* Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-6 py-12">
-        {/* Top bar */}
-        <nav className="flex justify-between items-center mb-24">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 border border-cobalt-500/50 flex items-center justify-center">
-              <div className="w-4 h-4 bg-cobalt-500" />
+      <div className="relative z-20 max-w-7xl mx-auto px-6 py-8">
+        {/* Navigation */}
+        <nav className="flex justify-between items-center mb-16 md:mb-24">
+          <Link to="/" className="flex items-center gap-4 group">
+            <div className={`
+              w-10 h-10 border flex items-center justify-center transition-colors duration-300
+              ${theme === 'dark' 
+                ? 'border-cobalt-500/50 group-hover:border-cobalt-400' 
+                : 'border-cobalt-600/50 group-hover:border-cobalt-500'
+              }
+            `}>
+              <div className={`w-4 h-4 ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-cobalt-600'}`} />
             </div>
-            <span className="font-mono text-lg tracking-widest text-white">
-              LYDELL<span className="text-cobalt-400">SECURITY</span>
+            <span className={`
+              font-mono text-lg tracking-widest
+              ${theme === 'dark' ? 'text-white' : 'text-slate-900'}
+            `}>
+              LYDELL<span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>SECURITY</span>
             </span>
-          </div>
+          </Link>
           
-          <div className="hidden md:flex items-center gap-8">
-            <StatusIndicator status="ready" />
-            <div className="h-4 w-px bg-slate-700" />
-            <nav className="flex gap-6 text-sm text-slate-400">
-              <a href="#response" className="hover:text-white transition-colors">Response</a>
-              <a href="#pedigree" className="hover:text-white transition-colors">Pedigree</a>
-              <a href="#methodology" className="hover:text-white transition-colors">Methodology</a>
+          <div className="flex items-center gap-6">
+            {/* Live status */}
+            <div className="hidden md:flex items-center gap-2">
+              <div className="relative">
+                <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                <div className="absolute inset-0 w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              </div>
+              <span className={`font-mono text-xs ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                THREAT GRID ACTIVE
+              </span>
+            </div>
+            
+            <div className={`hidden md:block h-4 w-px ${theme === 'dark' ? 'bg-slate-700' : 'bg-slate-300'}`} />
+            
+            {/* Navigation links */}
+            <nav className="hidden md:flex gap-6 text-sm">
+              <Link 
+                to="/response" 
+                className={`transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
+              >
+                Response
+              </Link>
+              <Link 
+                to="/methodology" 
+                className={`transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
+              >
+                Methodology
+              </Link>
+              <Link 
+                to="/pedigree" 
+                className={`transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
+              >
+                Pedigree
+              </Link>
+              <Link 
+                to="/contact" 
+                className={`transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}
+              >
+                Contact
+              </Link>
             </nav>
+            
+            <div className={`hidden md:block h-4 w-px ${theme === 'dark' ? 'bg-slate-700' : 'bg-slate-300'}`} />
+            
+            {/* Theme toggle */}
+            <ThemeToggle />
           </div>
         </nav>
         
         {/* Main content grid */}
-        <div className="grid lg:grid-cols-[1fr,400px] gap-16 items-start">
+        <div className="grid lg:grid-cols-[1fr,420px] gap-12 lg:gap-16 items-start">
           {/* Left column - Main messaging */}
           <div className={`
             transition-all duration-1000 delay-300
             ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
           `}>
-            {/* Eyebrow */}
-            <div className="flex items-center gap-4 mb-8">
-              <div className="h-px w-12 bg-cobalt-500" />
-              <span className="font-mono text-xs text-cobalt-400 tracking-widest uppercase">
-                Incident Response Specialists
+            {/* Threat level indicator */}
+            <div className={`
+              inline-flex items-center gap-3 px-4 py-2 rounded-full mb-8
+              ${theme === 'dark' ? 'bg-red-950/50 border border-red-500/30' : 'bg-red-50 border border-red-200'}
+            `}>
+              <div className="relative">
+                <div className="w-2 h-2 rounded-full bg-red-500" />
+                <div className="absolute inset-0 w-2 h-2 rounded-full bg-red-500 animate-ping" />
+              </div>
+              <span className={`font-mono text-xs tracking-wider ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>
+                GLOBAL THREAT LEVEL: ELEVATED
               </span>
             </div>
             
-            {/* Headline */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-white leading-[1.1] mb-8">
-              When the Network
-              <br />
-              <span className="text-slate-400">Falls Silent,</span>
-              <br />
-              We Restore
-              <br />
-              <span className="relative">
-                the Signal
-                <span className="absolute -bottom-2 left-0 w-full h-px bg-gradient-to-r from-cobalt-500 to-transparent" />
+            {/* Eyebrow */}
+            <div className="flex items-center gap-4 mb-6">
+              <div className={`h-px w-12 ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-cobalt-600'}`} />
+              <span className={`
+                font-mono text-xs tracking-[0.2em] uppercase
+                ${theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}
+              `}>
+                Agentic Incident Response
+              </span>
+            </div>
+            
+            {/* Headline - Aggressive, kinetic */}
+            <h1 className={`
+              text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] mb-8
+              ${theme === 'dark' ? 'text-white' : 'text-slate-900'}
+            `}>
+              <span className="block">Adversaries Neutralized.</span>
+              <span className={`block ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                Sovereignty Restored.
+              </span>
+              <span className="block relative">
+                <span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>
+                  In Minutes.
+                </span>
+                <span className={`
+                  absolute -bottom-2 left-0 w-32 h-1
+                  ${theme === 'dark' 
+                    ? 'bg-gradient-to-r from-cobalt-500 to-transparent' 
+                    : 'bg-gradient-to-r from-cobalt-600 to-transparent'
+                  }
+                `} />
               </span>
             </h1>
             
-            {/* Subhead */}
-            <p className="text-lg text-slate-400 max-w-xl mb-12 leading-relaxed">
-              Twenty years defending the institutions that move markets.
-              Now available to organizations that refuse to be the next headline.
+            {/* Subhead - Value prop */}
+            <p className={`
+              text-lg md:text-xl max-w-xl mb-10 leading-relaxed
+              ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}
+            `}>
+              While others assess, we <strong className={theme === 'dark' ? 'text-white' : 'text-slate-900'}>eradicate</strong>. 
+              Our agentic AI systems hunt, contain, and neutralize threats at machine speed—restoring 
+              your digital sovereignty before the damage compounds.
             </p>
             
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4 mb-16">
-              <button className="
-                px-8 py-4 
-                bg-cobalt-500 hover:bg-cobalt-400
-                text-white font-mono text-sm tracking-wider
-                transition-all duration-300
-                border border-cobalt-400/30
-              ">
-                ESTABLISH CONTACT
-              </button>
-              <button className="
-                px-8 py-4
-                bg-transparent hover:bg-slate-800/50
-                text-slate-300 font-mono text-sm tracking-wider
-                transition-all duration-300
-                border border-slate-600 hover:border-slate-500
-              ">
+            <div className="flex flex-wrap gap-4 mb-12">
+              <Link
+                to="/response"
+                className={`
+                  px-8 py-4 font-mono text-sm tracking-wider transition-all duration-300
+                  ${theme === 'dark'
+                    ? 'bg-cobalt-500 hover:bg-cobalt-400 text-white border border-cobalt-400/30'
+                    : 'bg-cobalt-600 hover:bg-cobalt-500 text-white border border-cobalt-500/30'
+                  }
+                `}
+              >
                 VIEW RESPONSE PROTOCOL
-              </button>
+              </Link>
+              <Link
+                to="/methodology"
+                className={`
+                  px-8 py-4 font-mono text-sm tracking-wider transition-all duration-300
+                  ${theme === 'dark'
+                    ? 'bg-transparent hover:bg-slate-800/50 text-slate-300 border border-slate-600 hover:border-slate-500'
+                    : 'bg-transparent hover:bg-slate-100 text-slate-700 border border-slate-300 hover:border-slate-400'
+                  }
+                `}
+              >
+                OUR METHODOLOGY
+              </Link>
             </div>
             
-            {/* Stats bar */}
-            <div className="grid grid-cols-3 gap-8 py-8 border-t border-slate-800">
+            {/* Live stats bar */}
+            <div className={`
+              grid grid-cols-3 gap-6 py-6 border-t
+              ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}
+            `}>
               <div>
-                <div className="font-mono text-3xl text-white mb-1">47<span className="text-cobalt-400">min</span></div>
-                <div className="text-xs text-slate-500 uppercase tracking-wider">Avg Containment</div>
+                <div className={`font-mono text-3xl ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                  {Math.round(stats.containment)}<span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>min</span>
+                </div>
+                <div className={`text-xs uppercase tracking-wider ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+                  Avg Neutralization
+                </div>
               </div>
               <div>
-                <div className="font-mono text-3xl text-white mb-1">20<span className="text-cobalt-400">+</span></div>
-                <div className="text-xs text-slate-500 uppercase tracking-wider">Years Experience</div>
+                <div className={`font-mono text-3xl ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                  {stats.eradicated.toLocaleString()}<span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>+</span>
+                </div>
+                <div className={`text-xs uppercase tracking-wider ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+                  Threats Eradicated
+                </div>
               </div>
               <div>
-                <div className="font-mono text-3xl text-white mb-1">0</div>
-                <div className="text-xs text-slate-500 uppercase tracking-wider">Breaches Missed</div>
+                <div className={`font-mono text-3xl ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                  {stats.uptime}<span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>%</span>
+                </div>
+                <div className={`text-xs uppercase tracking-wider ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+                  Client Uptime
+                </div>
               </div>
             </div>
           </div>
           
-          {/* Right column - Emergency dial */}
+          {/* Right column - Emergency IR Button */}
           <div className={`
             transition-all duration-1000 delay-500
             ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
           `}>
-            <EmergencyDial />
+            <InitiateIRButton />
             
-            {/* Additional info card */}
-            <div className="mt-6 p-4 border border-slate-800 bg-slate-900/50 rounded-lg">
-              <div className="font-mono text-xs text-slate-500 mb-2">
-                CURRENT THREAT LEVEL
+            {/* Threat intel card */}
+            <div className={`
+              mt-6 p-5 rounded-lg border
+              ${theme === 'dark' 
+                ? 'bg-slate-900/80 border-slate-800' 
+                : 'bg-white/80 border-slate-200'
+              }
+            `}>
+              <div className={`font-mono text-xs mb-3 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+                ACTIVE THREAT CAMPAIGNS
               </div>
-              <div className="flex items-center gap-3">
-                <div className="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full w-3/4 bg-gradient-to-r from-amber-500 to-amber-400 rounded-full" />
-                </div>
-                <span className="font-mono text-sm text-amber-400">ELEVATED</span>
+              
+              <div className="space-y-3">
+                <ThreatItem 
+                  name="AI-Driven Ransomware" 
+                  level="critical" 
+                  trend="up"
+                  theme={theme}
+                />
+                <ThreatItem 
+                  name="Identity Infrastructure" 
+                  level="high" 
+                  trend="up"
+                  theme={theme}
+                />
+                <ThreatItem 
+                  name="Supply Chain Compromise" 
+                  level="elevated" 
+                  trend="stable"
+                  theme={theme}
+                />
               </div>
-              <p className="text-xs text-slate-500 mt-3">
-                Active campaigns targeting identity infrastructure. SSO/MFA compromises trending.
-              </p>
+              
+              <Link 
+                to="/intel"
+                className={`
+                  mt-4 block text-center text-xs font-mono py-2
+                  ${theme === 'dark' ? 'text-cobalt-400 hover:text-cobalt-300' : 'text-cobalt-600 hover:text-cobalt-500'}
+                  transition-colors
+                `}
+              >
+                VIEW FULL THREAT INTEL →
+              </Link>
             </div>
           </div>
         </div>
         
         {/* Trust badges */}
         <div className={`
-          mt-24 pt-12 border-t border-slate-800/50
+          mt-16 md:mt-24 pt-8 border-t
+          ${theme === 'dark' ? 'border-slate-800/50' : 'border-slate-200'}
           transition-all duration-1000 delay-700
           ${mounted ? 'opacity-100' : 'opacity-0'}
         `}>
-          <TrustBadges />
+          <div className="flex flex-col items-center gap-4">
+            <span className={`
+              text-xs font-mono tracking-widest uppercase
+              ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}
+            `}>
+              Proven Shield for Critical Infrastructure
+            </span>
+            <div className={`
+              flex flex-wrap justify-center gap-8 text-sm font-light
+              ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}
+            `}>
+              {['Federal Reserve System', 'NYSE Infrastructure', 'Cisco Security Operations'].map((name, i) => (
+                <span key={i} className="flex items-center gap-2">
+                  <span className={`w-1.5 h-1.5 rounded-full ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-cobalt-600'}`} />
+                  {name}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-obsidian to-transparent z-20" />
+      {/* Bottom gradient fade */}
+      <div className={`
+        absolute bottom-0 left-0 right-0 h-32 z-20 pointer-events-none
+        ${theme === 'dark'
+          ? 'bg-gradient-to-t from-obsidian to-transparent'
+          : 'bg-gradient-to-t from-slate-50 to-transparent'
+        }
+      `} />
     </section>
+  );
+};
+
+// Threat item component
+const ThreatItem = ({ name, level, trend, theme }) => {
+  const levelColors = {
+    critical: 'bg-red-500',
+    high: 'bg-orange-500',
+    elevated: 'bg-amber-500',
+    low: 'bg-emerald-500'
+  };
+  
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <div className={`w-2 h-2 rounded-full ${levelColors[level]}`} />
+        <span className={`text-sm ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>
+          {name}
+        </span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className={`
+          text-xs font-mono uppercase px-2 py-0.5 rounded
+          ${level === 'critical' 
+            ? (theme === 'dark' ? 'bg-red-950 text-red-400' : 'bg-red-100 text-red-600')
+            : level === 'high'
+              ? (theme === 'dark' ? 'bg-orange-950 text-orange-400' : 'bg-orange-100 text-orange-600')
+              : (theme === 'dark' ? 'bg-amber-950 text-amber-400' : 'bg-amber-100 text-amber-600')
+          }
+        `}>
+          {level}
+        </span>
+        {trend === 'up' && (
+          <svg className="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+          </svg>
+        )}
+      </div>
+    </div>
   );
 };
 

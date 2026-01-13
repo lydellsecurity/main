@@ -1,100 +1,108 @@
 import React from 'react';
-import HeroSection from './components/HeroSection';
-import ServicesSection from './components/ServicesSection';
-import PedigreeSection from './components/PedigreeSection';
-import TechStackSection from './components/TechStackSection';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
+import HomePage from './pages/HomePage';
+import MethodologyPage from './pages/MethodologyPage';
+import { ResponsePage, PedigreePage, TechnologyPage, ContactPage } from './pages/OtherPages';
 
-/**
- * Lydell Security - Elite Incident Response
- * 
- * A premium, 2026-ready website emphasizing:
- * - Zero-Dwell Response
- * - Agentic AI-driven forensics
- * - Identity-First containment
- * - Post-Quantum readiness
- */
 function App() {
   return (
-    <div className="min-h-screen bg-obsidian text-white">
-      {/* Hero with Emergency Dial */}
-      <HeroSection />
-      
-      {/* Core Services */}
-      <ServicesSection />
-      
-      {/* Elite Pedigree - Federal Reserve, NYSE */}
-      <PedigreeSection />
-      
-      {/* 2026 Tech Stack */}
-      <TechStackSection />
-      
-      {/* Footer */}
-      <footer className="relative py-16 bg-obsidian border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-12">
-            {/* Brand */}
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 border border-cobalt-500/50 flex items-center justify-center">
-                  <div className="w-3 h-3 bg-cobalt-500" />
-                </div>
-                <span className="font-mono text-lg tracking-widest">
-                  LYDELL<span className="text-cobalt-400">SECURITY</span>
-                </span>
-              </div>
-              <p className="text-slate-500 text-sm leading-relaxed max-w-md">
-                Elite incident response for organizations that refuse to be the next headline.
-                Twenty years defending the institutions that move markets.
-              </p>
-            </div>
+    <HelmetProvider>
+      <ThemeProvider>
+        <Router>
+          <Helmet>
+            <title>Lydell Security | Elite Incident Response</title>
+            <meta name="description" content="Zero-Dwell Response. Adversaries neutralized. Sovereignty restored. In minutes. 20+ years defending Federal Reserve, NYSE, and Fortune 500 infrastructure." />
+            <meta name="keywords" content="incident response, breach response, ransomware recovery, AI forensics, cybersecurity, identity breach, digital sovereignty" />
+            <link rel="canonical" href="https://lydellsecurity.com" />
             
-            {/* Quick Links */}
-            <div>
-              <h4 className="font-mono text-xs text-slate-400 uppercase tracking-wider mb-4">
-                Services
-              </h4>
-              <ul className="space-y-3 text-sm">
-                <li><a href="#" className="text-slate-500 hover:text-white transition-colors">Rapid Containment</a></li>
-                <li><a href="#" className="text-slate-500 hover:text-white transition-colors">AI Forensics</a></li>
-                <li><a href="#" className="text-slate-500 hover:text-white transition-colors">Ransomware Recovery</a></li>
-                <li><a href="#" className="text-slate-500 hover:text-white transition-colors">IR Retainer</a></li>
-              </ul>
-            </div>
+            {/* Open Graph */}
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="Lydell Security | Elite Incident Response" />
+            <meta property="og:description" content="Zero-Dwell Response. Adversaries neutralized in minutes." />
+            <meta property="og:url" content="https://lydellsecurity.com" />
+            <meta property="og:site_name" content="Lydell Security" />
             
-            {/* Contact */}
-            <div>
-              <h4 className="font-mono text-xs text-slate-400 uppercase tracking-wider mb-4">
-                Emergency Contact
-              </h4>
-              <div className="space-y-3 text-sm">
-                <p className="text-slate-500">
-                  <span className="text-cobalt-400">24/7 Hotline</span>
-                  <br />
-                  <span className="text-white font-mono">+1 (XXX) XXX-XXXX</span>
-                </p>
-                <p className="text-slate-500">
-                  <span className="text-cobalt-400">Secure Email</span>
-                  <br />
-                  <span className="text-white">response@lydellsecurity.com</span>
-                </p>
-              </div>
-            </div>
-          </div>
+            {/* Twitter */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="Lydell Security | Elite Incident Response" />
+            <meta name="twitter:description" content="Zero-Dwell Response. 47-minute average containment." />
+            
+            {/* Schema.org structured data for AEO */}
+            <script type="application/ld+json">{`
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Lydell Security",
+                "url": "https://lydellsecurity.com",
+                "description": "Elite incident response for organizations that refuse to be the next headline. 20+ years defending critical infrastructure.",
+                "foundingDate": "2004",
+                "founder": {
+                  "@type": "Person",
+                  "name": "Jr Lydell"
+                },
+                "areaServed": "Worldwide",
+                "serviceType": ["Incident Response", "Ransomware Recovery", "Digital Forensics", "Identity Breach Response"],
+                "knowsAbout": ["Cybersecurity", "Incident Response", "Ransomware", "Identity Security", "Threat Hunting"],
+                "hasCredential": [
+                  {"@type": "EducationalOccupationalCredential", "credentialCategory": "SOC 2 Type II"},
+                  {"@type": "EducationalOccupationalCredential", "credentialCategory": "HIPAA"},
+                  {"@type": "EducationalOccupationalCredential", "credentialCategory": "PCI-DSS 4.0"}
+                ]
+              }
+            `}</script>
+            
+            {/* FAQ Schema for AEO */}
+            <script type="application/ld+json">{`
+              {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                  {
+                    "@type": "Question",
+                    "name": "What is Zero-Dwell Response?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Zero-Dwell Response is Lydell Security's methodology that prioritizes immediate threat containment over traditional assessment phases. While other firms spend days in discovery, our teams act within minutes—containing threats in an average of 47 minutes while investigating in parallel."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "How fast can Lydell Security respond to an active breach?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Lydell Security guarantees a 15-minute response time for active incidents. A senior incident commander will establish contact within 15 minutes, with initial containment typically achieved within 60 minutes of engagement."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "What types of incidents does Lydell Security handle?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Lydell Security specializes in AI-driven ransomware attacks, identity infrastructure breaches (SSO/MFA compromise), and full-spectrum persistent access campaigns. Our methodologies are specifically designed for 2026-era threats that traditional IR firms aren't equipped to handle."
+                    }
+                  }
+                ]
+              }
+            `}</script>
+          </Helmet>
           
-          {/* Bottom bar */}
-          <div className="mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-slate-600">
-              &copy; {new Date().getFullYear()} Lydell Security. All rights reserved.
-            </p>
-            <div className="flex gap-6 text-xs text-slate-600">
-              <a href="#" className="hover:text-slate-400 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-slate-400 transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-slate-400 transition-colors">Security</a>
-            </div>
+          <div className="min-h-screen transition-colors duration-300">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/response" element={<ResponsePage />} />
+              <Route path="/methodology" element={<MethodologyPage />} />
+              <Route path="/pedigree" element={<PedigreePage />} />
+              <Route path="/technology" element={<TechnologyPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              {/* Catch-all route */}
+              <Route path="*" element={<HomePage />} />
+            </Routes>
           </div>
-        </div>
-      </footer>
-    </div>
+        </Router>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

@@ -1,112 +1,111 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 
-/**
- * Service Card Component
- * Individual service with expandable details
- */
 const ServiceCard = ({ 
-  number, 
+  id,
+  icon, 
+  category,
   title, 
-  subtitle, 
+  tagline,
   description, 
   capabilities, 
   outcome,
-  icon 
+  stats,
+  isExpanded,
+  onToggle,
+  theme
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
   return (
     <div 
       className={`
-        group relative
-        border border-slate-800 hover:border-cobalt-500/50
-        bg-gradient-to-b from-slate-900/50 to-slate-950/50
-        backdrop-blur-sm rounded-lg
-        transition-all duration-500
-        ${isExpanded ? 'ring-1 ring-cobalt-500/30' : ''}
+        group relative overflow-hidden border rounded-lg transition-all duration-500
+        ${theme === 'dark'
+          ? `bg-gradient-to-b from-slate-900/80 to-slate-950/80 
+             ${isExpanded ? 'border-cobalt-500/50 shadow-lg shadow-cobalt-500/10' : 'border-slate-800 hover:border-slate-700'}`
+          : `bg-gradient-to-b from-white to-slate-50 
+             ${isExpanded ? 'border-cobalt-500 shadow-lg shadow-cobalt-500/10' : 'border-slate-200 hover:border-slate-300'}`
+        }
       `}
     >
-      {/* Top accent */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent group-hover:via-cobalt-500/50 transition-colors duration-500" />
+      <div className={`
+        absolute top-0 left-0 right-0 h-px
+        ${isExpanded
+          ? 'bg-gradient-to-r from-transparent via-cobalt-500 to-transparent'
+          : `bg-gradient-to-r from-transparent ${theme === 'dark' ? 'via-slate-700' : 'via-slate-300'} to-transparent`
+        }
+      `} />
       
-      {/* Service number */}
-      <div className="absolute -top-3 left-6">
-        <span className="font-mono text-xs text-cobalt-500 bg-obsidian px-2">
-          {number}
-        </span>
-      </div>
-      
-      <div className="p-8">
-        {/* Header */}
-        <div className="flex items-start gap-4 mb-6">
-          {/* Icon */}
-          <div className="
-            w-12 h-12 
-            flex items-center justify-center 
-            bg-cobalt-500/10 
-            border border-cobalt-500/30 
-            rounded
-            group-hover:bg-cobalt-500/20
-            transition-colors duration-300
-          ">
-            {icon}
-          </div>
-          
-          <div className="flex-1">
-            <h3 className="text-xl text-white font-light mb-1">{title}</h3>
-            <p className="text-sm text-cobalt-400 font-mono">{subtitle}</p>
-          </div>
+      <div className="p-6 md:p-8">
+        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full mb-6 ${theme === 'dark' ? 'bg-slate-800' : 'bg-slate-100'}`}>
+          {icon}
+          <span className={`font-mono text-xs uppercase tracking-wider ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+            {category}
+          </span>
         </div>
         
-        {/* Description */}
-        <p className="text-slate-400 text-sm leading-relaxed mb-6">
+        <h3 className={`text-2xl md:text-3xl font-light mb-3 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+          {title}
+        </h3>
+        
+        <p className={`text-lg mb-4 font-medium ${theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}`}>
+          {tagline}
+        </p>
+        
+        <p className={`mb-6 leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
           {description}
         </p>
         
-        {/* Expand toggle */}
+        <div className={`grid grid-cols-3 gap-4 py-4 mb-6 border-y ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}`}>
+          {stats.map((stat, idx) => (
+            <div key={idx} className="text-center">
+              <div className={`font-mono text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                {stat.value}
+              </div>
+              <div className={`text-xs uppercase tracking-wider ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+        
         <button 
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-2 text-sm text-slate-500 hover:text-cobalt-400 transition-colors"
+          onClick={() => onToggle(id)}
+          className={`flex items-center gap-2 text-sm font-mono transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-cobalt-400' : 'text-slate-600 hover:text-cobalt-600'}`}
         >
-          <span className="font-mono text-xs uppercase tracking-wider">
-            {isExpanded ? 'Collapse' : 'View Capabilities'}
-          </span>
-          <svg 
-            className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
+          <span className="uppercase tracking-wider">{isExpanded ? 'Collapse Details' : 'View Capabilities'}</span>
+          <svg className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </button>
         
-        {/* Expandable content */}
-        <div className={`
-          overflow-hidden transition-all duration-500
-          ${isExpanded ? 'max-h-96 opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}
-        `}>
-          {/* Capabilities */}
-          <div className="border-t border-slate-800 pt-6">
-            <h4 className="font-mono text-xs text-slate-500 uppercase tracking-wider mb-4">
-              What We Execute
+        <div className={`overflow-hidden transition-all duration-500 ${isExpanded ? 'max-h-[800px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
+          <div className={`pt-6 border-t ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}`}>
+            <h4 className={`font-mono text-xs uppercase tracking-wider mb-4 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+              Neutralization Protocol
             </h4>
-            <ul className="space-y-3">
-              {capabilities.map((capability, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-sm">
-                  <span className="w-1.5 h-1.5 bg-cobalt-500 rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-slate-300">{capability}</span>
-                </li>
+            <div className="space-y-4">
+              {capabilities.map((cap, idx) => (
+                <div key={idx} className="flex items-start gap-4">
+                  <div className={`w-8 h-8 rounded flex items-center justify-center flex-shrink-0 ${theme === 'dark' ? 'bg-cobalt-500/10' : 'bg-cobalt-100'}`}>
+                    <span className={`font-mono text-sm font-semibold ${theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}`}>
+                      {(idx + 1).toString().padStart(2, '0')}
+                    </span>
+                  </div>
+                  <div>
+                    <div className={`font-medium mb-1 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{cap.title}</div>
+                    <div className={`text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{cap.description}</div>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
           
-          {/* Outcome */}
-          <div className="mt-6 p-4 bg-cobalt-500/5 border border-cobalt-500/20 rounded">
-            <h4 className="font-mono text-xs text-cobalt-400 uppercase tracking-wider mb-2">
-              The Outcome
+          <div className={`mt-6 p-5 rounded-lg border ${theme === 'dark' ? 'bg-cobalt-950/30 border-cobalt-500/20' : 'bg-cobalt-50 border-cobalt-200'}`}>
+            <h4 className={`font-mono text-xs uppercase tracking-wider mb-2 ${theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}`}>
+              Sovereignty Restored
             </h4>
-            <p className="text-sm text-slate-300">{outcome}</p>
+            <p className={`text-sm leading-relaxed ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>{outcome}</p>
           </div>
         </div>
       </div>
@@ -114,127 +113,109 @@ const ServiceCard = ({
   );
 };
 
-/**
- * Core Services Section
- */
 const ServicesSection = () => {
+  const { theme } = useTheme();
+  const [expandedService, setExpandedService] = useState(null);
+  
   const services = [
     {
-      number: '01',
-      title: 'Rapid Containment',
-      subtitle: 'Identity-First Protocol',
-      description: 'Modern attacks don\'t breach firewalls—they compromise identities. A single stolen session token can traverse your entire environment before traditional detection even fires.',
+      id: 'ai-ransomware',
+      category: 'Ransomware Neutralization',
+      title: 'AI-Driven Ransomware Eradication',
+      tagline: 'They deploy AI. We deploy faster AI.',
+      description: 'Modern ransomware syndicates weaponize machine learning for polymorphic encryption and adaptive evasion. Our agentic countermeasures hunt and terminate ransomware operations before encryption completes.',
+      icon: <svg className={`w-4 h-4 ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
+      stats: [{ value: '< 4min', label: 'Detection' }, { value: '93%', label: 'Pre-Encryption Kill' }, { value: '$0', label: 'Ransom Paid' }],
       capabilities: [
-        'Immediate federation of compromised SSO/IdP sessions across Okta, Azure AD, Ping',
-        'Surgical MFA reset sequences that don\'t disrupt legitimate users',
-        'Service account privilege revocation with dependency mapping',
-        'Conditional access policy hardening in real-time',
-        'Session token invalidation across distributed infrastructure'
+        { title: 'Behavioral AI Interception', description: 'Detect ransomware staging—credential harvesting, shadow copy deletion—and terminate before payload deployment.' },
+        { title: 'Autonomous Isolation Protocol', description: 'Machine-speed network segmentation. Infected endpoints quarantined while maintaining business connectivity.' },
+        { title: 'Decryptor Arsenal Deployment', description: 'Proprietary database of 2,400+ ransomware variant decryptors. Restore without negotiation.' },
+        { title: 'Threat Actor Neutralization', description: 'Hunt and sever C2 infrastructure, eliminating the adversary\'s foothold entirely.' },
+        { title: 'Negotiation & Recovery', description: 'When unavoidable, our negotiators minimize payment and maximize decryptor reliability.' }
       ],
-      outcome: 'Lateral movement stops. The attacker\'s foothold becomes an island.',
-      icon: (
-        <svg className="w-6 h-6 text-cobalt-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
-            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" 
-          />
-        </svg>
-      )
+      outcome: 'Your data remains yours. Encryption prevented or reversed. Operations resume within hours.'
     },
     {
-      number: '02',
-      title: 'AI-Automated Forensics',
-      subtitle: 'Machine-Speed Investigation',
-      description: 'Traditional forensics takes weeks. Your board wants answers in hours. Our agentic AI systems perform parallel investigation across every data source simultaneously.',
+      id: 'identity-breach',
+      category: 'Identity-First Response',
+      title: 'Identity Infrastructure Takeback',
+      tagline: 'The breach started with a credential. We end it there.',
+      description: 'Modern adversaries don\'t breach firewalls—they log in. Our Identity-First protocol treats every authentication anomaly as an existential threat.',
+      icon: <svg className={`w-4 h-4 ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>,
+      stats: [{ value: '< 2min', label: 'Session Kill' }, { value: '100%', label: 'Lateral Block' }, { value: '0', label: 'Privilege Escalation' }],
       capabilities: [
-        'Complete attack timeline with sub-second precision',
-        'Indicator of Compromise (IOC) extraction and threat intel correlation',
-        'Patient-zero identification with confidence scoring',
-        'Data exfiltration assessment with scope quantification',
-        'Chain-of-custody documentation that holds up in court'
+        { title: 'Federation-Wide Session Termination', description: 'Simultaneous invalidation across Okta, Azure AD, Ping Identity. One command, complete lockout.' },
+        { title: 'Surgical MFA Reset', description: 'Compromised factors revoked while legitimate users maintain access through backup paths.' },
+        { title: 'Service Account Revocation', description: 'Map dependencies and execute privilege revocation without breaking production.' },
+        { title: 'Conditional Access Hardening', description: 'Real-time policy injection: impossible travel blocking, device compliance, risk-based step-up.' },
+        { title: 'Token Theft Forensics', description: 'Complete reconstruction of the theft chain. Court-ready evidence collection.' }
       ],
-      outcome: 'You brief your executives with facts, not theories. Within hours, not weeks.',
-      icon: (
-        <svg className="w-6 h-6 text-cobalt-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
-            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
-          />
-        </svg>
-      )
+      outcome: 'Attacker access terminated. Lateral movement severed. Identity infrastructure hardened. Digital sovereignty restored.'
     },
     {
-      number: '03',
-      title: 'Ransomware Recovery',
-      subtitle: 'Business Continuity Protocol',
-      description: 'Ransomware isn\'t just a technical problem—it\'s a business crisis. We\'ve negotiated with every major ransomware syndicate and know their breaking points.',
+      id: 'digital-sovereignty',
+      category: 'Full Spectrum Response',
+      title: 'Digital Sovereignty Restoration',
+      tagline: 'Your network. Your rules. Enforced.',
+      description: 'When adversaries have persistent access—living off the land—half-measures fail. We assume breach, hunt aggressively, and eradicate every trace.',
+      icon: <svg className={`w-4 h-4 ${theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
+      stats: [{ value: '72hr', label: 'Full Eradication' }, { value: '100%', label: 'Persistence Removal' }, { value: 'Zero', label: 'Re-compromise' }],
       capabilities: [
-        'Immediate backup integrity assessment (can we restore without paying?)',
-        'Threat actor profiling (who are we dealing with?)',
-        'Negotiation strategy development (if payment becomes necessary)',
-        'Cryptocurrency transaction handling with regulatory compliance',
-        'Parallel restoration workstreams to minimize downtime'
+        { title: 'Assume-Breach Threat Hunt', description: 'Every endpoint, log source, and network flow scrutinized for indicators of compromise.' },
+        { title: 'Living-off-the-Land Detection', description: 'Adversaries using PowerShell, WMI, PsExec identified through behavioral analysis.' },
+        { title: 'Persistence Eradication', description: 'Scheduled tasks, registry keys, WMI subscriptions, bootkits—systematically eliminated.' },
+        { title: 'C2 Infrastructure Mapping', description: 'Map entire adversary infrastructure for coordinated takedowns with law enforcement.' },
+        { title: 'Hardened Rebuild', description: 'Orchestrate secure rebuilds with hardened baselines against future intrusion.' }
       ],
-      outcome: 'Business continuity preserved. Ransom payments avoided when possible, minimized when necessary.',
-      icon: (
-        <svg className="w-6 h-6 text-cobalt-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
-            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" 
-          />
-        </svg>
-      )
+      outcome: 'Complete adversary eradication. Every backdoor closed. Your environment is yours again.'
     }
   ];
   
   return (
-    <section className="relative py-24 bg-obsidian">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid opacity-30" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent" />
+    <section className={`relative py-20 md:py-28 ${theme === 'dark' ? 'bg-obsidian' : 'bg-slate-50'}`}>
+      <div className={`absolute inset-0 opacity-30 ${theme === 'dark' ? 'bg-grid' : ''}`} />
+      <div className={`absolute top-0 left-0 right-0 h-px ${theme === 'dark' ? 'bg-gradient-to-r from-transparent via-slate-800 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-300 to-transparent'}`} />
       
       <div className="relative max-w-7xl mx-auto px-6">
-        {/* Section header */}
-        <div className="max-w-2xl mb-16">
+        <div className="max-w-3xl mb-16">
           <div className="flex items-center gap-4 mb-6">
-            <div className="h-px w-12 bg-cobalt-500" />
-            <span className="font-mono text-xs text-cobalt-400 tracking-widest uppercase">
-              Core Capabilities
+            <div className={`h-px w-12 ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-cobalt-600'}`} />
+            <span className={`font-mono text-xs tracking-[0.2em] uppercase ${theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}`}>
+              Specialized Response
             </span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
-            When Minutes 
-            <span className="text-slate-500"> Matter Most</span>
+          <h2 className={`text-3xl md:text-5xl font-light mb-6 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+            Threats Evolve. <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>We Evolve Faster.</span>
           </h2>
           
-          <p className="text-lg text-slate-400 leading-relaxed">
-            The average dwell time for sophisticated adversaries is 21 days. 
-            Our average time-to-containment is 47 minutes. The difference is whether 
-            you're reading about the breach—or reading about someone else's.
+          <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+            2026's threat landscape demands 2026 countermeasures—AI-driven ransomware, identity infrastructure compromise, and persistent access campaigns.
           </p>
         </div>
         
-        {/* Services grid */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {services.map((service, idx) => (
-            <ServiceCard key={idx} {...service} />
+        <div className="grid gap-6">
+          {services.map((service) => (
+            <ServiceCard 
+              key={service.id}
+              {...service}
+              isExpanded={expandedService === service.id}
+              onToggle={(id) => setExpandedService(expandedService === id ? null : id)}
+              theme={theme}
+            />
           ))}
         </div>
         
-        {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <p className="text-slate-500 mb-6">
+        <div className={`mt-16 p-8 rounded-lg border text-center ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200'}`}>
+          <h3 className={`text-xl font-light mb-3 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+            Not sure which protocol applies?
+          </h3>
+          <p className={`mb-6 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
             Every engagement begins with a secure conversation.
           </p>
-          <button className="
-            px-8 py-4 
-            bg-transparent hover:bg-slate-800/50
-            text-slate-300 hover:text-white
-            font-mono text-sm tracking-wider
-            transition-all duration-300
-            border border-slate-600 hover:border-cobalt-500/50
-            rounded
-          ">
-            DISCUSS YOUR REQUIREMENTS
-          </button>
+          <Link to="/contact" className={`inline-flex items-center gap-2 px-8 py-4 font-mono text-sm tracking-wider transition-all ${theme === 'dark' ? 'bg-transparent hover:bg-slate-800 text-slate-300 border border-slate-600 hover:border-cobalt-500' : 'bg-transparent hover:bg-slate-100 text-slate-700 border border-slate-300 hover:border-cobalt-500'}`}>
+            DISCUSS YOUR SITUATION
+          </Link>
         </div>
       </div>
     </section>
