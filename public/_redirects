@@ -1,4 +1,0 @@
-# Netlify redirects for SPA
-# This is a backup - netlify.toml takes precedence
-
-/*    /index.html   200
