@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import LiveNetworkMap from './LiveNetworkMap';
 import InitiateIRButton from './InitiateIRButton';
-import ThemeToggle from './ThemeToggle';
+import Navigation from './Navigation';
 
 /**
  * HeroSection - 2026 Paper & Steel Edition
@@ -51,58 +51,12 @@ const HeroSection = () => {
           : 'bg-gradient-to-r from-paper/40 via-transparent to-paper/40'
       }`} />
       
+      {/* Shared Navigation */}
+      <Navigation />
+
       {/* Content wrapper - pointer-events-none to allow network map interaction */}
-      <div className="relative z-20 max-w-7xl mx-auto px-6 py-8 pointer-events-none">
-        
-        {/* Navigation */}
-        <nav className="flex justify-between items-center mb-16 md:mb-24 pointer-events-auto">
-          <Link to="/" className="flex items-center gap-4 group">
-            <div className={`w-10 h-10 border flex items-center justify-center transition-colors duration-300 ${
-              isDark 
-                ? 'border-cobalt-500/50 group-hover:border-cobalt-400' 
-                : 'border-cobalt-700 group-hover:border-cobalt-600'
-            }`}>
-              <div className={`w-4 h-4 ${isDark ? 'bg-cobalt-500' : 'bg-cobalt-700'}`} />
-            </div>
-            <span className={`font-mono text-lg tracking-widest ${isDark ? 'text-white' : 'text-ink'}`}>
-              LYDELL<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>SECURITY</span>
-            </span>
-          </Link>
-          
-          <div className="flex items-center gap-6">
-            {/* Live status indicator */}
-            <div className="hidden md:flex items-center gap-2">
-              <div className="relative">
-                <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                <div className="absolute inset-0 w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-              </div>
-              <span className={`font-mono text-xs ${isDark ? 'text-slate-400' : 'text-ink-muted'}`}>
-                THREAT GRID ACTIVE
-              </span>
-            </div>
-            
-            <div className={`hidden md:block h-4 w-px ${isDark ? 'bg-slate-700' : 'bg-stroke-strong'}`} />
-            
-            {/* Nav links */}
-            <nav className="hidden md:flex items-center gap-6">
-              {['Response', 'Methodology', 'Intel', 'Pedigree'].map((item) => (
-                <Link 
-                  key={item}
-                  to={`/${item.toLowerCase()}`} 
-                  className={`text-sm font-medium transition-colors ${
-                    isDark ? 'text-slate-400 hover:text-white' : 'text-ink-muted hover:text-ink'
-                  }`}
-                >
-                  {item}
-                </Link>
-              ))}
-            </nav>
-            
-            <div className={`hidden md:block h-4 w-px ${isDark ? 'bg-slate-700' : 'bg-stroke-strong'}`} />
-            <ThemeToggle />
-          </div>
-        </nav>
-        
+      <div className="relative z-20 max-w-7xl mx-auto px-6 pt-24 pb-8 pointer-events-none">
+
         {/* Main content grid */}
         <div className="grid lg:grid-cols-[1fr,420px] gap-12 lg:gap-16 items-start pointer-events-auto">
           

@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage';
 import MethodologyPage from './pages/MethodologyPage';
 import ThreatIntelPage from './pages/ThreatIntelPage';
 import ServicesPage from './pages/ServicesPage';
-import { PedigreePage, TechnologyPage, ContactPage } from './pages/OtherPages';
+import { PedigreePage, ContactPage } from './pages/OtherPages';
 
 function App() {
   return (
@@ -94,10 +94,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/services" element={<ServicesPage />} />
-              <Route path="/response" element={<ServicesPage />} />
               <Route path="/methodology" element={<MethodologyPage />} />
               <Route path="/pedigree" element={<PedigreePage />} />
-              <Route path="/technology" element={<TechnologyPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/intel" element={<ThreatIntelPage />} />
               {/* Catch-all route */}

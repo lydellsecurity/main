@@ -44,44 +44,6 @@ export const PedigreePage = () => {
   );
 };
 
-export const TechnologyPage = () => {
-  const { theme } = useTheme();
-  const tech = [
-    { name: 'XDR Integration', desc: 'Unified telemetry across endpoint, network, identity, cloud.' },
-    { name: 'SIEM-as-Code', desc: 'Detection logic version-controlled, deployed like software.' },
-    { name: 'AI Playbooks', desc: 'Agentic systems make tier-one decisions autonomously.' },
-    { name: 'Post-Quantum Ready', desc: 'Preparing infrastructure for quantum threat horizon.' },
-    { name: 'Threat Intel Fusion', desc: '40+ commercial and government sources correlated.' }
-  ];
-  return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-obsidian' : 'bg-slate-50'}`}>
-      <Navigation />
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl mb-16">
-            <div className="flex items-center gap-4 mb-6">
-              <div className={`h-px w-12 ${theme === 'dark' ? 'bg-cobalt-500' : 'bg-cobalt-600'}`} />
-              <span className={`font-mono text-xs tracking-widest uppercase ${theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}`}>2026 Tech Stack</span>
-            </div>
-            <h1 className={`text-4xl md:text-6xl font-light mb-6 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-              Infrastructure for <span className={theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}>Next-Gen Threats</span>
-            </h1>
-          </div>
-          <div className="space-y-4">
-            {tech.map((t, i) => (
-              <div key={i} className={`p-6 rounded-lg border ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200'}`}>
-                <h3 className={`text-xl font-light mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{t.name}</h3>
-                <p className={theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}>{t.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <Footer />
-    </div>
-  );
-};
-
 export const ContactPage = () => {
   const { theme } = useTheme();
   return (
