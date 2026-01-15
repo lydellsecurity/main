@@ -2,18 +2,6 @@ import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import ServicesSection from '../components/ServicesSection';
-
-export const ResponsePage = () => {
-  const { theme } = useTheme();
-  return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-obsidian' : 'bg-slate-50'}`}>
-      <Navigation />
-      <div className="pt-20"><ServicesSection /></div>
-      <Footer />
-    </div>
-  );
-};
 
 export const PedigreePage = () => {
   const { theme } = useTheme();

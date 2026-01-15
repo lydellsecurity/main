@@ -38,9 +38,10 @@ const Footer = () => {
           <div>
             <h4 className={`font-mono text-xs uppercase tracking-wider mb-4 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>Services</h4>
             <ul className="space-y-3 text-sm">
-              {['AI Ransomware Response', 'Identity Breach Containment', 'Digital Sovereignty Restoration', 'IR Retainer Programs'].map((item) => (
-                <li key={item}><Link to="/response" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>{item}</Link></li>
-              ))}
+              <li><Link to="/services#ai-ransomware" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>AI Ransomware Response</Link></li>
+              <li><Link to="/services#identity-breach" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>Identity Breach Containment</Link></li>
+              <li><Link to="/services#digital-sovereignty" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>Digital Sovereignty Restoration</Link></li>
+              <li><Link to="/services#ir-retainer" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>IR Retainer Programs</Link></li>
             </ul>
           </div>
           

@@ -176,7 +176,7 @@ const HeroSection = () => {
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 mb-12">
               <Link
-                to="/response"
+                to="/services"
                 className={`
                   px-8 py-4 font-mono text-sm tracking-wider transition-all duration-300 rounded-lg
                   ${isDark

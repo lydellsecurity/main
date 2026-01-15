@@ -340,7 +340,7 @@ const MethodologyPage = () => {
               SCHEDULE CONSULTATION
             </Link>
             <Link
-              to="/response"
+              to="/services"
               className={`
                 px-8 py-4 font-mono text-sm tracking-wider rounded-lg transition-all
                 ${isDark

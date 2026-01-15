@@ -9,7 +9,7 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const navLinks = [
-    { path: '/response', label: 'Response' },
+    { path: '/services', label: 'Services' },
     { path: '/methodology', label: 'Methodology' },
     { path: '/intel', label: 'Intel' },
     { path: '/pedigree', label: 'Pedigree' },

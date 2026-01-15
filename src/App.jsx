@@ -5,7 +5,8 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 import HomePage from './pages/HomePage';
 import MethodologyPage from './pages/MethodologyPage';
 import ThreatIntelPage from './pages/ThreatIntelPage';
-import { ResponsePage, PedigreePage, TechnologyPage, ContactPage } from './pages/OtherPages';
+import ServicesPage from './pages/ServicesPage';
+import { PedigreePage, TechnologyPage, ContactPage } from './pages/OtherPages';
 
 function App() {
   return (
@@ -92,7 +93,8 @@ function App() {
           <div className="min-h-screen transition-colors duration-300">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/response" element={<ResponsePage />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/response" element={<ServicesPage />} />
               <Route path="/methodology" element={<MethodologyPage />} />
               <Route path="/pedigree" element={<PedigreePage />} />
               <Route path="/technology" element={<TechnologyPage />} />
