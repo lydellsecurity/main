@@ -203,44 +203,44 @@ const HeroSection = () => {
             
             {/* Live stats bar - Terminal aesthetic in light mode */}
             <div className={`
-              grid grid-cols-3 gap-6 p-6 rounded-xl border
-              ${isDark 
-                ? 'bg-slate-900/50 border-slate-800' 
+              grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 p-4 sm:p-6 rounded-xl border
+              ${isDark
+                ? 'bg-slate-900/50 border-slate-800'
                 : 'terminal-block'
               }
             `}>
               {/* Terminal header for light mode */}
               {!isDark && (
-                <div className="col-span-3 flex items-center gap-2 pb-3 mb-3 border-b border-stroke">
+                <div className="col-span-1 sm:col-span-3 flex items-center gap-2 pb-3 mb-3 border-b border-stroke">
                   <div className="w-3 h-3 rounded-full bg-red-500" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500" />
                   <div className="w-3 h-3 rounded-full bg-green-500" />
                   <span className="ml-2 font-mono text-xs text-ink-muted">live_metrics.sh</span>
                 </div>
               )}
-              
-              <div>
-                <div className={`font-mono text-3xl font-bold ${isDark ? 'text-white' : 'text-ink'}`}>
-                  {Math.round(stats.containment)}<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>min</span>
-                </div>
-                <div className={`text-xs uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
+
+              <div className="flex sm:block items-center justify-between sm:justify-start">
+                <div className={`text-xs uppercase tracking-wider order-1 sm:order-2 ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
                   Avg Neutralization
                 </div>
-              </div>
-              <div>
-                <div className={`font-mono text-3xl font-bold ${isDark ? 'text-white' : 'text-ink'}`}>
-                  {stats.eradicated.toLocaleString()}<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>+</span>
+                <div className={`font-mono text-2xl sm:text-3xl font-bold order-2 sm:order-1 ${isDark ? 'text-white' : 'text-ink'}`}>
+                  {Math.round(stats.containment)}<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>min</span>
                 </div>
-                <div className={`text-xs uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
+              </div>
+              <div className="flex sm:block items-center justify-between sm:justify-start">
+                <div className={`text-xs uppercase tracking-wider order-1 sm:order-2 ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
                   Threats Eradicated
                 </div>
-              </div>
-              <div>
-                <div className={`font-mono text-3xl font-bold ${isDark ? 'text-white' : 'text-ink'}`}>
-                  {stats.uptime}<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>%</span>
+                <div className={`font-mono text-2xl sm:text-3xl font-bold order-2 sm:order-1 ${isDark ? 'text-white' : 'text-ink'}`}>
+                  {stats.eradicated.toLocaleString()}<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>+</span>
                 </div>
-                <div className={`text-xs uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
+              </div>
+              <div className="flex sm:block items-center justify-between sm:justify-start">
+                <div className={`text-xs uppercase tracking-wider order-1 sm:order-2 ${isDark ? 'text-slate-500' : 'text-ink-muted'}`}>
                   Client Uptime
+                </div>
+                <div className={`font-mono text-2xl sm:text-3xl font-bold order-2 sm:order-1 ${isDark ? 'text-white' : 'text-ink'}`}>
+                  {stats.uptime}<span className={isDark ? 'text-cobalt-400' : 'text-cobalt-700'}>%</span>
                 </div>
               </div>
             </div>

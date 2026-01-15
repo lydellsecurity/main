@@ -276,9 +276,9 @@ const InitiateIRButton = ({ className = '' }) => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
             {/* Contact Info Row */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className={labelClass}>Your Name *</label>
                 <input
@@ -305,7 +305,7 @@ const InitiateIRButton = ({ className = '' }) => {
             </div>
 
             {/* Contact Methods */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className={labelClass}>Phone *</label>
                 <input
@@ -333,7 +333,7 @@ const InitiateIRButton = ({ className = '' }) => {
             </div>
 
             {/* Incident Type & Severity */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className={labelClass}>Incident Type</label>
                 <select

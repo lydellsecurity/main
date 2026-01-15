@@ -56,14 +56,14 @@ const ServiceCard = ({
           {description}
         </p>
         
-        <div className={`grid grid-cols-3 gap-4 py-4 mb-6 border-y ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}`}>
+        <div className={`grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 py-4 mb-6 border-y ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}`}>
           {stats.map((stat, idx) => (
-            <div key={idx} className="text-center">
-              <div className={`font-mono text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-                {stat.value}
-              </div>
-              <div className={`text-xs uppercase tracking-wider ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
+            <div key={idx} className="flex sm:block justify-between items-center sm:text-center">
+              <div className={`text-xs uppercase tracking-wider order-1 sm:order-2 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}`}>
                 {stat.label}
+              </div>
+              <div className={`font-mono text-lg sm:text-xl font-semibold order-2 sm:order-1 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                {stat.value}
               </div>
             </div>
           ))}
