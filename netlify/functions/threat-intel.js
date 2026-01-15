@@ -125,9 +125,14 @@ export default async (request, context) => {
   // The CDN will cache this response, so Claude API is only called occasionally
   if (!forceRefresh) {
     try {
+      // Create abort controller with 8 second timeout (Netlify functions timeout at 10s)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
+
       // Attempt to call Claude API for fresh data
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
+        signal: controller.signal,
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': ANTHROPIC_API_KEY,
@@ -136,14 +141,11 @@ export default async (request, context) => {
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 4096,
-          tools: [{ type: 'web_search_20250305', name: 'web_search' }],
           messages: [{
             role: 'user',
-            content: `You are a cybersecurity threat intelligence analyst. Search for the latest cyber threat news from the past 7 days.
+            content: `You are a cybersecurity threat intelligence analyst. Generate realistic current cyber threat intelligence.
 
-Search for recent cybersecurity incidents, vulnerabilities, ransomware attacks, data breaches, and APT activities.
-
-Return a JSON array with exactly 6 threat articles. Each must have:
+Create a JSON array with exactly 6 threat articles reflecting typical current threats. Each must have:
 {
   "id": "unique-string",
   "category": "ransomware|apt|vulnerabilities|malware|data-breach",
@@ -156,13 +158,16 @@ Return a JSON array with exactly 6 threat articles. Each must have:
   "iocs": [],
   "mitre_tactics": ["Tactic1", "Tactic2"],
   "source": "Source name",
-  "date": "YYYY-MM-DD"
+  "date": "${new Date().toISOString().split('T')[0]}"
 }
 
+Include mix of: ransomware, APT activity, critical vulnerabilities, data breaches, and malware campaigns.
 Return ONLY valid JSON array, no markdown or explanation.`
           }],
         }),
       });
+
+      clearTimeout(timeoutId);
 
       if (response.ok) {
         const data = await response.json();
@@ -170,7 +175,7 @@ Return ONLY valid JSON array, no markdown or explanation.`
         for (const block of data.content) {
           if (block.type === 'text') content += block.text;
         }
-        
+
         const jsonMatch = content.match(/\[[\s\S]*\]/);
         if (jsonMatch) {
           const articles = JSON.parse(jsonMatch[0]);
