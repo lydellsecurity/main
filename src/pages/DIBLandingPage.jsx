@@ -606,7 +606,7 @@ const DIBLandingPage = () => {
                 CONTACT LARRY BARKSDALE →
               </Link>
               <a
-                href="tel:+1XXXXXXXXXX"
+                href="tel:+18774783266"
                 className={`inline-flex items-center justify-center gap-2 px-8 py-4 border font-mono text-sm tracking-wider rounded transition-colors ${isDark ? 'border-slate-700 text-slate-300 hover:border-red-500 hover:text-red-400' : 'border-slate-300 text-slate-700 hover:border-red-600 hover:text-red-600'}`}
               >
                 ACTIVE INCIDENT? INITIATE SECURE LINE

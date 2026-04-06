@@ -585,8 +585,8 @@ const InitiateIRButton = ({ className = '' }) => {
               <div className={`text-xs ${isDark ? 'text-slate-400' : 'text-ink-muted'}`}>
                 If you haven't received a call, contact us directly:
               </div>
-              <a href="tel:+18005551234" className={`font-mono text-lg font-bold ${isDark ? 'text-cobalt-400' : 'text-cobalt-700'}`}>
-                1-800-555-1234
+              <a href="tel:+18774783266" className={`font-mono text-lg font-bold ${isDark ? 'text-cobalt-400' : 'text-cobalt-700'}`}>
+                1-877-IR-TEAM
               </a>
             </div>
             
@@ -630,8 +630,8 @@ const InitiateIRButton = ({ className = '' }) => {
               <div className={`text-sm mb-2 ${isDark ? 'text-slate-300' : 'text-ink'}`}>
                 <strong>Call our emergency line directly:</strong>
               </div>
-              <a href="tel:+18005551234" className={`font-mono text-2xl font-bold ${isDark ? 'text-red-400' : 'text-emergency-vivid'}`}>
-                1-800-555-1234
+              <a href="tel:+18774783266" className={`font-mono text-2xl font-bold ${isDark ? 'text-red-400' : 'text-emergency-vivid'}`}>
+                1-877-IR-TEAM
               </a>
             </div>
             
