@@ -18,7 +18,9 @@ databases:
     databaseName: lydell_blog
     user: lydell_admin
     postgresMajorVersion: "16"
-    ipAllowList: []         # Render internal network
+    ipAllowList:            # Allow external connections (Netlify Functions)
+      - source: 0.0.0.0/0
+        description: All (Netlify Functions run on rotating AWS IPs)
 
 services:
   - type: cron
