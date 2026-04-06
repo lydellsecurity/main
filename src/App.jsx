@@ -13,6 +13,8 @@ import HealthcareLandingPage from './pages/HealthcareLandingPage';
 import EnterpriseTechLandingPage from './pages/EnterpriseTechLandingPage';
 import DoDPrimeOutreachPage from './pages/DoDPrimeOutreachPage';
 import InsurancePanelOutreachPage from './pages/InsurancePanelOutreachPage';
+import BlogListPage from './pages/BlogListPage';
+import BlogPostPage from './pages/BlogPostPage';
 
 function App() {
   return (
@@ -48,7 +50,7 @@ function App() {
                 "foundingDate": "2004",
                 "founder": {
                   "@type": "Person",
-                  "name": "Jr Lydell"
+                  "name": "Larry Barksdale"
                 },
                 "areaServed": "Worldwide",
                 "serviceType": ["Incident Response", "Ransomware Recovery", "Digital Forensics", "Identity Breach Response"],
@@ -110,6 +112,8 @@ function App() {
               <Route path="/enterprise-identity-compromise-response" element={<EnterpriseTechLandingPage />} />
               <Route path="/dod-prime-subcontracting" element={<DoDPrimeOutreachPage />} />
               <Route path="/insurance-panel-application" element={<InsurancePanelOutreachPage />} />
+              <Route path="/blog" element={<BlogListPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
               {/* Catch-all route */}
               <Route path="*" element={<HomePage />} />
             </Routes>

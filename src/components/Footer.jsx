@@ -41,7 +41,7 @@ const Footer = () => {
               <li><Link to="/services#ai-ransomware" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>AI Ransomware Response</Link></li>
               <li><Link to="/services#identity-breach" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>Identity Breach Containment</Link></li>
               <li><Link to="/services#digital-sovereignty" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>Digital Sovereignty Restoration</Link></li>
-              <li><Link to="/services#ir-retainer" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>IR Retainer Programs</Link></li>
+              <li><Link to="/blog" className={`transition-colors ${theme === 'dark' ? 'text-slate-500 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}>Threat Intelligence Blog</Link></li>
             </ul>
           </div>
           

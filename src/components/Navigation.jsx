@@ -12,6 +12,7 @@ const Navigation = () => {
     { path: '/services', label: 'Services' },
     { path: '/methodology', label: 'Methodology' },
     { path: '/intel', label: 'Intel' },
+    { path: '/blog', label: 'Blog' },
     { path: '/pedigree', label: 'Pedigree' },
     { path: '/contact', label: 'Contact' }
   ];
