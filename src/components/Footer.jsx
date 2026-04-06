@@ -50,7 +50,7 @@ const Footer = () => {
             <div className="space-y-3 text-sm">
               <p className={theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}>
                 <span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>24/7 Hotline</span><br />
-                <span className={`font-mono ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>+1 (888) IR-RAPID</span>
+                <a href="tel:+18774783266" className={`font-mono ${theme === 'dark' ? 'text-white hover:text-cobalt-400' : 'text-slate-900 hover:text-cobalt-600'} transition-colors`}>1-877-IR-TEAM</a>
               </p>
               <p className={theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}>
                 <span className={theme === 'dark' ? 'text-cobalt-400' : 'text-cobalt-600'}>Secure Email</span><br />

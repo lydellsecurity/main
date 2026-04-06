@@ -32,6 +32,8 @@ const InitiateIRButton = ({ className = '' }) => {
     severity: 'high',
     description: '',
     affectedSystems: '',
+    smsConsent: false,
+    termsConsent: false,
   });
   const [formErrors, setFormErrors] = useState({});
 
@@ -92,7 +94,11 @@ const InitiateIRButton = ({ className = '' }) => {
     } else if (formData.description.length < 20) {
       errors.description = 'Please provide more detail (min 20 characters)';
     }
-    
+
+    if (!formData.termsConsent) {
+      errors.termsConsent = 'You must agree to the Terms of Service and Privacy Policy';
+    }
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -393,6 +399,50 @@ const InitiateIRButton = ({ className = '' }) => {
                 className={`${inputClass} resize-none`}
               />
               {formErrors.description && <p className={errorClass}>{formErrors.description}</p>}
+            </div>
+
+            {/* Consent Checkboxes */}
+            <div className="space-y-3 pt-2">
+              {/* SMS Opt-In (Optional) */}
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  name="smsConsent"
+                  checked={formData.smsConsent}
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, smsConsent: e.target.checked }));
+                  }}
+                  className={`mt-1 w-4 h-4 rounded border ${isDark ? 'border-slate-600 bg-slate-800' : 'border-slate-300 bg-white'} accent-cobalt-500`}
+                />
+                <span className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  I agree to receive SMS incident status updates from Lydell Security at the phone number provided. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out at any time. Reply HELP for assistance. This consent is not required to receive services. View our{' '}
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className={isDark ? 'text-cobalt-400 underline' : 'text-cobalt-600 underline'}>Privacy Policy</a>.
+                </span>
+              </label>
+
+              {/* Terms & Privacy (Required) */}
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  name="termsConsent"
+                  checked={formData.termsConsent}
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, termsConsent: e.target.checked }));
+                    if (formErrors.termsConsent) {
+                      setFormErrors(prev => ({ ...prev, termsConsent: null }));
+                    }
+                  }}
+                  className={`mt-1 w-4 h-4 rounded border ${isDark ? 'border-slate-600 bg-slate-800' : 'border-slate-300 bg-white'} accent-cobalt-500`}
+                />
+                <span className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  I agree to the{' '}
+                  <a href="/terms" target="_blank" rel="noopener noreferrer" className={isDark ? 'text-cobalt-400 underline' : 'text-cobalt-600 underline'}>Terms of Service</a>
+                  {' '}and{' '}
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer" className={isDark ? 'text-cobalt-400 underline' : 'text-cobalt-600 underline'}>Privacy Policy</a>.
+                  {' '}<span className={isDark ? 'text-red-400' : 'text-red-600'}>*</span>
+                </span>
+              </label>
+              {formErrors.termsConsent && <p className={errorClass}>{formErrors.termsConsent}</p>}
             </div>
 
             {/* Actions */}

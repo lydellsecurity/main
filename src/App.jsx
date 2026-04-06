@@ -15,6 +15,8 @@ import DoDPrimeOutreachPage from './pages/DoDPrimeOutreachPage';
 import InsurancePanelOutreachPage from './pages/InsurancePanelOutreachPage';
 import BlogListPage from './pages/BlogListPage';
 import BlogPostPage from './pages/BlogPostPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
 
 function App() {
   return (
@@ -114,6 +116,8 @@ function App() {
               <Route path="/insurance-panel-application" element={<InsurancePanelOutreachPage />} />
               <Route path="/blog" element={<BlogListPage />} />
               <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/privacy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms" element={<TermsOfServicePage />} />
               {/* Catch-all route */}
               <Route path="*" element={<HomePage />} />
             </Routes>
