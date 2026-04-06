@@ -11,6 +11,8 @@ import DIBLandingPage from './pages/DIBLandingPage';
 import FinancialServicesLandingPage from './pages/FinancialServicesLandingPage';
 import HealthcareLandingPage from './pages/HealthcareLandingPage';
 import EnterpriseTechLandingPage from './pages/EnterpriseTechLandingPage';
+import DoDPrimeOutreachPage from './pages/DoDPrimeOutreachPage';
+import InsurancePanelOutreachPage from './pages/InsurancePanelOutreachPage';
 
 function App() {
   return (
@@ -106,6 +108,8 @@ function App() {
               <Route path="/financial-services-ransomware-response" element={<FinancialServicesLandingPage />} />
               <Route path="/healthcare-identity-breach-response" element={<HealthcareLandingPage />} />
               <Route path="/enterprise-identity-compromise-response" element={<EnterpriseTechLandingPage />} />
+              <Route path="/dod-prime-subcontracting" element={<DoDPrimeOutreachPage />} />
+              <Route path="/insurance-panel-application" element={<InsurancePanelOutreachPage />} />
               {/* Catch-all route */}
               <Route path="*" element={<HomePage />} />
             </Routes>
