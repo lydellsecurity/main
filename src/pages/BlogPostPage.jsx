@@ -70,6 +70,17 @@ const BlogPostPage = () => {
 
   const getShareUrl = () => `https://lydellsecurity.com/blog/${slug}`;
 
+  // Hooks must be called unconditionally (before any early returns)
+  const sanitizedHtml = useMemo(() => {
+    if (!post?.content_html) return '';
+    return DOMPurify.sanitize(post.content_html, {
+      ADD_TAGS: ['table', 'thead', 'tbody', 'tr', 'th', 'td', 'code', 'pre', 'strong', 'em'],
+      ADD_ATTR: ['href', 'target', 'rel', 'class', 'id', 'src', 'alt', 'loading', 'width', 'height'],
+      FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form', 'input'],
+      FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover', 'style'],
+    });
+  }, [post?.content_html]);
+
   // ── Loading State ──────────────────────────────────────────────────────
   if (loading) {
     return (
@@ -119,15 +130,6 @@ const BlogPostPage = () => {
   }
 
   const readingTime = estimateReadingTime(post.content_html);
-  const sanitizedHtml = useMemo(() => {
-    if (!post.content_html) return '';
-    return DOMPurify.sanitize(post.content_html, {
-      ADD_TAGS: ['table', 'thead', 'tbody', 'tr', 'th', 'td', 'code', 'pre', 'strong', 'em'],
-      ADD_ATTR: ['href', 'target', 'rel', 'class', 'id', 'src', 'alt', 'loading', 'width', 'height'],
-      FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form', 'input'],
-      FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover', 'style'],
-    });
-  }, [post.content_html]);
   const shareUrl = getShareUrl();
   const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.og_title || post.title)}`;
   const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
