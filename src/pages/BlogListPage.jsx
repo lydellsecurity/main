@@ -112,7 +112,7 @@ const BlogListPage = () => {
       <Helmet>
         <title>Cybersecurity Intelligence Blog | Lydell Security</title>
         <meta name="description" content="Technical threat intelligence, incident response analysis, and compliance guidance from the team that protects the Federal Reserve and NYSE." />
-        <link rel="canonical" href="https://lydellsecurity.com/blog" />
+        <link rel="canonical" href={currentPage > 1 ? `https://lydellsecurity.com/blog?page=${currentPage}` : 'https://lydellsecurity.com/blog'} />
         <meta property="og:title" content="Cybersecurity Intelligence Blog | Lydell Security" />
         <meta property="og:description" content="Expert analysis on ransomware, identity threats, and compliance frameworks." />
         <meta property="og:type" content="website" />
@@ -173,7 +173,9 @@ const BlogListPage = () => {
                 <svg className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? 'text-slate-500' : 'text-ink-subtle'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
+                <label htmlFor="blog-search" className="sr-only">Search articles</label>
                 <input
+                  id="blog-search"
                   type="text"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}

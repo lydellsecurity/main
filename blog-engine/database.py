@@ -120,6 +120,7 @@ class Post(Base):
     target_keyword: Mapped[Optional[str]] = mapped_column(
         String(200),
         nullable=True,
+        index=True,
         comment="Primary long-tail SEO keyword",
     )
 

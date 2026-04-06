@@ -7,7 +7,8 @@
 //   GET /api/blog?category=<c> → Filter by category
 //   GET /api/blog?search=<q>   → Full-text search
 //
-// Requires DATABASE_URL environment variable (Render Postgres)
+// Security: parameterized queries, input validation, restricted CORS,
+//           SSL verification, generic error responses.
 
 import pg from 'pg';
 const { Pool } = pg;
@@ -25,7 +26,9 @@ function getPool() {
     }
     pool = new Pool({
       connectionString,
-      ssl: { rejectUnauthorized: false },
+      ssl: process.env.NODE_ENV === 'development'
+        ? false
+        : { rejectUnauthorized: true },
       max: 3,
       idleTimeoutMillis: 10000,
       connectionTimeoutMillis: 5000,
@@ -35,21 +38,63 @@ function getPool() {
 }
 
 // ---------------------------------------------------------------------------
-// CORS & Cache Headers
+// Allowed Origins
 // ---------------------------------------------------------------------------
-const baseHeaders = {
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
+const ALLOWED_ORIGINS = [
+  'https://lydellsecurity.com',
+  'https://www.lydellsecurity.com',
+];
 
-function respond(body, status = 200, cacheSeconds = 300) {
+function getCorsOrigin(request) {
+  const origin = request.headers.get('origin') || '';
+  if (ALLOWED_ORIGINS.includes(origin)) return origin;
+  // Allow same-origin requests (no Origin header) and localhost in dev
+  if (!origin) return 'https://lydellsecurity.com';
+  if (origin.startsWith('http://localhost')) return origin;
+  return 'https://lydellsecurity.com';
+}
+
+// ---------------------------------------------------------------------------
+// Input Validation
+// ---------------------------------------------------------------------------
+const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,298}$/;
+const MAX_SEARCH_LEN = 100;
+const MAX_CATEGORY_LEN = 60;
+const MAX_PAGE = 500;
+const MAX_LIMIT = 24;
+
+function sanitizeSlug(raw) {
+  if (!raw) return null;
+  const s = raw.trim().toLowerCase().slice(0, 300);
+  return SLUG_RE.test(s) ? s : null;
+}
+
+function sanitizeSearch(raw) {
+  if (!raw) return null;
+  return raw.trim().slice(0, MAX_SEARCH_LEN) || null;
+}
+
+function sanitizeCategory(raw) {
+  if (!raw || raw === 'all') return null;
+  return raw.trim().slice(0, MAX_CATEGORY_LEN) || null;
+}
+
+// ---------------------------------------------------------------------------
+// Response Helper
+// ---------------------------------------------------------------------------
+function respond(body, status, cacheSeconds, request) {
+  const corsOrigin = request ? getCorsOrigin(request) : 'https://lydellsecurity.com';
   return new Response(JSON.stringify(body), {
     status,
     headers: {
-      ...baseHeaders,
-      'Cache-Control': `public, s-maxage=${cacheSeconds}, max-age=${Math.floor(cacheSeconds / 2)}, stale-while-revalidate=86400`,
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': corsOrigin,
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Vary': 'Origin',
+      'Cache-Control': cacheSeconds > 0
+        ? `public, s-maxage=${cacheSeconds}, max-age=${Math.floor(cacheSeconds / 2)}, stale-while-revalidate=86400`
+        : 'no-store',
     },
   });
 }
@@ -79,11 +124,18 @@ async function getPostBySlug(slug) {
 
   const post = result.rows[0];
 
-  // Parse FAQ schema if present
+  // Parse FAQ schema if present — validate before passing to frontend
   if (post.faq_schema) {
     try {
-      post.faq_schema_parsed = JSON.parse(post.faq_schema);
-    } catch {
+      const parsed = JSON.parse(post.faq_schema);
+      // Validate it has the expected FAQPage structure
+      if (parsed?.['@type'] === 'FAQPage' && Array.isArray(parsed?.mainEntity)) {
+        post.faq_schema_parsed = parsed;
+      } else {
+        post.faq_schema_parsed = null;
+      }
+    } catch (e) {
+      console.warn(`Invalid FAQ schema for slug ${slug}:`, e.message);
       post.faq_schema_parsed = null;
     }
   }
@@ -114,7 +166,7 @@ async function listPosts({ page = 1, limit = 12, category = null, search = null 
   const conditions = ['is_published = true'];
   let paramIndex = 1;
 
-  if (category && category !== 'all') {
+  if (category) {
     conditions.push(`category = $${paramIndex}`);
     params.push(category);
     paramIndex++;
@@ -126,7 +178,7 @@ async function listPosts({ page = 1, limit = 12, category = null, search = null 
     paramIndex++;
   }
 
-  const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
+  const whereClause = `WHERE ${conditions.join(' AND ')}`;
 
   // Count total
   const countResult = await db.query(
@@ -178,41 +230,53 @@ async function listPosts({ page = 1, limit = 12, category = null, search = null 
 export default async (request, context) => {
   // CORS preflight
   if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: baseHeaders });
+    return new Response(null, {
+      status: 204,
+      headers: {
+        'Access-Control-Allow-Origin': getCorsOrigin(request),
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Vary': 'Origin',
+      },
+    });
   }
 
   if (request.method !== 'GET') {
-    return respond({ error: 'Method not allowed' }, 405, 0);
+    return respond({ error: 'Method not allowed' }, 405, 0, request);
   }
 
   const url = new URL(request.url);
-  const slug = url.searchParams.get('slug');
-  const category = url.searchParams.get('category');
-  const search = url.searchParams.get('search');
-  const page = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10));
-  const limit = Math.min(50, Math.max(1, parseInt(url.searchParams.get('limit') || '12', 10)));
+
+  // ── Input Validation ───────────────────────────────────────────────
+  const slug = sanitizeSlug(url.searchParams.get('slug'));
+  const category = sanitizeCategory(url.searchParams.get('category'));
+  const search = sanitizeSearch(url.searchParams.get('search'));
+  const page = Math.min(MAX_PAGE, Math.max(1, parseInt(url.searchParams.get('page') || '1', 10)));
+  const limit = Math.min(MAX_LIMIT, Math.max(1, parseInt(url.searchParams.get('limit') || '12', 10)));
+
+  // Reject clearly invalid slug requests early
+  if (url.searchParams.get('slug') && !slug) {
+    return respond({ error: 'Invalid slug format' }, 400, 0, request);
+  }
 
   try {
     // ── Single Post ────────────────────────────────────────────────────
     if (slug) {
       const post = await getPostBySlug(slug);
       if (!post) {
-        return respond({ error: 'Post not found' }, 404, 60);
+        return respond({ error: 'Post not found' }, 404, 60, request);
       }
-      return respond({ success: true, post }, 200, 600); // 10min cache for single posts
+      return respond({ success: true, post }, 200, 600, request);
     }
 
     // ── List / Search / Filter ─────────────────────────────────────────
     const data = await listPosts({ page, limit, category, search });
-    return respond({ success: true, ...data }, 200, 300); // 5min cache for listings
+    return respond({ success: true, ...data }, 200, 300, request);
 
   } catch (err) {
-    console.error('Blog API error:', err.message);
-    return respond(
-      { error: 'Internal server error', message: err.message },
-      500,
-      0
-    );
+    console.error('Blog API error:', err.message, err.stack);
+    // Generic error response — never expose internal details
+    return respond({ error: 'Internal server error' }, 500, 0, request);
   }
 };
 

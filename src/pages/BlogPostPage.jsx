@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import DOMPurify from 'dompurify';
 import { useTheme } from '../context/ThemeContext';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
@@ -118,6 +119,15 @@ const BlogPostPage = () => {
   }
 
   const readingTime = estimateReadingTime(post.content_html);
+  const sanitizedHtml = useMemo(() => {
+    if (!post.content_html) return '';
+    return DOMPurify.sanitize(post.content_html, {
+      ADD_TAGS: ['table', 'thead', 'tbody', 'tr', 'th', 'td', 'code', 'pre', 'strong', 'em'],
+      ADD_ATTR: ['href', 'target', 'rel', 'class', 'id', 'src', 'alt', 'loading', 'width', 'height'],
+      FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form', 'input'],
+      FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover', 'style'],
+    });
+  }, [post.content_html]);
   const shareUrl = getShareUrl();
   const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.og_title || post.title)}`;
   const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
@@ -135,7 +145,12 @@ const BlogPostPage = () => {
         <meta property="og:description" content={post.og_description || post.excerpt} />
         <meta property="og:url" content={shareUrl} />
         <meta property="og:site_name" content="Lydell Security" />
-        {post.featured_image_url && <meta property="og:image" content={post.featured_image_url} />}
+        {post.featured_image_url && (
+          <>
+            <meta property="og:image" content={post.featured_image_url} />
+            <meta property="og:image:alt" content={post.featured_image_alt || post.title} />
+          </>
+        )}
         <meta property="article:published_time" content={post.published_at} />
         <meta property="article:author" content={post.author} />
         {post.category && <meta property="article:section" content={post.category} />}
@@ -181,9 +196,24 @@ const BlogPostPage = () => {
           }
         `}</script>
 
-        {/* FAQ Schema (from DB) */}
-        {post.faq_schema && (
-          <script type="application/ld+json">{post.faq_schema}</script>
+        {/* BreadcrumbList Schema */}
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://lydellsecurity.com"},
+              {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://lydellsecurity.com/blog"},
+              {"@type": "ListItem", "position": 3, "name": ${JSON.stringify(post.title)}, "item": ${JSON.stringify(shareUrl)}}
+            ]
+          }
+        `}</script>
+
+        {/* FAQ Schema (from DB) — use parsed/validated version */}
+        {post.faq_schema_parsed && (
+          <script type="application/ld+json">
+            {JSON.stringify(post.faq_schema_parsed)}
+          </script>
         )}
       </Helmet>
 
@@ -317,7 +347,7 @@ const BlogPostPage = () => {
               prose-th:font-mono prose-th:text-xs prose-th:uppercase prose-th:tracking-wider
               prose-img:rounded-lg
             `}
-            dangerouslySetInnerHTML={{ __html: post.content_html }}
+            dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
           />
 
           {/* Sidebar */}

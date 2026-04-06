@@ -28,7 +28,7 @@ from datetime import datetime, timezone
 
 import anthropic
 import structlog
-from python_slugify import slugify
+from slugify import slugify
 from tenacity import (
     retry,
     stop_after_attempt,
@@ -49,35 +49,73 @@ logger = structlog.get_logger(__name__)
 SYSTEM_PROMPT = textwrap.dedent("""\
     You are an elite cybersecurity content writer for Lydell Security
     (lydellsecurity.com). You write authoritative, technically deep blog
-    articles optimized for Google AI Overviews, Featured Snippets, and
-    long-tail SEO.
+    articles engineered to dominate Google AI Overviews, Featured Snippets,
+    People Also Ask boxes, and long-tail organic search.
 
-    Brand voice rules:
+    ═══ BRAND VOICE ═══
     - Tone: Urgent, authoritative, incident-commander level. Zero fluff.
-    - NEVER use "In today's digital age" or similar clichés.
+    - NEVER write "In today's digital age," "In an ever-evolving landscape,"
+      "It's no secret that," or any similar filler phrases.
     - Speak with the authority of a firm that has protected the Federal
-      Reserve, NYSE, and Cisco.
-    - Use the term "Digital Sovereignty" when referencing organizational
-      control over their own infrastructure.
+      Reserve, NYSE, and Cisco for 20+ years.
+    - Use "Digital Sovereignty" when referencing organizational control
+      over their own infrastructure.
     - Author: Larry Barksdale, Founder of Lydell Security.
 
-    E-E-A-T signals to inject:
-    - Reference real CVEs, MITRE ATT&CK techniques, and NIST frameworks.
-    - Cite specific compliance requirements (PCI-DSS 4.0, HIPAA, CMMC 2.0,
-      SOC 2 Type II, FedRAMP).
+    ═══ E-E-A-T SIGNALS (CRITICAL) ═══
+    - Reference REAL, VERIFIABLE CVEs (e.g., CVE-2024-3400, CVE-2023-22515).
+      Never invent CVE IDs. If unsure, describe the vulnerability class
+      without a specific CVE number.
+    - Cite specific MITRE ATT&CK techniques with IDs (e.g., T1059.001,
+      T1550.001). Always use real technique IDs.
+    - Reference NIST SP 800-61r3, NIST CSF 2.0, or specific controls.
+    - Cite compliance requirements with section numbers when possible
+      (e.g., "PCI-DSS 4.0 Requirement 12.10.1").
     - Mention Lydell Security's 15-Minute Response Guarantee where relevant.
+    - Include first-person operational perspective: "In our experience
+      responding to..." or "Our team has observed..."
 
-    GEO / AEO formatting rules (CRITICAL):
-    - Every H2 and H3 MUST be formulated as a question.
-    - Immediately after each question header, provide a concise 2-3 sentence
-      definitive answer. This is the "snippet bait."
-    - Then expand into full technical depth below the short answer.
-    - Use bullet lists, numbered steps, bold key terms, and HTML tables
-      heavily. Maximize scannability.
-    - Include a "Key Takeaways" bulleted summary near the end.
+    ═══ GEO / AEO FORMATTING (CRITICAL — follow exactly) ═══
+    These rules maximize visibility in AI-generated search results:
+
+    1. QUESTION-ANSWER PATTERN: Every H2 and H3 MUST be phrased as a
+       direct question a security professional would search for.
+       Immediately after each question header, provide a DEFINITIVE
+       2-3 sentence answer in a <p> tag. This "snippet bait" paragraph
+       must be self-contained — it should make sense if extracted alone
+       by an AI Overview.
+
+    2. PARAGRAPH-LEVEL ENTITY DENSITY: Each paragraph should contain
+       at least one named entity (tool name, framework, technique,
+       threat actor, or standard). This signals topical authority to
+       both traditional search engines and LLM-based retrieval.
+
+    3. STRUCTURED COMPARISONS: Include at least one HTML <table> with
+       a minimum of 4 rows comparing frameworks, tools, threat vectors,
+       or response methodologies. Tables are heavily weighted in AI
+       Overviews and Featured Snippets.
+
+    4. HIERARCHICAL INFORMATION GAIN: Each section must provide NEW
+       information beyond the previous section. Repetition kills
+       rankings. Progress from "what" → "why" → "how" → "when to act."
+
+    5. CITATION-STYLE AUTHORITY: When referencing frameworks or standards,
+       use inline authority markers: "(per NIST SP 800-61r3)" or
+       "(MITRE ATT&CK T1078)". These serve as implicit citations that
+       AI systems use to assess source reliability.
+
+    6. SCANNABILITY: Use bullet lists, numbered steps, bold key terms
+       on first mention, and <code> tags for technical identifiers
+       (commands, CVE IDs, registry paths). Maximize readability at
+       all scroll depths.
+
+    7. PEOPLE ALSO ASK COVERAGE: Include 2-3 <h3> sub-questions that
+       mirror "People Also Ask" patterns. These should be natural
+       follow-up questions to the main H2 topic.
 
     Output format: Return ONLY valid HTML content (no <html>, <head>, or
-    <body> tags — just the article body starting with <h1>).
+    <body> tags — just the article body starting with <h1>). No markdown.
+    No code fences.
 """)
 
 
@@ -108,21 +146,44 @@ def _build_article_prompt(
         TOPIC: {topic}
         PRIMARY KEYWORD: {keyword}
 
-        Requirements:
-        1. Article length: 1,800 – 2,500 words.
-        2. Start with an <h1> containing the primary keyword.
-        3. Use 4-6 <h2> question headers and 2-3 <h3> sub-question headers.
-        4. Each question header must be immediately followed by a 2-3
-           sentence definitive answer, then expanded technical analysis.
-        5. Include at least one HTML <table> comparing relevant frameworks,
-           tools, or threat vectors.
-        6. Include numbered steps or checklists where applicable.
-        7. Bold all critical terms and acronyms on first use.
-        8. End with a "Key Takeaways" section (bulleted).
-        9. Final paragraph: Mention Lydell Security's capabilities and
-           link to a consultation. Use authoritative, non-salesy language.
-        10. Naturally weave the primary keyword into the <h1>, first
-            paragraph, at least 2 <h2> headers, and the conclusion.
+        ═══ STRUCTURE REQUIREMENTS ═══
+        1. Length: 2,000 – 2,800 words of substantive content.
+        2. Start with an <h1> containing the primary keyword verbatim.
+        3. Open with a 2-3 sentence hook paragraph that immediately
+           establishes the threat severity and why this matters NOW.
+        4. Use 5-6 <h2> question headers. Each <h2> should read like
+           a search query a CISO or security engineer would type.
+        5. Under each <h2>, include 1-2 <h3> sub-questions that mirror
+           "People Also Ask" patterns for that topic.
+        6. SNIPPET BAIT: Immediately after EVERY <h2> and <h3>, write
+           a self-contained 2-3 sentence definitive answer. This
+           paragraph must make sense if extracted in isolation by an
+           AI Overview. Then expand with full technical depth.
+
+        ═══ CONTENT REQUIREMENTS ═══
+        7. Include at least one HTML <table> with 4+ rows comparing
+           relevant frameworks, detection methods, or attack stages.
+        8. Include at least one numbered checklist or step-by-step
+           remediation procedure.
+        9. <strong> all critical terms, acronyms, and tool names on
+           first mention.
+        10. Use <code> tags for CLI commands, registry paths, CVE IDs,
+            and ATT&CK technique IDs.
+        11. Reference at least 2 real MITRE ATT&CK technique IDs
+            (e.g., T1059.001) and at least 1 real CVE or vulnerability
+            class.
+
+        ═══ SEO REQUIREMENTS ═══
+        12. Place the primary keyword in: <h1>, first paragraph, at
+            least 2 <h2> headers, one <h3>, and the conclusion.
+        13. Use semantic variations of the keyword naturally (synonyms,
+            related terms). Do NOT keyword-stuff.
+        14. End with a "Key Takeaways" <h2> section containing 5-7
+            bullet points summarizing actionable insights.
+        15. Final paragraph: Mention Lydell Security's relevant
+            capability and 15-Minute Response Guarantee. Authoritative,
+            not salesy. Include a call to action for contacting
+            Larry Barksdale for consultation.
         {links_block}
         Output ONLY the HTML article body. No markdown. No code fences.
     """)
@@ -258,34 +319,60 @@ def _extract_excerpt(html: str, max_length: int = 300) -> str:
     return ""
 
 
-def _generate_unique_slug(title: str) -> str:
-    """Create a URL-safe slug, appending a suffix if it already exists."""
+def _generate_unique_slug(title: str, max_attempts: int = 50) -> str:
+    """Create a URL-safe slug, appending a suffix if it already exists.
+    Raises ValueError if no unique slug can be found within max_attempts."""
     base_slug = slugify(title, max_length=250)
+    if not base_slug:
+        base_slug = f"post-{int(datetime.now(timezone.utc).timestamp())}"
     slug = base_slug
     counter = 1
     while slug_exists(slug):
+        if counter > max_attempts:
+            raise ValueError(
+                f"Could not generate unique slug after {max_attempts} attempts: {base_slug}"
+            )
         slug = f"{base_slug}-{counter}"
         counter += 1
     return slug
 
 
-def _build_faq_schema(faq_items: list[dict]) -> str:
+def _build_faq_schema(faq_items: list[dict]) -> str | None:
     """
     Build a strict JSON-LD FAQPage schema from extracted Q&A pairs.
+    Filters out malformed items missing required keys.
     """
+    valid_items = [
+        item for item in faq_items
+        if isinstance(item, dict)
+        and item.get("question")
+        and item.get("answer")
+    ]
+    if not valid_items:
+        return None
+
+    # Deduplicate by question text
+    seen = set()
+    deduped = []
+    for item in valid_items:
+        q = item["question"].strip().lower()
+        if q not in seen:
+            seen.add(q)
+            deduped.append(item)
+
     schema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": item["question"],
+                "name": item["question"].strip(),
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": item["answer"],
+                    "text": item["answer"].strip(),
                 },
             }
-            for item in faq_items
+            for item in deduped
         ],
     }
     return json.dumps(schema, indent=2, ensure_ascii=False)
@@ -353,8 +440,16 @@ def generate_post(
     content_html = re.sub(r"^```html?\s*", "", content_html)
     content_html = re.sub(r"\s*```$", "", content_html)
 
+    # Guard: reject empty or trivially short content
+    stripped = re.sub(r"<[^>]+>", "", content_html).strip()
+    if len(stripped) < 200:
+        raise ValueError(
+            f"Generated content too short ({len(stripped)} chars). "
+            "Claude may have returned an error or truncated response."
+        )
+
     # ── Step 3: Extract & Build Identifiers ───────────────────────────────
-    title = _extract_title(content_html)
+    title = _extract_title(content_html)[:300]  # Enforce DB column limit
     excerpt = _extract_excerpt(content_html)
     slug = _generate_unique_slug(title)
 

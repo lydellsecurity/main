@@ -128,8 +128,8 @@ def _trigger_download(download_location: str) -> None:
     try:
         with httpx.Client(timeout=10.0) as client:
             client.get(download_location, headers=headers)
-    except Exception:
-        pass  # Non-critical — best effort
+    except Exception as exc:
+        logger.debug("unsplash.download_trigger_failed", error=str(exc))
 
 
 # ---------------------------------------------------------------------------

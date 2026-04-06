@@ -4,20 +4,15 @@
 # Database
 sqlalchemy==2.0.36
 psycopg2-binary==2.9.10
-alembic==1.14.1
 
 # AI Content Generation
 anthropic==0.42.0
-openai==1.58.1
 tenacity==9.0.0
 
 # HTTP & APIs
 httpx==0.28.1
-requests==2.32.3
 
 # HTML/Content Processing
-markupsafe==3.0.2
-bleach==6.2.0
 python-slugify==8.0.4
 
 # Environment & Configuration
@@ -25,12 +20,6 @@ python-dotenv==1.0.1
 pydantic==2.10.4
 pydantic-settings==2.7.1
 
-# Scheduling (Render cron fallback)
-apscheduler==3.10.4
-
 # Logging & Observability
 structlog==24.4.0
 sentry-sdk==2.19.2
-
-# Utilities
-jinja2==3.1.5
