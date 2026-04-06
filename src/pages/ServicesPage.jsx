@@ -437,7 +437,7 @@ const ServicesPage = () => {
               15-minute response guarantee. Senior commander on the line within minutes.
             </p>
             <div className={`font-mono text-2xl ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-              +1 (888) IR-RAPID
+              <a href="tel:+18774783266" className="hover:text-cobalt-400 transition-colors">1-877-IR-TEAM</a>
             </div>
           </div>
         </div>

@@ -64,7 +64,7 @@ export const ContactPage = () => {
               <span className={`font-mono text-sm ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>ACTIVE INCIDENT?</span>
             </div>
             <p className={`mb-4 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>15-minute response guarantee. Direct line to senior commanders.</p>
-            <div className={`font-mono text-2xl ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>+1 (888) IR-RAPID</div>
+            <a href="tel:+18774783266" className={`font-mono text-2xl ${theme === 'dark' ? 'text-white hover:text-cobalt-400' : 'text-slate-900 hover:text-cobalt-600'} transition-colors`}>1-877-IR-TEAM</a>
           </div>
           <form className="space-y-6">
             <div>
