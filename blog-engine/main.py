@@ -38,6 +38,7 @@ from config import get_settings
 from database import init_db, verify_connection, insert_post
 from generator import generate_post
 from media_engine import fetch_featured_image
+from topic_engine import generate_topics
 
 # ---------------------------------------------------------------------------
 # Logging Setup
@@ -115,16 +116,35 @@ DEFAULT_TOPIC_QUEUE = [
 ]
 
 
-def _load_topic_queue() -> list[dict]:
+def _load_topic_queue(count: int | None = None) -> list[dict]:
     """
-    Load the topic queue. Checks for a topics.json override file first,
-    then falls back to the hardcoded default queue.
+    Load the topic queue. Priority order:
+      1. topics.json override file (manual control)
+      2. Autonomous topic engine (AI-generated, deduped)
+      3. DEFAULT_TOPIC_QUEUE (seed content, first-run only fallback)
+
+    Args:
+        count: Number of topics to generate if using the topic engine.
+               Defaults to config.topics_per_run.
     """
+    # Priority 1: Manual override file
     override_path = Path(__file__).parent / "topics.json"
     if override_path.exists():
         logger.info("queue.loading_override", path=str(override_path))
         with open(override_path) as f:
             return json.load(f)
+
+    # Priority 2: Autonomous topic engine
+    try:
+        topics = generate_topics(count=count)
+        if topics:
+            logger.info("queue.auto_generated", count=len(topics))
+            return topics
+    except Exception as exc:
+        logger.error("queue.topic_engine_failed", error=str(exc))
+
+    # Priority 3: Hardcoded seed queue (first-run fallback)
+    logger.info("queue.using_default_seed")
     return DEFAULT_TOPIC_QUEUE
 
 
@@ -203,17 +223,18 @@ def process_single_topic(brief: dict) -> bool:
 # ---------------------------------------------------------------------------
 # Main Orchestrator
 # ---------------------------------------------------------------------------
-def run_engine(single_topic: str | None = None) -> int:
+def run_engine(single_topic: str | None = None, count: int | None = None) -> int:
     """
     Main engine loop.
 
     Args:
         single_topic: If provided, generate only this topic (on-demand mode).
+        count: Number of topics to auto-generate (overrides config).
 
     Returns:
         Exit code (0 = all success, 1 = partial failure, 2 = total failure).
     """
-    logger.info("engine.starting", mode="single" if single_topic else "queue")
+    logger.info("engine.starting", mode="single" if single_topic else "auto")
 
     # ── Database Init ─────────────────────────────────────────────────────
     if not verify_connection():
@@ -233,7 +254,7 @@ def run_engine(single_topic: str | None = None) -> int:
             }
         ]
     else:
-        queue = _load_topic_queue()
+        queue = _load_topic_queue(count=count)
 
     if not queue:
         logger.warning("engine.empty_queue")
@@ -293,6 +314,12 @@ def main() -> None:
         help="Generate a single post on-demand (overrides the queue).",
     )
     parser.add_argument(
+        "--count",
+        type=int,
+        default=None,
+        help="Number of posts to auto-generate (overrides TOPICS_PER_RUN).",
+    )
+    parser.add_argument(
         "--verify",
         action="store_true",
         help="Verify database and API connectivity, then exit.",
@@ -314,7 +341,7 @@ def main() -> None:
 
         sys.exit(0 if all([db_ok, api_ok, img_ok, hook_ok]) else 1)
 
-    exit_code = run_engine(single_topic=args.topic)
+    exit_code = run_engine(single_topic=args.topic, count=args.count)
     sys.exit(exit_code)
 
 

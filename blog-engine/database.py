@@ -281,6 +281,60 @@ def insert_post(post: Post) -> Post:
         session.close()
 
 
+def get_all_slugs() -> list[str]:
+    """Return all existing post slugs for deduplication."""
+    session = get_session()
+    try:
+        rows = session.query(Post.slug).all()
+        return [r[0] for r in rows]
+    finally:
+        session.close()
+
+
+def get_all_keywords() -> list[str]:
+    """Return all existing target keywords for deduplication."""
+    session = get_session()
+    try:
+        rows = (
+            session.query(Post.target_keyword)
+            .filter(Post.target_keyword.isnot(None))
+            .all()
+        )
+        return [r[0] for r in rows]
+    finally:
+        session.close()
+
+
+def get_all_titles() -> list[str]:
+    """Return all existing post titles for deduplication context."""
+    session = get_session()
+    try:
+        rows = session.query(Post.title).order_by(Post.published_at.desc()).all()
+        return [r[0] for r in rows]
+    finally:
+        session.close()
+
+
+def get_category_counts() -> list[dict]:
+    """
+    Return the count of published posts per category.
+    Used by the topic engine for round-robin coverage balancing.
+    """
+    session = get_session()
+    try:
+        from sqlalchemy import func
+        rows = (
+            session.query(Post.category, func.count(Post.id).label("count"))
+            .filter(Post.is_published.is_(True))
+            .filter(Post.category.isnot(None))
+            .group_by(Post.category)
+            .all()
+        )
+        return [{"category": r[0], "count": r[1]} for r in rows]
+    finally:
+        session.close()
+
+
 # ---------------------------------------------------------------------------
 # CLI Entrypoint
 # ---------------------------------------------------------------------------

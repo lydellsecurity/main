@@ -103,6 +103,9 @@ class Settings(BaseSettings):
     internal_link_count: int = Field(
         4, description="Number of internal links to weave per post"
     )
+    topics_per_run: int = Field(
+        1, description="Number of new topics to auto-generate per cron run"
+    )
 
 
 @lru_cache(maxsize=1)
