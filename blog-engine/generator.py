@@ -482,23 +482,31 @@ def generate_post(
     faq_items = meta.get("faq_items", [])
     faq_schema = _build_faq_schema(faq_items) if faq_items else None
 
-    # ── Step 6: Assemble Post Object ──────────────────────────────────────
+    # ── Step 6: Truncate all fields to DB column limits ────────────────────
+    # Claude frequently exceeds requested character counts. Hard-truncate
+    # every varchar field here so the INSERT never fails.
+    def _trunc(val: str | None, limit: int) -> str:
+        if not val:
+            return ""
+        return val[:limit]
+
+    # ── Step 7: Assemble Post Object ──────────────────────────────────────
     post = Post(
-        title=title,
-        slug=slug,
+        title=_trunc(title, 300),
+        slug=_trunc(slug, 300),
         content_html=content_html,
-        excerpt=excerpt,
+        excerpt=_trunc(excerpt, 500),
         author=cfg.default_author,
-        meta_title=meta.get("meta_title", title[:70]),
-        meta_description=meta.get("meta_description", excerpt[:160]),
-        og_title=meta.get("og_title", title[:95]),
-        og_description=meta.get("og_description", excerpt[:200]),
-        twitter_card_text=meta.get("twitter_card_text", ""),
+        meta_title=_trunc(meta.get("meta_title", title[:70]), 70),
+        meta_description=_trunc(meta.get("meta_description", excerpt[:155]), 160),
+        og_title=_trunc(meta.get("og_title", title[:90]), 95),
+        og_description=_trunc(meta.get("og_description", excerpt[:195]), 200),
+        twitter_card_text=_trunc(meta.get("twitter_card_text", ""), 280),
         linkedin_post_text=meta.get("linkedin_post_text", ""),
         faq_schema=faq_schema,
-        category=category,
+        category=_trunc(category, 100) if category else None,
         tags=tags,
-        target_keyword=keyword,
+        target_keyword=_trunc(keyword, 200),
         is_published=True,
         published_at=datetime.now(timezone.utc),
     )

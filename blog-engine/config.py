@@ -69,7 +69,7 @@ class Settings(BaseSettings):
         "claude-sonnet-4-20250514",
         description="Primary model identifier",
     )
-    ai_max_tokens: int = Field(4096, description="Max tokens per generation")
+    ai_max_tokens: int = Field(8192, description="Max tokens per generation")
     ai_temperature: float = Field(0.7, description="Sampling temperature")
 
     # ── Unsplash ──────────────────────────────────────────────────────────
