@@ -4,7 +4,7 @@
 # This file MUST live at the repository root for Render to detect it.
 #
 # Provisions:
-#   1. PostgreSQL 16 database (Starter plan, Oregon)
+#   1. PostgreSQL 16 database (Basic 256MB plan, Oregon)
 #   2. Python cron job running the blog engine daily at 06:00 UTC
 #
 # Deploy: Render Dashboard → New → Blueprint → Select this repo
@@ -14,7 +14,7 @@
 databases:
   - name: lydell-blog-db
     region: oregon
-    plan: starter           # $7/mo — 1 GB storage, 256 MB RAM
+    plan: basic-256mb       # Flexible plan — 256 MB RAM
     databaseName: lydell_blog
     user: lydell_admin
     postgresMajorVersion: "16"
