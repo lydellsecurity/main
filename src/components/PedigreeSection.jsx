@@ -51,7 +51,7 @@ const PedigreeSection = () => {
           <blockquote className={`text-xl italic mb-4 ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>
             "We don't list clients for marketing. We list them because our history is your assurance."
           </blockquote>
-          <div className={theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}>— Jr Lydell, Founder</div>
+          <div className={theme === 'dark' ? 'text-slate-500' : 'text-slate-600'}>— Larry Barksdale, Founder</div>
         </div>
         
         <div className={`mt-12 pt-12 border-t ${theme === 'dark' ? 'border-slate-800' : 'border-slate-200'}`}>
