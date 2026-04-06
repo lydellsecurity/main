@@ -7,6 +7,10 @@ import MethodologyPage from './pages/MethodologyPage';
 import ThreatIntelPage from './pages/ThreatIntelPage';
 import ServicesPage from './pages/ServicesPage';
 import { PedigreePage, ContactPage } from './pages/OtherPages';
+import DIBLandingPage from './pages/DIBLandingPage';
+import FinancialServicesLandingPage from './pages/FinancialServicesLandingPage';
+import HealthcareLandingPage from './pages/HealthcareLandingPage';
+import EnterpriseTechLandingPage from './pages/EnterpriseTechLandingPage';
 
 function App() {
   return (
@@ -98,6 +102,10 @@ function App() {
               <Route path="/pedigree" element={<PedigreePage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/intel" element={<ThreatIntelPage />} />
+              <Route path="/dib-supply-chain-response" element={<DIBLandingPage />} />
+              <Route path="/financial-services-ransomware-response" element={<FinancialServicesLandingPage />} />
+              <Route path="/healthcare-identity-breach-response" element={<HealthcareLandingPage />} />
+              <Route path="/enterprise-identity-compromise-response" element={<EnterpriseTechLandingPage />} />
               {/* Catch-all route */}
               <Route path="*" element={<HomePage />} />
             </Routes>
