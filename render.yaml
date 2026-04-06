@@ -5,7 +5,7 @@
 #
 # Provisions:
 #   1. PostgreSQL 16 database (Basic 256MB plan, Oregon)
-#   2. Python cron job running the blog engine daily at 06:00 UTC
+#   2. Python cron job running the blog engine Mon/Wed/Fri at 06:00 UTC
 #
 # Deploy: Render Dashboard → New → Blueprint → Select this repo
 # Docs:   https://render.com/docs/infrastructure-as-code
@@ -26,7 +26,7 @@ services:
     region: oregon
     plan: starter
     runtime: python
-    schedule: "0 6 * * *"   # Daily at 06:00 UTC (2:00 AM EST)
+    schedule: "0 6 * * 1,3,5"  # Mon/Wed/Fri at 06:00 UTC (2:00 AM EST)
     rootDir: blog-engine    # Render builds from this subdirectory
     buildCommand: pip install -r requirements.txt
     startCommand: python main.py
