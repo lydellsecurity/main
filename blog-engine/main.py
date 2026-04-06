@@ -278,12 +278,11 @@ def run_engine(single_topic: str | None = None, count: int | None = None) -> int
         else:
             results["failed"] += 1
 
-    # ── Trigger Netlify Rebuild ───────────────────────────────────────────
-    if results["success"] > 0:
-        try:
-            trigger_netlify_rebuild()
-        except Exception as exc:
-            logger.error("engine.netlify_trigger_failed", error=str(exc))
+    # NOTE: Netlify rebuild is NOT needed for blog posts. The frontend
+    # fetches from /api/blog (serverless function → PostgreSQL) at runtime,
+    # so new posts appear immediately after DB insertion. A rebuild only
+    # matters when React source code changes. Keeping trigger_netlify_rebuild()
+    # available for manual use but not calling it automatically.
 
     # ── Summary ───────────────────────────────────────────────────────────
     logger.info(
