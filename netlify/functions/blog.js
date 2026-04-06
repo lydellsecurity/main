@@ -26,9 +26,12 @@ function getPool() {
     }
     pool = new Pool({
       connectionString,
-      ssl: process.env.NODE_ENV === 'development'
+      // Render managed Postgres uses self-signed certs — external
+      // connections (Netlify → Render) must accept them.
+      // Internal connections (Render cron → Render DB) don't need SSL.
+      ssl: connectionString.includes('localhost')
         ? false
-        : { rejectUnauthorized: true },
+        : { rejectUnauthorized: false },
       max: 3,
       idleTimeoutMillis: 10000,
       connectionTimeoutMillis: 5000,
