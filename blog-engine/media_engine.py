@@ -5,10 +5,13 @@ Autonomous featured image sourcing via the Unsplash API.
 
 Searches for cybersecurity-relevant images based on the article topic,
 returns a CDN-optimized URL with proper attribution metadata.
+
+Deduplicates against previously used images stored in PostgreSQL.
 """
 
 from __future__ import annotations
 
+import random
 import re
 from dataclasses import dataclass
 
@@ -82,21 +85,50 @@ def _build_search_query(topic: str) -> str:
 # ---------------------------------------------------------------------------
 # Unsplash Client
 # ---------------------------------------------------------------------------
+def _get_used_image_urls() -> set[str]:
+    """
+    Query the database for all previously used featured image URLs
+    so we can avoid duplicates.
+    """
+    try:
+        from database import get_session
+        with get_session() as session:
+            from sqlalchemy import text
+            rows = session.execute(
+                text("SELECT featured_image_url FROM posts WHERE featured_image_url IS NOT NULL")
+            ).fetchall()
+            # Extract the base Unsplash photo ID from URLs to match regardless of params
+            used = set()
+            for row in rows:
+                url = row[0]
+                # Extract photo ID: /photo-XXXXX? pattern
+                match = re.search(r"photo-([a-zA-Z0-9_-]+)", url)
+                if match:
+                    used.add(match.group(0))
+                else:
+                    used.add(url)
+            return used
+    except Exception as exc:
+        logger.debug("media.used_urls_fetch_failed", error=str(exc))
+        return set()
+
+
 @retry(
     stop=stop_after_attempt(3),
     wait=wait_exponential(multiplier=1, min=2, max=10),
     retry=retry_if_exception_type((httpx.HTTPStatusError, httpx.ConnectError)),
     reraise=True,
 )
-def _search_unsplash(query: str) -> dict | None:
+def _search_unsplash(query: str, page: int = 1) -> list[dict]:
     """
-    Hit the Unsplash search endpoint. Returns the top result or None.
+    Hit the Unsplash search endpoint. Returns up to 15 results.
     """
     cfg = get_settings()
     headers = {"Authorization": f"Client-ID {cfg.unsplash_access_key}"}
     params = {
         "query": query,
-        "per_page": 1,
+        "per_page": 15,
+        "page": page,
         "orientation": "landscape",
         "content_filter": "high",  # SFW only
     }
@@ -113,9 +145,23 @@ def _search_unsplash(query: str) -> dict | None:
     results = data.get("results", [])
     if not results:
         logger.warning("unsplash.no_results", query=query)
-        return None
+    return results
 
-    return results[0]
+
+def _pick_unused(results: list[dict], used_ids: set[str]) -> dict | None:
+    """
+    Pick the first result whose photo ID hasn't been used before.
+    If all have been used, pick a random one from the batch.
+    """
+    for result in results:
+        url = result["urls"].get("regular", "")
+        match = re.search(r"photo-([a-zA-Z0-9_-]+)", url)
+        photo_key = match.group(0) if match else url
+        if photo_key not in used_ids:
+            return result
+
+    # All used — pick random to at least vary it
+    return random.choice(results) if results else None
 
 
 def _trigger_download(download_location: str) -> None:
@@ -151,11 +197,18 @@ def fetch_featured_image(topic: str) -> FeaturedImage:
     logger.info("media.searching_unsplash", query=query)
 
     try:
-        result = _search_unsplash(query)
+        used_ids = _get_used_image_urls()
+        logger.debug("media.existing_images", count=len(used_ids))
+
+        results = _search_unsplash(query)
+        result = _pick_unused(results, used_ids) if results else None
 
         if result is None:
-            # Retry with a generic cybersecurity query
-            result = _search_unsplash("cybersecurity network security")
+            # Retry with a varied fallback query
+            fallback = random.choice(_CYBER_SYNONYMS)
+            logger.info("media.fallback_search", query=fallback)
+            results = _search_unsplash(fallback, page=random.randint(1, 3))
+            result = _pick_unused(results, used_ids) if results else None
 
         if result is None:
             raise ValueError("No Unsplash results for any query")
