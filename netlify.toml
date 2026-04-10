@@ -16,9 +16,8 @@
 [functions]
   directory = "netlify/functions"
 
-# Netlify Edge Functions configuration
-[edge_functions]
-  directory = "netlify/edge-functions"
+# Edge Functions are auto-discovered from netlify/edge-functions/
+# (the path is declared inside each function's exported config).
 
 # Sitemap route (must come before API wildcard)
 [[redirects]]
