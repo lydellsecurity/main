@@ -66,7 +66,8 @@ export default async (request, context) => {
   if (db) {
     try {
       const result = await db.query(
-        `SELECT slug, updated_at, published_at
+        `SELECT slug, title, updated_at, published_at,
+                featured_image_url, featured_image_alt
          FROM posts
          WHERE is_published = true
          ORDER BY published_at DESC
@@ -75,12 +76,23 @@ export default async (request, context) => {
 
       for (const row of result.rows) {
         const lastmod = formatDate(row.updated_at || row.published_at);
+        // Google image sitemap extension — helps thumbnails get indexed
+        // and surfaced in Google Images + Discover cards.
+        let imageBlock = '';
+        if (row.featured_image_url) {
+          imageBlock = `
+    <image:image>
+      <image:loc>${escapeXml(row.featured_image_url)}</image:loc>
+      <image:title>${escapeXml(row.title || '')}</image:title>
+      <image:caption>${escapeXml(row.featured_image_alt || row.title || '')}</image:caption>
+    </image:image>`;
+        }
         blogEntries += `
   <url>
     <loc>${SITE_URL}/blog/${escapeXml(row.slug)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.7</priority>${imageBlock}
   </url>`;
       }
     } catch (err) {
@@ -103,7 +115,8 @@ export default async (request, context) => {
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">${staticEntries}${blogEntries}
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${staticEntries}${blogEntries}
 </urlset>`;
 
   return new Response(xml, {

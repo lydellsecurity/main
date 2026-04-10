@@ -1,10 +1,25 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import DOMPurify from 'dompurify';
 import { useTheme } from '../context/ThemeContext';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+
+// ── Share URL helpers ────────────────────────────────────────────────────
+// Build the canonical share URL and append UTM parameters so traffic
+// originating from social shares is attributable in analytics.
+const CANONICAL_ORIGIN = 'https://lydellsecurity.com';
+
+const buildShareUrl = (slug, source, campaign = 'blog_share') => {
+  const base = `${CANONICAL_ORIGIN}/blog/${slug}`;
+  const params = new URLSearchParams({
+    utm_source: source,
+    utm_medium: 'social',
+    utm_campaign: campaign,
+  });
+  return `${base}?${params.toString()}`;
+};
 
 /**
  * BlogPostPage — Individual article view
@@ -25,6 +40,7 @@ const BlogPostPage = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -68,7 +84,32 @@ const BlogPostPage = () => {
     return Math.max(1, Math.ceil(words / 230));
   };
 
-  const getShareUrl = () => `https://lydellsecurity.com/blog/${slug}`;
+  // Canonical URL (no UTM) — used for og:url, canonical link, and JSON-LD.
+  const getCanonicalUrl = () => `${CANONICAL_ORIGIN}/blog/${slug}`;
+
+  const handleCopyLink = useCallback(async () => {
+    const copyUrl = buildShareUrl(slug, 'copy_link');
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(copyUrl);
+      } else {
+        // Legacy fallback
+        const el = document.createElement('textarea');
+        el.value = copyUrl;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Clipboard copy failed:', err);
+    }
+  }, [slug]);
 
   // Hooks must be called unconditionally (before any early returns)
   const sanitizedHtml = useMemo(() => {
@@ -130,9 +171,19 @@ const BlogPostPage = () => {
   }
 
   const readingTime = estimateReadingTime(post.content_html);
-  const shareUrl = getShareUrl();
-  const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.og_title || post.title)}`;
-  const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+  const shareUrl = getCanonicalUrl();
+  const shareTitle = post.og_title || post.title;
+
+  // Share intents use UTM-tagged URLs so social traffic is attributable.
+  const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+    buildShareUrl(slug, 'twitter')
+  )}&text=${encodeURIComponent(shareTitle)}&via=LydellSecurity`;
+  const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+    buildShareUrl(slug, 'linkedin')
+  )}`;
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+    buildShareUrl(slug, 'facebook')
+  )}`;
 
   return (
     <div className={`min-h-screen ${isDark ? 'bg-obsidian text-white' : 'bg-paper text-ink'}`}>
@@ -308,6 +359,38 @@ const BlogPostPage = () => {
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                 </svg>
               </a>
+              <a
+                href={facebookShareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-9 h-9 rounded flex items-center justify-center transition-colors ${
+                  isDark ? 'bg-matrix text-slate-400 hover:text-white hover:bg-steel' : 'bg-surface-sunken text-ink-muted hover:text-ink hover:bg-stroke-subtle'
+                }`}
+                aria-label="Share on Facebook"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <button
+                type="button"
+                onClick={handleCopyLink}
+                className={`w-9 h-9 rounded flex items-center justify-center transition-colors ${
+                  isDark ? 'bg-matrix text-slate-400 hover:text-white hover:bg-steel' : 'bg-surface-sunken text-ink-muted hover:text-ink hover:bg-stroke-subtle'
+                }`}
+                aria-label={copied ? 'Link copied' : 'Copy link'}
+                title={copied ? 'Copied!' : 'Copy link'}
+              >
+                {copied ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                )}
+              </button>
             </div>
           </div>
         </div>

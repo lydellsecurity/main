@@ -16,10 +16,30 @@
 [functions]
   directory = "netlify/functions"
 
+# Netlify Edge Functions configuration
+[edge_functions]
+  directory = "netlify/edge-functions"
+
 # Sitemap route (must come before API wildcard)
 [[redirects]]
   from = "/sitemap.xml"
   to = "/.netlify/functions/sitemap"
+  status = 200
+
+# RSS feed route (must come before API wildcard)
+[[redirects]]
+  from = "/rss.xml"
+  to = "/.netlify/functions/rss"
+  status = 200
+
+[[redirects]]
+  from = "/feed"
+  to = "/.netlify/functions/rss"
+  status = 200
+
+[[redirects]]
+  from = "/feed.xml"
+  to = "/.netlify/functions/rss"
   status = 200
 
 # API routes go to functions (must come BEFORE the catch-all)
