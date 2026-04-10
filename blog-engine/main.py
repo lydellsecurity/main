@@ -196,7 +196,10 @@ def process_single_topic(brief: dict) -> bool:
         )
 
         # ── Fetch Featured Image ──────────────────────────────────────
-        image = fetch_featured_image(topic)
+        # Pass category so the media engine picks from the curated
+        # cyber-aesthetic query pool instead of matching topic words
+        # literally (which returns teddy bears for "Cozy Bear", etc.).
+        image = fetch_featured_image(topic, category=category)
         post.featured_image_url = image.url
         post.featured_image_alt = image.alt_text
         post.featured_image_credit = image.credit
